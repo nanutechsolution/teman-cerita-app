@@ -135,7 +135,8 @@
                             class="w-32 lg:w-40 focus:w-56 bg-neutral-100 dark:bg-[#121212] border border-neutral-300 dark:border-neutral-700 focus:border-red-500 rounded-full px-4 py-1.5 text-xs text-neutral-900 dark:text-white transition-all duration-300 outline-none">
                     </form>
 
-                    <button @click="toggleDarkMode()" class="p-2 hidden sm:flex rounded-full text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors">
+                    <!-- Tombol Dark Mode (Sekarang muncul di semua ukuran layar) -->
+                    <button @click="toggleDarkMode()" class="p-2 flex rounded-full text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors focus:outline-none">
                         <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
                         <svg x-show="darkMode" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
                     </button>
@@ -151,10 +152,28 @@
 
         <!-- MENU MOBILE (OVERLAY) -->
         <div x-show="isMobileMenuOpen" x-transition class="absolute top-full left-0 w-full bg-white dark:bg-[#0f0f0f] border-b border-neutral-200 dark:border-neutral-800 p-6 xl:hidden shadow-2xl z-[100]" x-cloak>
-            <div class="flex flex-col gap-4">
+            
+            <!-- Tambahan Pencarian di Mobile -->
+            <form action="{{ route('search') }}" method="GET" class="mb-6">
+                <input type="text" name="q" placeholder="Cari berita..." class="w-full bg-neutral-100 dark:bg-[#121212] border border-neutral-300 dark:border-neutral-700 focus:border-red-500 rounded-xl px-5 py-3 text-sm text-neutral-900 dark:text-white outline-none font-bold uppercase tracking-widest transition-colors">
+            </form>
+
+            <div class="flex flex-col gap-4 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-800">
+                <p class="text-[10px] font-black text-neutral-400 uppercase tracking-widest mb-2">Seluruh Rubrik</p>
+                <a href="{{ route('home') }}" class="text-lg font-black text-neutral-900 dark:text-white uppercase italic hover:text-red-600 transition-colors">Beranda</a>
                 @foreach($categories as $cat)
-                <a href="{{ route('category.show', $cat->slug) }}" class="text-lg font-black text-neutral-900 dark:text-white uppercase italic">{{ $cat->name }}</a>
+                <a href="{{ route('category.show', $cat->slug) }}" class="text-lg font-black text-neutral-900 dark:text-white uppercase italic hover:text-red-600 transition-colors">{{ $cat->name }}</a>
                 @endforeach
+            </div>
+
+            <!-- Tambahan Switch Dark Mode & YouTube di Menu Mobile -->
+            <div class="flex flex-col gap-4">
+                <button @click="toggleDarkMode()" class="flex items-center justify-between w-full p-4 bg-neutral-50 dark:bg-[#121212] rounded-xl text-xs font-black uppercase tracking-widest transition-colors">
+                    <span x-text="darkMode ? 'Terangkan Layar' : 'Gelapkan Layar'" class="text-neutral-700 dark:text-neutral-300"></span>
+                    <div class="w-10 h-6 bg-neutral-200 dark:bg-neutral-800 rounded-full relative">
+                        <div class="absolute top-1 left-1 w-4 h-4 rounded-full transition-transform bg-white shadow-sm" :class="darkMode ? 'translate-x-4 bg-red-600' : ''"></div>
+                    </div>
+                </button>
             </div>
         </div>
     </nav>
