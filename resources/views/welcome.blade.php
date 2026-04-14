@@ -1,202 +1,276 @@
 <x-layouts.app :settings="$settings">
-    {{-- Meta SEO dinamis dari Settings --}}
-    @slot('title', 'Beranda | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
-    @slot('meta_description', $settings['site_description'] ?? 'Portal berita independen dari Nusa Tenggara Timur.')
+{{-- Meta SEO dinamis --}}
+@slot('title', 'Beranda | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
+@slot('meta_description', $settings['site_description'] ?? 'Portal berita independen dari Nusa Tenggara Timur.')
 
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-6">
+{{-- Pembungkus luar sudah ditangani oleh layout utama (app.blade.php) --}}
+<div class="px-4 sm:px-6 lg:px-8 pt-8 pb-24">
 
-        <!-- BREAKING NEWS TICKER -->
-        @if(isset($breakingNews) && $breakingNews->count() > 0)
-        <div class="flex items-center bg-white dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-lg p-2 mb-8 shadow-sm transition-colors duration-300">
-            <span class="bg-red-600 text-white px-3 py-1.5 text-xs font-bold uppercase rounded-md mr-4 shrink-0 flex items-center gap-2">
-                <svg class="w-4 h-4 animate-pulse" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
-                Kilas Berita
+    <!-- KILAS BERITA (TICKER) - Minimalist Design -->
+    @if(isset($breakingNews) && $breakingNews->count() > 0)
+    <div class="relative flex items-center bg-neutral-50 dark:bg-neutral-900/50 border border-neutral-200/60 dark:border-neutral-800 rounded-2xl overflow-hidden mb-10 group transition-all hover:border-red-500/30">
+        <div class="bg-red-600 text-white px-5 py-3 text-[10px] font-black uppercase tracking-[0.2em] shrink-0 flex items-center gap-3">
+            <span class="relative flex h-2 w-2">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-white"></span>
             </span>
-            <div class="overflow-hidden w-full relative">
-                <marquee class="text-sm font-medium text-neutral-700 dark:text-neutral-300 flex items-center h-full pt-1" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
-                    @foreach($breakingNews as $item)
-                        <a href="{{ route('episode.show', $item->slug) }}" class="hover:text-red-600 transition-colors">{{ $item->title }}</a>
-                        @if(!$loop->last) &nbsp;&nbsp;&bull;&nbsp;&nbsp; @endif
-                    @endforeach
-                </marquee>
-            </div>
+            Flash
         </div>
-        @endif
+        <div class="overflow-hidden w-full px-6">
+            <marquee class="text-xs font-bold text-neutral-800 dark:text-neutral-200 uppercase tracking-tight" scrollamount="5" onmouseover="this.stop();" onmouseout="this.start();">
+                @foreach($breakingNews as $item)
+                    <a href="{{ route('episode.show', $item->slug) }}" class="hover:text-red-600 transition-colors mx-6">{{ $item->title }}</a>
+                    @if(!$loop->last) <span class="text-neutral-300 dark:text-neutral-700 mx-2">•</span> @endif
+                @endforeach
+            </marquee>
+        </div>
+    </div>
+    @endif
 
-        <!-- HEADLINE & TRENDING SECTION -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-12">
-            
-            <!-- Berita Utama (Headline) -->
-            <div class="lg:col-span-8">
-                <div class="flex items-center gap-2 border-b-2 border-neutral-200 dark:border-neutral-800 pb-2 mb-4 transition-colors duration-300">
-                    <div class="w-3 h-3 bg-red-600"></div>
-                    <h2 class="text-xl font-bold text-neutral-900 dark:text-white uppercase tracking-wider">Sorotan Utama</h2>
+    <!-- HERO SECTION: HEADLINE & TRENDING -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 items-start">
+        
+        <!-- Berita Utama (Headline) -->
+        <div class="lg:col-span-8 group/headline">
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                    <div class="h-8 w-1.5 bg-red-600 rounded-full"></div>
+                    <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                        {{ (isset($headlines) && $headlines->count() > 0) ? 'Sorotan Utama' : 'Teranyar' }}
+                    </h2>
                 </div>
+            </div>
 
-                @if($headline)
-                <a href="{{ route('episode.show', $headline->slug) }}" class="relative group block rounded-2xl overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 transition-colors duration-300 shadow-md">
-                    <div class="aspect-[16/9] lg:aspect-[21/9] w-full overflow-hidden">
-                        <img src="{{ $headline->img ? asset('storage/' . $headline->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }}" alt="{{ $headline->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                    </div>
-                    
-                    <div class="absolute inset-0 bg-gradient-to-t from-neutral-900 via-neutral-900/40 dark:from-[#0f0f0f] dark:via-[#0f0f0f]/60 to-transparent"></div>
-                    
-                    <div class="absolute bottom-0 left-0 w-full p-6 md:p-8">
-                        <span class="bg-red-600 text-white text-[10px] sm:text-xs font-bold px-3 py-1 rounded-sm uppercase tracking-wider mb-3 inline-block">
-                            {{ $headline->category->name ?? 'Update' }}
-                        </span>
-                        <h3 class="text-2xl md:text-4xl font-bold text-white leading-tight mb-3 group-hover:text-red-400 transition-colors">
-                            {{ $headline->title }}
-                        </h3>
-                        <div class="flex items-center gap-4 text-neutral-200 text-sm font-medium">
-                            <span class="flex items-center gap-1">
-                                <svg class="w-4 h-4 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                                {{ $headline->published_at->diffForHumans() }}
-                            </span>
-                            <span>•</span>
-                            <span>Oleh {{ $headline->author->name ?? 'Redaksi' }}</span>
+            <div class="relative aspect-[16/10] md:aspect-[16/9] rounded-[2.5rem] overflow-hidden shadow-2xl shadow-neutral-200/50 dark:shadow-none bg-neutral-200 dark:bg-neutral-800">
+                @if(isset($headlines) && $headlines->count() > 0)
+                    <div id="headline-slider" class="h-full w-full relative">
+                        @foreach($headlines as $index => $hl)
+                            <div class="headline-slide h-full w-full absolute inset-0 transition-all duration-1000 ease-in-out {{ $index === 0 ? 'opacity-100 scale-100 z-10' : 'opacity-0 scale-105 z-0' }}" data-index="{{ $index }}">
+                                <a href="{{ route('episode.show', $hl->slug) }}" class="block w-full h-full relative group/item">
+                                    <img src="{{ $hl->img ? asset('storage/' . $hl->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80' }}" 
+                                        alt="{{ $hl->title }}" 
+                                        class="w-full h-full object-cover transform group-hover/item:scale-110 transition-transform duration-[2s] ease-out">
+                                    
+                                    <!-- Overlay Gradien yang lebih dramatis -->
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-transparent opacity-80 transition-opacity group-hover/item:opacity-90"></div>
+                                    
+                                    <!-- Konten Headline -->
+                                    <div class="absolute bottom-0 left-0 w-full p-8 md:p-14 z-10">
+                                        <div class="flex items-center gap-3 mb-5">
+                                            <span class="bg-red-600 text-white text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-[0.2em] shadow-lg shadow-red-600/20">
+                                                {{ $hl->category->name ?? 'Fokus' }}
+                                            </span>
+                                            <span class="text-white/70 text-[10px] font-bold uppercase tracking-widest bg-white/10 backdrop-blur-md px-3 py-1.5 rounded-full">
+                                                {{ $hl->published_at->diffForHumans() }}
+                                            </span>
+                                        </div>
+                                        <h3 class="text-3xl md:text-5xl font-black text-white leading-[1.1] mb-6 max-w-3xl filter drop-shadow-lg group-hover/item:text-red-500 transition-colors duration-500">
+                                            {{ $hl->title }}
+                                        </h3>
+                                        <div class="flex items-center gap-4 border-t border-white/20 pt-6">
+                                            <div class="h-10 w-10 rounded-full border-2 border-white/50 overflow-hidden shrink-0">
+                                                <img src="https://ui-avatars.com/api/?name={{ urlencode($hl->author->name ?? 'A') }}&background=random" class="w-full h-full object-cover">
+                                            </div>
+                                            <div class="text-white">
+                                                <p class="text-[10px] uppercase tracking-widest font-black opacity-60">Dilaporkan Oleh</p>
+                                                <p class="text-sm font-bold">{{ $hl->author->name ?? 'Redaksi' }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        @endforeach
+                        
+                        <!-- Slider Dots - Bottom Right -->
+                        <div class="absolute bottom-10 right-10 flex gap-3 z-20">
+                            @foreach($headlines as $index => $hl)
+                                <button class="slider-dot w-3 h-3 rounded-full border-2 border-white/50 transition-all duration-500 {{ $index === 0 ? 'bg-red-600 border-red-600 w-10' : 'bg-transparent' }}" data-index="{{ $index }}"></button>
+                            @endforeach
                         </div>
                     </div>
-                </a>
                 @else
-                <div class="aspect-[16/9] rounded-2xl bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-400">
-                    Belum ada headline tersedia.
-                </div>
+                    <!-- Desain Fallback -->
+                    @if(isset($latestEpisodes) && $latestEpisodes->count() > 0)
+                        @php $fallbackHl = $latestEpisodes->first(); @endphp
+                        <div class="h-full w-full relative">
+                            <a href="{{ route('episode.show', $fallbackHl->slug) }}" class="block w-full h-full relative group">
+                                <img src="{{ $fallbackHl->img ? asset('storage/' . $fallbackHl->img) : 'https://images.unsplash.com/photo-1504711432869-5d590129a394?auto=format&fit=crop&w=1200&q=80' }}" 
+                                    alt="{{ $fallbackHl->title }}" 
+                                    class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-1000">
+                                <div class="absolute inset-0 bg-neutral-950/80"></div>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center text-center p-10">
+                                    <span class="text-red-600 font-black text-[12px] uppercase tracking-[0.4em] mb-6">Warta Terbaru</span>
+                                    <h3 class="text-3xl md:text-4xl font-black text-white leading-tight max-w-2xl">{{ $fallbackHl->title }}</h3>
+                                    <div class="mt-8 h-1 w-20 bg-red-600"></div>
+                                </div>
+                            </a>
+                        </div>
+                    @endif
                 @endif
             </div>
+        </div>
 
-            <!-- Sidebar Berita Terpopuler (Trending) -->
-            <div class="lg:col-span-4">
-                <div class="flex items-center gap-2 border-b-2 border-neutral-200 dark:border-neutral-800 pb-2 mb-4 transition-colors duration-300">
-                    <div class="w-3 h-3 bg-red-600"></div>
-                    <h2 class="text-xl font-bold text-neutral-900 dark:text-white uppercase tracking-wider">Terpopuler</h2>
-                </div>
+        <!-- Trending Sidebar - Penyesuaian Ruang Kosong -->
+        <div class="lg:col-span-4">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="h-8 w-1.5 bg-neutral-900 dark:bg-neutral-100 rounded-full"></div>
+                <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Hits</h2>
+            </div>
 
-                <div class="flex flex-col gap-5">
+            <div class="bg-white dark:bg-neutral-900 border border-neutral-100 dark:border-neutral-800 rounded-[2.5rem] p-8 shadow-sm h-auto">
+                <div class="space-y-8">
                     @forelse($trendingNews as $index => $news)
-                    <a href="{{ route('episode.show', $news->slug) }}" class="group flex gap-4 items-start">
-                        <h4 class="text-4xl font-black text-neutral-300 dark:text-neutral-800 group-hover:text-red-600 transition-colors">
-                            {{ sprintf('%02d', $index + 1) }}
-                        </h4>
-                        <div>
-                            <h3 class="text-base font-bold text-neutral-900 dark:text-white group-hover:text-red-600 dark:group-hover:text-red-400 transition-colors leading-snug mb-1">
+                    <a href="{{ route('episode.show', $news->slug) }}" class="group flex items-start gap-5 relative">
+                        <div class="flex flex-col">
+                            <span class="text-xs font-black text-red-600 uppercase tracking-widest mb-1">{{ $news->category->name ?? 'Hot' }}</span>
+                            <h3 class="text-base font-extrabold text-neutral-900 dark:text-neutral-100 group-hover:text-red-600 transition-colors leading-[1.3] line-clamp-2">
                                 {{ $news->title }}
                             </h3>
-                            <span class="text-[11px] text-neutral-500 font-medium uppercase">
-                                {{ $news->category->name ?? 'Umum' }} • {{ $news->views }} kali dibaca
-                            </span>
+                            <p class="text-[10px] text-neutral-400 font-bold mt-2 uppercase tracking-tighter">{{ number_format($news->views) }} Kali Dibaca</p>
                         </div>
+                        <span class="text-4xl font-black text-neutral-100 dark:text-neutral-800/50 absolute -right-2 -top-2 transition-colors group-hover:text-red-600/10 pointer-events-none">
+                            #{{ $index + 1 }}
+                        </span>
                     </a>
-                    @if(!$loop->last)
-                    <hr class="border-neutral-200 dark:border-neutral-800 transition-colors">
-                    @endif
                     @empty
-                    <p class="text-sm text-neutral-500 italic">Belum ada data trending.</p>
+                    <div class="py-10 text-center">
+                        <p class="text-sm text-neutral-400 font-bold uppercase tracking-widest italic">Belum Ada Data</p>
+                    </div>
                     @endforelse
                 </div>
-                
-                <!-- Podcast Promo di Sidebar -->
-                <div class="mt-8 bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 p-6 rounded-xl text-center transition-colors duration-300">
-                    <p class="text-[10px] text-neutral-500 uppercase font-black tracking-widest mb-2">Suara Dari Timur</p>
-                    <a href="{{ $settings['youtube_url'] ?? '#' }}" target="_blank" class="block group">
-                        <h4 class="text-lg font-bold text-neutral-900 dark:text-white group-hover:text-red-500 transition-colors italic">Dengarkan Podcast Kami</h4>
-                        <p class="text-xs text-neutral-600 dark:text-neutral-400 mt-2 mb-4 leading-relaxed">Diskusi mendalam bersama tokoh dan narasumber inspiratif Nusa Tenggara Timur.</p>
-                        <span class="bg-red-600 text-white px-5 py-2 rounded-full text-xs font-bold inline-flex items-center gap-2 hover:bg-red-700 transition-colors">
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
-                            Tonton di YouTube
-                        </span>
+
+                <!-- Modern CTA Box -->
+                <div class="mt-12 group relative overflow-hidden bg-neutral-950 rounded-[2rem] p-6 border border-white/5">
+                    <div class="absolute -right-4 -top-4 w-24 h-24 bg-red-600 rounded-full blur-[40px] opacity-20 group-hover:opacity-40 transition-opacity"></div>
+                    <h4 class="text-white font-black text-sm mb-1">Eksklusif Visual</h4>
+                    <p class="text-neutral-500 text-[10px] mb-5 leading-relaxed">Saksikan rangkuman berita harian melalui kanal YouTube kami.</p>
+                    <a href="{{ $settings['youtube_url'] ?? '#' }}" target="_blank" class="w-full inline-flex items-center justify-center gap-2 py-3 bg-red-600 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-red-700 transition-all hover:scale-[1.02] active:scale-95 shadow-xl shadow-red-600/20">
+                        Ikuti Kami
                     </a>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- BERITA TERBARU (Main Grid) -->
-        <section id="berita-terbaru" class="mb-16">
-            <div class="flex items-center justify-between border-b-2 border-neutral-200 dark:border-neutral-800 pb-2 mb-6 transition-colors duration-300">
-                <div class="flex items-center gap-2">
-                    <div class="w-3 h-3 bg-red-600"></div>
-                    <h2 class="text-xl font-bold text-neutral-900 dark:text-white uppercase tracking-wider">Terbaru Hari Ini</h2>
-                </div>
-                <a href="#" class="text-sm text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 font-bold flex items-center gap-1 transition-colors">
-                    Lihat Indeks <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+    <!-- INDEKS TERKINI -->
+    <section id="indeks-terkini">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+            <div class="flex items-center gap-4">
+                <div class="h-10 w-2 bg-red-600 rounded-full"></div>
+                <h2 class="text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Laporan Terbaru</h2>
+            </div>
+            <div class="flex gap-2">
+                <a href="#" class="px-6 py-3 bg-neutral-100 dark:bg-neutral-800 text-neutral-900 dark:text-white text-xs font-black uppercase tracking-widest rounded-full hover:bg-red-600 hover:text-white transition-all shadow-sm">
+                    Lihat Arsip
                 </a>
             </div>
+        </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                @forelse($latestEpisodes as $ep)
-                    <a href="{{ route('episode.show', $ep->slug) }}" class="group flex flex-col bg-white dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-xl overflow-hidden hover:border-neutral-400 dark:hover:border-neutral-600 transition-all h-full shadow-sm hover:shadow-md">
-                        <div class="relative aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a]">
-                            <img src="{{ $ep->img ? asset('storage/' . $ep->img) : asset('placeholder-news.jpg') }}" alt="{{ $ep->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                            
-                            {{-- Kategori Badge --}}
-                            <div class="absolute top-3 left-3 bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-widest shadow-lg">
-                                {{ $ep->category->name ?? 'Berita' }}
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-8 gap-y-12">
+            @forelse($latestEpisodes as $index => $ep)
+                @if(!( !isset($headlines) || $headlines->count() == 0 ) || $index > 0)
+                    <article class="group flex flex-col h-full bg-white dark:bg-transparent rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-xl hover:shadow-neutral-200/50 dark:hover:shadow-none">
+                        <a href="{{ route('episode.show', $ep->slug) }}" class="relative aspect-[4/3] rounded-[1.5rem] overflow-hidden bg-neutral-100 dark:bg-neutral-800 block mb-6">
+                            <img src="{{ $ep->img ? asset('storage/' . $ep->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80' }}" 
+                                alt="{{ $ep->title }}" 
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 ease-out">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-white/90 dark:bg-neutral-900/90 backdrop-blur-md text-neutral-900 dark:text-white text-[8px] font-black px-3 py-1.5 rounded-lg uppercase tracking-widest shadow-sm">
+                                    {{ $ep->category->name ?? 'Update' }}
+                                </span>
                             </div>
-
-                            {{-- Durasi (Jika Video) --}}
-                            @if($ep->type !== 'article' && $ep->duration)
-                            <div class="absolute bottom-2 right-2 bg-black/80 text-white text-[10px] font-bold px-1.5 py-0.5 rounded">
-                                {{ $ep->duration }}
+                        </a>
+                        <div class="flex flex-col flex-grow px-2">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="text-[10px] text-neutral-400 font-black uppercase tracking-widest">{{ $ep->published_at->format('M d, Y') }}</span>
+                                <span class="h-1 w-1 rounded-full bg-red-600"></span>
+                                <span class="text-[10px] text-neutral-400 font-bold uppercase tracking-widest">3 Min Read</span>
                             </div>
-                            @endif
-                        </div>
-                        
-                        <div class="p-4 flex flex-col flex-grow">
-                            <h3 class="text-base md:text-lg font-bold text-neutral-900 dark:text-white line-clamp-3 leading-snug group-hover:text-red-600 dark:group-hover:text-red-500 transition-colors mb-3">
-                                {{ $ep->title }}
+                            <h3 class="text-xl font-extrabold text-neutral-900 dark:text-neutral-50 group-hover:text-red-600 transition-colors leading-snug mb-4 line-clamp-3">
+                                <a href="{{ route('episode.show', $ep->slug) }}">{{ $ep->title }}</a>
                             </h3>
-                            
-                            <div class="mt-auto pt-3 border-t border-neutral-100 dark:border-neutral-800 flex items-center justify-between text-[11px] text-neutral-500 font-medium">
-                                <span class="flex items-center gap-1">
-                                    {{ $ep->published_at->format('d M Y') }}
-                                </span>
-                                <span class="flex items-center gap-1 uppercase tracking-tighter">
-                                    Oleh {{ $ep->author->name ?? 'Redaksi' }}
-                                </span>
+                            <p class="text-neutral-500 dark:text-neutral-400 text-sm line-clamp-2 mb-6 leading-relaxed font-medium">
+                                {{ Str::limit(strip_tags($ep->content), 100) }}
+                            </p>
+                            <div class="mt-auto pt-6 border-t border-neutral-100 dark:border-neutral-800">
+                                <a href="{{ route('episode.show', $ep->slug) }}" class="inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-neutral-900 dark:text-white hover:text-red-600 dark:hover:text-red-500 transition-colors">
+                                    Baca Detail <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M14 5l7 7-7 7M3 12h18"/></svg>
+                                </a>
                             </div>
                         </div>
-                    </a>
-                @empty
-                    <div class="col-span-full py-16 text-center border border-neutral-200 dark:border-neutral-800 rounded-xl bg-white dark:bg-[#121212] transition-colors duration-300">
-                        <p class="text-neutral-500 font-medium">Belum ada konten untuk ditampilkan.</p>
-                    </div>
-                @endforelse
-            </div>
-        </section>
-
-        <!-- CALL TO ACTION: Newsletter (Gaya Jurnalistik) -->
-        <section class="mb-16">
-            <div class="relative bg-neutral-900 dark:bg-[#1a1a1a] border border-neutral-800 rounded-2xl p-8 md:p-12 overflow-hidden shadow-xl">
-                <div class="absolute top-0 right-0 w-80 h-80 bg-red-600/10 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/4"></div>
-
-                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
-                    <div class="max-w-xl text-center md:text-left border-l-4 border-red-600 pl-6">
-                        <h2 class="text-2xl md:text-3xl font-black text-white mb-2 tracking-tight uppercase">Jadilah Yang Pertama Tahu</h2>
-                        <p class="text-neutral-400 text-sm md:text-base leading-relaxed">Berlangganan buletin gratis kami untuk menerima ringkasan isu publik NTT langsung ke email Anda setiap Senin pagi.</p>
-                    </div>
-                    <div class="w-full md:w-auto">
-                        <form action="#" class="flex flex-col sm:flex-row gap-2">
-                            <input type="email" placeholder="Masukkan alamat email..." class="px-5 py-3.5 rounded-sm bg-neutral-800 dark:bg-[#121212] border border-neutral-700 text-white placeholder:text-neutral-500 focus:outline-none focus:border-red-600 focus:ring-1 focus:ring-red-600 w-full sm:w-80 transition-all">
-                            <button class="bg-red-600 text-white px-8 py-3.5 rounded-sm font-black text-sm uppercase tracking-widest hover:bg-red-700 transition-all active:scale-95">Subscribe</button>
-                        </form>
+                    </article>
+                @endif
+            @empty
+                <div class="col-span-full py-24 text-center rounded-[3rem] bg-neutral-50 dark:bg-neutral-900/50 border-2 border-dashed border-neutral-200 dark:border-neutral-800">
+                    <div class="max-w-xs mx-auto">
+                        <p class="text-neutral-400 font-black uppercase tracking-[0.2em] text-xs">Informasi Belum Tersedia</p>
+                        <p class="text-neutral-500 text-sm mt-4">Redaksi kami sedang menyiapkan konten terbaik untuk Anda hari ini.</p>
                     </div>
                 </div>
-            </div>
-        </section>
+            @endforelse
+        </div>
+    </section>
 
-        <!-- PARTNERS -->
-        @if(isset($partners) && $partners->count() > 0)
-        <section class="py-12 border-t border-neutral-200 dark:border-neutral-800">
-            <div class="text-center mb-10">
-                <p class="text-[10px] font-black text-neutral-500 uppercase tracking-[0.4em]">Mitra Strategis & Jaringan</p>
-            </div>
-            <div class="flex flex-wrap justify-center items-center gap-12 sm:gap-16 opacity-60 dark:opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-                @foreach($partners as $partner)
-                    <img src="{{ asset('storage/' . $partner->logo) }}" alt="{{ $partner->name }}" class="h-8 md:h-10 w-auto object-contain" title="{{ $partner->name }}">
-                @endforeach
-            </div>
-        </section>
-        @endif
+</div>
 
-    </div>
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const slides = document.querySelectorAll('.headline-slide');
+        const dots = document.querySelectorAll('.slider-dot');
+        
+        if (slides.length <= 1) return;
+
+        let currentSlide = 0;
+        const slideInterval = 6000;
+
+        function showSlide(n) {
+            slides.forEach((s, idx) => {
+                if(idx === n) {
+                    s.classList.replace('opacity-0', 'opacity-100');
+                    s.classList.replace('scale-105', 'scale-100');
+                    s.style.zIndex = "10";
+                } else {
+                    s.classList.replace('opacity-100', 'opacity-0');
+                    s.classList.replace('scale-100', 'scale-105');
+                    s.style.zIndex = "0";
+                }
+            });
+
+            dots.forEach((d, idx) => {
+                if(idx === n) {
+                    d.classList.replace('bg-transparent', 'bg-red-600');
+                    d.classList.replace('border-white/50', 'border-red-600');
+                    d.classList.add('w-10');
+                    d.classList.remove('w-3');
+                } else {
+                    d.classList.replace('bg-red-600', 'bg-transparent');
+                    d.classList.replace('border-red-600', 'border-white/50');
+                    d.classList.add('w-3');
+                    d.classList.remove('w-10');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+
+        let timer = setInterval(nextSlide, slideInterval);
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(timer);
+                currentSlide = index;
+                showSlide(currentSlide);
+                timer = setInterval(nextSlide, slideInterval);
+            });
+        });
+    });
+</script>
+@endpush
+
+
 </x-layouts.app>

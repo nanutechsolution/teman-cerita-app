@@ -20,10 +20,10 @@ class PublicController extends Controller
     public function __construct()
     {
         $settings = Setting::pluck('value', 'key')->toArray();
-        
+
         $categories = Category::withCount(['episodes' => function ($query) {
-                $query->where('is_published', true);
-            }])
+            $query->where('is_published', true);
+        }])
             ->orderBy('episodes_count', 'desc')
             ->get();
 
@@ -37,41 +37,47 @@ class PublicController extends Controller
         View::share('popularTags', $popularTags);
     }
 
-    /**
-     * Menampilkan halaman depan (Home).
-     */
-    public function index()
-    {
-        $headline = Episode::with('category')
-            ->where('is_published', true)
-            ->where('is_headline', true)
-            ->where('published_at', '<=', now())
-            ->latest('published_at')
-            ->first();
+   /**
+ * Menampilkan halaman depan (Home).
+ */
+public function index()
+{
+    // Ambil koleksi headline (Maksimal 5 untuk slider)
+    $headlines = Episode::with(['category', 'author'])
+        ->where('is_published', true)
+        ->where('is_headline', true)
+        ->where('published_at', '<=', now())
+        ->latest('published_at')
+        ->take(5)
+        ->get();
 
-        $breakingNews = Episode::where('is_published', true)
-            ->where('is_breaking', true)
-            ->latest('published_at')
-            ->take(5)
-            ->get();
+    $breakingNews = Episode::where('is_published', true)
+        ->where('is_breaking', true)
+        ->latest('published_at')
+        ->take(5)
+        ->get();
 
-        $trendingNews = Episode::where('is_published', true)
-            ->orderBy('views', 'desc')
-            ->take(5)
-            ->get();
+    $trendingNews = Episode::where('is_published', true)
+        ->orderBy('views', 'desc')
+        ->take(5)
+        ->get();
 
-        $latestEpisodes = Episode::with(['category', 'author'])
-            ->where('is_published', true)
-            ->where('published_at', '<=', now())
-            ->when($headline, fn($q) => $q->where('id', '!=', $headline->id))
-            ->latest('published_at')
-            ->take(12)
-            ->get();
+    // Ambil berita terbaru, kecualikan berita yang sudah masuk di slider headline
+    $latestEpisodes = Episode::with(['category', 'author'])
+        ->where('is_published', true)
+        ->where('published_at', '<=', now())
+        ->when($headlines->isNotEmpty(), function($q) use ($headlines) {
+            return $q->whereNotIn('id', $headlines->pluck('id'));
+        })
+        ->latest('published_at')
+        ->take(12)
+        ->get();
 
-        $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
+    $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
 
-        return view('welcome', compact('headline', 'breakingNews', 'latestEpisodes', 'trendingNews', 'partners'));
-    }
+    // Pastikan variabel dikirim sebagai 'headlines' (jamak) sesuai kode di blade
+    return view('welcome', compact('headlines', 'breakingNews', 'latestEpisodes', 'trendingNews', 'partners'));
+}
 
     /**
      * Menampilkan detail Berita / Episode.
@@ -104,7 +110,7 @@ class PublicController extends Controller
     public function indeks(Request $request)
     {
         $date = $request->input('date', now()->format('Y-m-d'));
-        
+
         $episodes = Episode::with(['category', 'author'])
             ->whereDate('published_at', $date)
             ->where('is_published', true)
@@ -152,13 +158,14 @@ class PublicController extends Controller
             ->where('is_published', true)
             ->where(function ($q) use ($query) {
                 $q->where('title', 'like', "%{$query}%")
-                  ->orWhere('content', 'like', "%{$query}%");
+                    ->orWhere('content', 'like', "%{$query}%");
             })
             ->latest('published_at')
             ->paginate(12)
             ->withQueryString();
 
-        return view('search', compact('episodes', $query));
+        // Tulis 'query' sebagai string, bukan $query
+        return view('search', compact('episodes', 'query'));
     }
 
     /**
@@ -173,17 +180,38 @@ class PublicController extends Controller
         return view('pages.redaksi', compact('members'));
     }
 
-    public function pedoman() { return view('pages.pedoman'); }
-    public function tentang() { return view('pages.tentang'); }
-    public function kontak() { return view('pages.kontak'); }
-    public function karir() { return view('pages.karir'); }
-    
+    public function pedoman()
+    {
+        return view('pages.pedoman');
+    }
+    public function tentang()
+    {
+        return view('pages.tentang');
+    }
+    public function kontak()
+    {
+        return view('pages.kontak');
+    }
+    public function karir()
+    {
+        return view('pages.karir');
+    }
+
     /**
      * Fitur Tambahan Senior: Citizen Journalism & Legal
      */
-    public function suaraWarga() { return view('pages.suara-warga'); }
-    public function disclaimer() { return view('pages.disclaimer'); }
-    public function iklan() { return view('pages.iklan'); }
+    public function suaraWarga()
+    {
+        return view('pages.suara-warga');
+    }
+    public function disclaimer()
+    {
+        return view('pages.disclaimer');
+    }
+    public function iklan()
+    {
+        return view('pages.iklan');
+    }
 
     /**
      * Helper: Deteksi Platform Video.

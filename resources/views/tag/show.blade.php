@@ -1,7 +1,7 @@
 <x-layouts.app :settings="$settings">
     @slot('title', 'Topik: #' . $tag->name . ' | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
 
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-10 pb-20">
+    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-5">
         
         <div class="mb-12 text-center">
             <span class="inline-block bg-neutral-100 dark:bg-[#1a1a1a] text-neutral-500 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest mb-4 border border-neutral-200 dark:border-neutral-800">
@@ -17,7 +17,7 @@
                 @foreach($episodes as $ep)
                     <article class="group relative flex flex-col">
                         <div class="aspect-video rounded-xl overflow-hidden mb-4 border border-neutral-200 dark:border-neutral-800">
-                            <img src="{{ $ep->img ? asset('storage/' . $ep->img) : asset('placeholder-news.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            <img src="{{ $ep->img ? asset('storage/' . $ep->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                         </div>
                         <div class="space-y-2">
                             <div class="flex items-center gap-2 text-[10px] font-black text-red-600 uppercase tracking-widest">

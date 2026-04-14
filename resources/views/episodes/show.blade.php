@@ -79,7 +79,7 @@
                             <img src="{{ $episode->img ? asset('storage/' . $episode->img) : asset('images/default-news.jpg') }}" 
                                  alt="{{ $episode->title }}" 
                                  class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                 onerror="this.src='https://images.unsplash.com/photo-1504711434969-e33886168f5c?q=80&w=1200&auto=format&fit=crop'">
+                                 onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                             {{-- Visual Badge for Video if available --}}
                             @if($episode->link)
                                 <div class="absolute top-6 right-6 z-20">
@@ -279,7 +279,7 @@
                                     <div class="w-28 h-20 shrink-0 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 shadow-sm relative">
                                         <img src="{{ $related->img ? asset('storage/' . $related->img) : asset('images/placeholder.jpg') }}" 
                                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                             onerror="this.src='https://images.unsplash.com/photo-1585829365234-78d9b8129f17?q=80&w=300&auto=format&fit=crop'">
+                                             onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                                         @if($related->type !== 'article')
                                             <div class="absolute inset-0 flex items-center justify-center bg-black/20">
                                                 <div class="w-6 h-6 bg-red-600 text-white rounded-full flex items-center justify-center shadow-lg"><svg class="w-3 h-3 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
@@ -333,7 +333,7 @@
                     <div class="aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a] relative">
                         <img src="{{ $bottom->img ? asset('storage/' . $bottom->img) : asset('images/default.jpg') }}" 
                              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                             onerror="this.src='https://images.unsplash.com/photo-1585829365234-78d9b8129f17?q=80&w=400&auto=format&fit=crop'">
+                             onerror="this.src='https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80'">
                         <div class="absolute top-4 left-4 bg-red-600 text-white text-[9px] font-black px-3 py-1 rounded uppercase tracking-[0.2em] shadow-lg">
                             {{ $bottom->category->name ?? 'Update' }}
                         </div>

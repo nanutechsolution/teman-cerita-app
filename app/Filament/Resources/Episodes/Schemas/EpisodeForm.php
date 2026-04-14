@@ -74,10 +74,12 @@ class EpisodeForm
                                 ->helperText('Format: JPG, PNG, atau WebP. Maksimal ukuran file: 2MB.')
                                 ->image()
                                 ->imageEditor()
+                                ->visibility('public')
                                 ->disk('public')
-                                ->directory('episode/images')
+                                ->directory('episode')
                                 ->imageEditorAspectRatioOptions(['16:9', '9:16', '1:1'])
                                 ->maxSize(2048)
+                                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                 ->required()
                                 ->columnSpanFull(),
 

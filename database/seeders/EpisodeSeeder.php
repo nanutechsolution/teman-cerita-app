@@ -136,7 +136,6 @@ class EpisodeSeeder extends Seeder
                 'slug' => Str::slug($data['title']),
                 'excerpt' => 'Liputan mendalam mengenai ' . $data['title'] . ' yang sedang menjadi perhatian masyarakat NTT.',
                 'content' => '<p>Ini adalah isi berita simulasi untuk <strong>' . $data['title'] . '</strong>.</p><p>Laporan tim redaksi <em>Teman Cerita</em> menunjukkan bahwa isu ini memerlukan perhatian serius dari berbagai stakeholder terkait untuk menemukan solusi jangka panjang.</p>',
-                'img' => 'episodes_thumbnails/placeholder.jpg',
                 'image_caption' => 'Visualisasi dari ' . $data['title'],
                 'image_source' => 'Tim Produksi Teman Cerita',
                 'link' => 'https://www.youtube.com/watch?v=example',
