@@ -14,7 +14,7 @@ class SettingForm
     {
         return $schema
             ->components([
-               Section::make('Ubah Nilai')
+                Section::make('Ubah Nilai')
                     ->description('Silakan sesuaikan nilai pengaturan di bawah ini.')
                     ->schema([
                         TextInput::make('label')
@@ -26,14 +26,14 @@ class SettingForm
                         TextInput::make('value')
                             ->label('Isi Pengaturan')
                             ->required()
-                            ->visible(fn ($record) => $record?->type === 'text')
+                            ->visible(fn($record) => $record?->type === 'text')
                             ->columnSpanFull(),
 
                         Textarea::make('value')
                             ->label('Isi Pengaturan')
                             ->required()
                             ->rows(4)
-                            ->visible(fn ($record) => $record?->type === 'textarea')
+                            ->visible(fn($record) => $record?->type === 'textarea')
                             ->columnSpanFull(),
 
                         FileUpload::make('value')
@@ -41,7 +41,9 @@ class SettingForm
                             ->image()
                             ->directory('settings')
                             ->required()
-                            ->visible(fn ($record) => $record?->type === 'file')
+                            ->visibility('public')
+                            ->disk('public')
+                            ->visible(fn($record) => $record?->type === 'file')
                             ->columnSpanFull(),
                     ]),
             ]);
