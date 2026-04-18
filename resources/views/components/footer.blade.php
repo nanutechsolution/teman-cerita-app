@@ -17,43 +17,43 @@
 
                 <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-left">
 
-    <!-- Wrapper Logo -->
-    <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
-        @if(isset($settings['site_logo']))
-        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
-        @else
-        <!-- Fallback Icon jika logo kosong -->
-        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-        </svg>
-        @endif
-    </div>
+                    <!-- Wrapper Logo -->
+                    <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
+                        @if(isset($settings['site_logo']))
+                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
+                        @else
+                        <!-- Fallback Icon jika logo kosong -->
+                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                        </svg>
+                        @endif
+                    </div>
 
-    <!-- Wrapper Teks Typography (Logo Vertikal) -->
-    <div class="flex flex-col items-end select-none mt-1 sm:mt-0" style="font-family: 'Montserrat', sans-serif;">
+                    <!-- Wrapper Teks Typography (Logo Vertikal) -->
+                    <div class="flex flex-col items-end select-none mt-1 sm:mt-0" style="font-family: 'Montserrat', sans-serif;">
 
-        <!-- Baris "Highlight NTT" -->
-        <div class="flex items-baseline leading-none">
-            <!-- Menggunakan text-shadow agar garis outline tidak memakan warna putih di layar HP -->
-            <span class="text-3xl sm:text-[34px] font-black tracking-tight 
+                        <!-- Baris "Highlight NTT" -->
+                        <div class="flex items-baseline leading-none">
+                            <!-- Menggunakan text-shadow agar garis outline tidak memakan warna putih di layar HP -->
+                            <span class="text-3xl sm:text-[34px] font-black tracking-tight 
                          text-white [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000] 
                          dark:text-[#121212] dark:[text-shadow:-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff,1px_1px_0_#fff]">
-                Highlight
-            </span>
+                                Highlight
+                            </span>
 
-            <span class="text-3xl sm:text-[34px] font-black tracking-tight text-red-600 uppercase ml-0.5">
-                NTT
-            </span>
-        </div>
+                            <span class="text-3xl sm:text-[34px] font-black tracking-tight text-red-600 uppercase ml-0.5">
+                                NTT
+                            </span>
+                        </div>
 
-        <!-- Baris ".com" dibuat lebih rapat lagi dengan -mt-2 -->
-        <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-2 sm:-mt-2.5 leading-none 
+                        <!-- Baris ".com" dibuat lebih rapat lagi dengan -mt-2 -->
+                        <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-2 sm:-mt-2.5 leading-none 
                      text-[#041E42] dark:text-[#e2e8f0]">
-            .com
-        </span>
+                            .com
+                        </span>
 
-    </div>
-</a>
+                    </div>
+                </a>
                 {{-- END LOGO --}}
 
 

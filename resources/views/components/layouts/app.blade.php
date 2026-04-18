@@ -72,46 +72,47 @@
         <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-8">
 
             <!-- LOGO & BRANDING -->
-            <div class="flex items-center shrink-0">
-                <a href="{{ route('home') }}" class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
+          <div class="flex items-center shrink-0">
+    <a href="{{ route('home') }}" class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
 
-                    <!-- Wrapper Logo -->
-                    <div class="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
-                        @if(isset($settings['site_logo']))
-                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
-                        @else
-                        <!-- Fallback Icon jika logo kosong -->
-                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-                        </svg>
-                        @endif
-                    </div>
+        <!-- Wrapper Logo -->
+        <div class="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
+            @if(isset($settings['site_logo']))
+            <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
+            @else
+            <!-- Fallback Icon jika logo kosong -->
+            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+            </svg>
+            @endif
+        </div>
 
-                    <!-- Wrapper Teks Typography -->
-                   <div class="flex flex-col items-end select-none mt-1 sm:mt-0">
+        <!-- Wrapper Teks Typography -->
+        <div class="flex flex-col items-end select-none mt-1 sm:mt-0" style="font-family: 'Montserrat', sans-serif;">
 
-    <!-- Baris "Highlight NTT" -->
-    <div class="flex items-baseline leading-none">
-        <span class="text-2xl sm:text-[28px] font-black tracking-tight 
-                     text-white [-webkit-text-stroke:0.5px_#000] sm:[-webkit-text-stroke:1px_#000] 
-                     dark:text-[#121212] dark:[-webkit-text-stroke:0.5px_#fff] sm:dark:[-webkit-text-stroke:1px_#fff]">
-            Highlight
-        </span>
+            <!-- Baris "Highlight NTT" -->
+            <div class="flex items-baseline leading-none">
+                <!-- Solusi Final: Menggunakan paint-order:stroke_fill agar outline selalu berada di belakang teks putih -->
+                <span class="text-2xl sm:text-[28px] font-black tracking-tight 
+                             text-white [-webkit-text-stroke:1.5px_#000] [paint-order:stroke_fill] 
+                             dark:text-[#121212] dark:[-webkit-text-stroke:1.5px_#fff]">
+                    Highlight
+                </span>
 
-        <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase ml-0.5">
-            NTT
-        </span>
-    </div>
-
-    <!-- Baris ".com" -->
-    <span class="text-[10px] sm:text-[12px] font-black tracking-[0.15em] -mt-0.5 sm:-mt-1.5 leading-none 
-                 text-[#041E42] dark:text-[#e2e8f0]">
-        .com
-    </span>
-
-</div>
-                </a>
+                <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase ml-0.5">
+                    NTT
+                </span>
             </div>
+
+            <!-- Baris ".com" merapat -->
+            <span class="text-[10px] sm:text-[12px] font-black tracking-[0.15em] -mt-1.5 leading-none 
+                         text-[#041E42] dark:text-[#e2e8f0]">
+                .com
+            </span>
+
+        </div>
+    </a>
+</div>
             <!-- NAVIGASI & SEARCH -->
             <div class="flex items-center justify-end gap-4 lg:gap-6 flex-1 min-w-0">
 
@@ -201,15 +202,15 @@
             </div>
         </div>
 
-   <!-- MENU MOBILE (OVERLAY) -->
-        <div x-show="isMobileMenuOpen" 
-             x-transition:enter="transition ease-out duration-300"
-             x-transition:enter-start="opacity-0 -translate-y-4"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-200"
-             x-transition:leave-start="opacity-100 translate-y-0"
-             x-transition:leave-end="opacity-0 -translate-y-4"
-             class="absolute top-full left-0 w-full max-h-[85vh] overflow-y-auto bg-white/95 dark:bg-[#121212]/95 backdrop-blur-xl border-b border-neutral-200 dark:border-neutral-800 p-5 sm:p-6 xl:hidden shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-[100]" x-cloak>
+        <!-- MENU MOBILE (OVERLAY) -->
+        <div x-show="isMobileMenuOpen"
+            x-transition:enter="transition ease-out duration-300"
+            x-transition:enter-start="opacity-0 -translate-y-4"
+            x-transition:enter-end="opacity-100 translate-y-0"
+            x-transition:leave="transition ease-in duration-200"
+            x-transition:leave-start="opacity-100 translate-y-0"
+            x-transition:leave-end="opacity-0 -translate-y-4"
+            class="absolute top-full left-0 w-full max-h-[85vh] overflow-y-auto bg-white/95 dark:bg-[#121212]/95 backdrop-blur-xl border-b border-neutral-200 dark:border-neutral-800 p-5 sm:p-6 xl:hidden shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-[100]" x-cloak>
 
             <!-- Kotak Pencarian Mobile -->
             <form action="{{ route('search') }}" method="GET" class="relative mb-8">
@@ -218,20 +219,22 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
-                <input type="text" name="q" placeholder="Cari berita..." 
-                       class="w-full bg-neutral-100 dark:bg-[#1a1a1a] border border-transparent focus:border-red-500/50 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-neutral-900 dark:text-white outline-none font-semibold transition-all shadow-inner focus:bg-white dark:focus:bg-[#121212]">
+                <input type="text" name="q" placeholder="Cari berita..."
+                    class="w-full bg-neutral-100 dark:bg-[#1a1a1a] border border-transparent focus:border-red-500/50 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-neutral-900 dark:text-white outline-none font-semibold transition-all shadow-inner focus:bg-white dark:focus:bg-[#121212]">
             </form>
 
             <!-- Menu Kategori (List Style) -->
             <div class="flex flex-col gap-1.5 mb-8">
                 <p class="text-[11px] font-black text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.2em] mb-2 px-2">Eksplorasi</p>
-                
+
                 <a href="{{ route('home') }}" class="group flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 hover:bg-red-50 dark:hover:bg-[#1a1a1a] hover:text-red-600 dark:hover:text-red-500 transition-all active:scale-[0.98]">
                     <div class="flex items-center gap-3">
                         <span class="w-1.5 h-1.5 rounded-full bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                         Beranda
                     </div>
-                    <svg class="w-4 h-4 text-neutral-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <svg class="w-4 h-4 text-neutral-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
                 </a>
 
                 @foreach($categories as $cat)
@@ -240,7 +243,9 @@
                         <span class="w-1.5 h-1.5 rounded-full bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                         {{ $cat->name }}
                     </div>
-                    <svg class="w-4 h-4 text-neutral-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                    <svg class="w-4 h-4 text-neutral-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
                 </a>
                 @endforeach
             </div>
@@ -248,7 +253,7 @@
             <!-- Bagian Bawah: Switch Dark Mode -->
             <div class="border-t border-neutral-200 dark:border-neutral-800 pt-6 mt-2 pb-4">
                 <button @click="toggleDarkMode()" class="flex items-center justify-between w-full p-4 bg-neutral-50 dark:bg-[#1a1a1a] rounded-2xl border border-neutral-100 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all active:scale-[0.98]">
-                    
+
                     <div class="flex items-center gap-3">
                         <div class="p-2 rounded-full bg-white dark:bg-[#252525] shadow-sm text-neutral-600 dark:text-neutral-400">
                             <!-- Icon Sun (Light Mode) -->
@@ -269,7 +274,7 @@
                     </div>
                 </button>
             </div>
-            
+
         </div>
     </nav>
 
