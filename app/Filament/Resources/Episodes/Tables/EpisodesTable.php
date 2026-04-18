@@ -117,6 +117,20 @@ class EpisodesTable
                         true => 'Headline',
                         false => 'Bukan Headline',
                     ]),
+                SelectFilter::make('is_breaking')
+                    ->label('Filter Breaking')
+                    ->placeholder('Semua Konten')
+                    ->options([
+                        true => 'Breaking',
+                        false => 'Bukan Breaking',
+                    ]),
+                SelectFilter::make('is_published')
+                    ->label('Filter Publikasi')
+                    ->placeholder('Semua Konten')
+                    ->options([
+                        true => 'Sudah Terbit',
+                        false => 'Draft / Disembunyikan',
+                    ]),
                 SelectFilter::make('type')
                     ->label('Format Konten')
                     ->options([
