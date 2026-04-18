@@ -42,14 +42,17 @@ class DatabaseSeeder extends Seeder
         foreach ($settings as $setting) {
             Setting::updateOrCreate(['key' => $setting['key']], $setting);
         }
-
         // 3. KATEGORI ISU
         $categories = [
-            ['name' => 'Kebijakan Publik', 'slug' => 'kebijakan-publik'],
-            ['name' => 'Isu Sosial', 'slug' => 'isu-sosial'],
+            ['name' => 'Peristiwa', 'slug' => 'peristiwa'],
+            ['name' => 'Opini', 'slug' => 'opini'],
             ['name' => 'Edukasi', 'slug' => 'edukasi'],
-            ['name' => 'Budaya & Pariwisata', 'slug' => 'budaya-pariwisata'],
-            ['name' => 'Ekonomi Kreatif', 'slug' => 'ekonomi-kreatif'],
+            ['name' => 'Politik', 'slug' => 'politik'],
+            ['name' => 'Ekonomi', 'slug' => 'ekonomi'],
+            ['name' => 'Sosbud', 'slug' => 'sosbud'],
+            ['name' => 'Olahraga', 'slug' => 'olahraga'],
+            ['name' => 'Nasional', 'slug' => 'nasional'],
+            ['name' => 'Internasional', 'slug' => 'internasional'],
         ];
 
         foreach ($categories as $cat) {

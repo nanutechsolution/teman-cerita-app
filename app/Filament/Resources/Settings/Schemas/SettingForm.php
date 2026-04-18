@@ -43,6 +43,7 @@ class SettingForm
                             ->required()
                             ->visibility('public')
                             ->disk('public')
+                            ->imageEditor()
                             ->visible(fn($record) => $record?->type === 'file')
                             ->columnSpanFull(),
                     ]),

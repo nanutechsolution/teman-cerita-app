@@ -24,7 +24,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900&display=swap" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
     <!-- Script Pencegah Flash Mode Gelap -->
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -68,28 +68,48 @@
     <!-- NAVBAR PORTAL BERITA - DIBATASI LEBARNYA -->
     <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-md border-neutral-200 dark:border-neutral-800 py-3 shadow-lg' : 'bg-transparent border-transparent py-5'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-        
+
         <!-- Kontainer Navbar Tengah -->
         <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-8">
 
             <!-- LOGO & BRANDING -->
             <div class="flex items-center shrink-0">
-                <a href="{{ route('home') }}" class="flex items-center gap-3 group">
-                    @if(isset($settings['site_logo']))
-                    <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full object-cover border border-neutral-200 dark:border-neutral-800 shadow-md group-hover:border-red-600 transition-colors">
-                    @else
-                    <div class="relative w-9 h-9 sm:w-10 sm:h-10 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 group-hover:border-red-600 transition-colors shadow-sm shadow-red-900/10">
-                        <svg class="w-5 h-5 text-neutral-800 dark:text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                <a href="{{ route('home') }}" class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
+
+                    <!-- Wrapper Logo -->
+                    <div class="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
+                        @if(isset($settings['site_logo']))
+                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
+                        @else
+                        <!-- Fallback Icon jika logo kosong -->
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
                             <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
                         </svg>
+                        @endif
                     </div>
-                    @endif
 
-                    <div class="flex flex-col">
-                        <span class="text-sm sm:text-lg font-black tracking-tighter text-neutral-900 dark:text-white leading-none uppercase italic">
-                            {{ $settings['site_name'] ?? 'Teman Cerita' }}
+                    <!-- Wrapper Teks Typography -->
+                    <div class="flex flex-col items-end select-none mt-0.5 sm:mt-0" >
+
+                        <!-- Baris "Highlight NTT" -->
+                        <div class="flex items-baseline leading-none">
+                            <span class="text-2xl sm:text-[28px] font-black tracking-tight 
+                         text-white [-webkit-text-stroke:1px_#000] 
+                         dark:text-[#121212] dark:[-webkit-text-stroke:1px_#fff]">
+                                Highlight
+                            </span>
+
+                            <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase ml-0.5">
+                                NTT
+                            </span>
+                        </div>
+
+                        <!-- Baris ".com" -->
+                        <span class="text-[10px] sm:text-[12px] font-black tracking-[0.15em] -mt-1 leading-none 
+                     text-[#041E42] dark:text-[#e2e8f0]">
+                            .com
                         </span>
-                        <span class="text-[7px] sm:text-[9px] font-bold text-red-600 dark:text-red-500 tracking-widest uppercase mt-0.5">Portal Berita NTT</span>
+
                     </div>
                 </a>
             </div>
@@ -137,14 +157,22 @@
 
                     <!-- Tombol Dark Mode (Sekarang muncul di semua ukuran layar) -->
                     <button @click="toggleDarkMode()" class="p-2 flex rounded-full text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors focus:outline-none">
-                        <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" /></svg>
-                        <svg x-show="darkMode" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
+                        <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                        </svg>
+                        <svg x-show="darkMode" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        </svg>
                     </button>
 
                     <!-- Tombol Menu Mobile -->
                     <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="xl:hidden text-neutral-900 dark:text-neutral-300 p-2 focus:outline-none">
-                        <svg x-show="!isMobileMenuOpen" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" /></svg>
-                        <svg x-show="isMobileMenuOpen" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                        <svg x-show="!isMobileMenuOpen" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                        </svg>
+                        <svg x-show="isMobileMenuOpen" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
                     </button>
                 </div>
             </div>
@@ -152,7 +180,7 @@
 
         <!-- MENU MOBILE (OVERLAY) -->
         <div x-show="isMobileMenuOpen" x-transition class="absolute top-full left-0 w-full bg-white dark:bg-[#0f0f0f] border-b border-neutral-200 dark:border-neutral-800 p-6 xl:hidden shadow-2xl z-[100]" x-cloak>
-            
+
             <!-- Tambahan Pencarian di Mobile -->
             <form action="{{ route('search') }}" method="GET" class="mb-6">
                 <input type="text" name="q" placeholder="Cari berita..." class="w-full bg-neutral-100 dark:bg-[#121212] border border-neutral-300 dark:border-neutral-700 focus:border-red-500 rounded-xl px-5 py-3 text-sm text-neutral-900 dark:text-white outline-none font-bold uppercase tracking-widest transition-colors">

@@ -22,9 +22,7 @@ class PublicController extends Controller
         $settings = Setting::pluck('value', 'key')->toArray();
 
         $categories = Category::withCount(['episodes' => function ($query) {
-            $query->where('is_published', true);
         }])
-            ->orderBy('episodes_count', 'desc')
             ->get();
 
         $popularTags = Tag::withCount('episodes')
@@ -37,47 +35,47 @@ class PublicController extends Controller
         View::share('popularTags', $popularTags);
     }
 
-   /**
- * Menampilkan halaman depan (Home).
- */
-public function index()
-{
-    // Ambil koleksi headline (Maksimal 5 untuk slider)
-    $headlines = Episode::with(['category', 'author'])
-        ->where('is_published', true)
-        ->where('is_headline', true)
-        ->where('published_at', '<=', now())
-        ->latest('published_at')
-        ->take(5)
-        ->get();
+    /**
+     * Menampilkan halaman depan (Home).
+     */
+    public function index()
+    {
+        // Ambil koleksi headline (Maksimal 5 untuk slider)
+        $headlines = Episode::with(['category', 'author'])
+            ->where('is_published', true)
+            ->where('is_headline', true)
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(5)
+            ->get();
 
-    $breakingNews = Episode::where('is_published', true)
-        ->where('is_breaking', true)
-        ->latest('published_at')
-        ->take(5)
-        ->get();
+        $breakingNews = Episode::where('is_published', true)
+            ->where('is_breaking', true)
+            ->latest('published_at')
+            ->take(5)
+            ->get();
 
-    $trendingNews = Episode::where('is_published', true)
-        ->orderBy('views', 'desc')
-        ->take(5)
-        ->get();
+        $trendingNews = Episode::where('is_published', true)
+            ->orderBy('views', 'desc')
+            ->take(5)
+            ->get();
 
-    // Ambil berita terbaru, kecualikan berita yang sudah masuk di slider headline
-    $latestEpisodes = Episode::with(['category', 'author'])
-        ->where('is_published', true)
-        ->where('published_at', '<=', now())
-        ->when($headlines->isNotEmpty(), function($q) use ($headlines) {
-            return $q->whereNotIn('id', $headlines->pluck('id'));
-        })
-        ->latest('published_at')
-        ->take(12)
-        ->get();
+        // Ambil berita terbaru, kecualikan berita yang sudah masuk di slider headline
+        $latestEpisodes = Episode::with(['category', 'author'])
+            ->where('is_published', true)
+            ->where('published_at', '<=', now())
+            ->when($headlines->isNotEmpty(), function ($q) use ($headlines) {
+                return $q->whereNotIn('id', $headlines->pluck('id'));
+            })
+            ->latest('published_at')
+            ->take(12)
+            ->get();
 
-    $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
+        $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
 
-    // Pastikan variabel dikirim sebagai 'headlines' (jamak) sesuai kode di blade
-    return view('welcome', compact('headlines', 'breakingNews', 'latestEpisodes', 'trendingNews', 'partners'));
-}
+        // Pastikan variabel dikirim sebagai 'headlines' (jamak) sesuai kode di blade
+        return view('welcome', compact('headlines', 'breakingNews', 'latestEpisodes', 'trendingNews', 'partners'));
+    }
 
     /**
      * Menampilkan detail Berita / Episode.
