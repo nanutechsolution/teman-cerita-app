@@ -34,7 +34,7 @@
             <div class="flex items-center gap-3 mb-4 sm:mb-5">
                 <div class="h-5 w-1 bg-red-600"></div>
                 <h2 class="text-xl sm:text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">
-                    {{ (isset($headlines) && $headlines->count() > 0) ? 'Sorotan Utama' : 'Teranyar' }}
+                    {{ (isset($headlines) && $headlines->count() > 0) ? 'Sorotan Utama' : 'Berita Terbaru' }}
                 </h2>
             </div>
 
