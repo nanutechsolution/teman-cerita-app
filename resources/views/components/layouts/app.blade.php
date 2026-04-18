@@ -72,7 +72,7 @@
         <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-8">
 
             <!-- LOGO & BRANDING -->
-          <div class="flex items-center shrink-0">
+           <div class="flex items-center shrink-0">
     <a href="{{ route('home') }}" class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
 
         <!-- Wrapper Logo -->
@@ -93,19 +93,19 @@
             <!-- Baris "Highlight NTT" -->
             <div class="flex items-baseline leading-none">
                 <!-- Solusi Final: Menggunakan paint-order:stroke_fill agar outline selalu berada di belakang teks putih -->
-                <span class="text-2xl sm:text-[28px] font-black tracking-tight 
+                <span class="text-2xl sm:text-[28px] font-black tracking-wide mr-1
                              text-white [-webkit-text-stroke:1.5px_#000] [paint-order:stroke_fill] 
                              dark:text-[#121212] dark:[-webkit-text-stroke:1.5px_#fff]">
                     Highlight
                 </span>
 
-                <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase ml-0.5">
+                <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase">
                     NTT
                 </span>
             </div>
 
-            <!-- Baris ".com" merapat -->
-            <span class="text-[10px] sm:text-[12px] font-black tracking-[0.15em] -mt-1.5 leading-none 
+            <!-- Baris ".com" dipertegas ukurannya dan dirapatkan -->
+            <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-1.5 sm:-mt-2 leading-none 
                          text-[#041E42] dark:text-[#e2e8f0]">
                 .com
             </span>
