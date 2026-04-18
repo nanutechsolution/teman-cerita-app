@@ -14,7 +14,6 @@
 
             {{-- Kolom 1: Branding & Philosophy --}}
             <div class="lg:col-span-4 space-y-6">
-
                 <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-left">
 
                     <!-- Wrapper Logo -->

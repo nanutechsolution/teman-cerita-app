@@ -71,48 +71,47 @@
         <!-- Kontainer Navbar Tengah -->
         <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-8">
 
-            <!-- LOGO & BRANDING -->
-           <div class="flex items-center shrink-0">
-    <a href="{{ route('home') }}" class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
+            <div class="flex items-center shrink-0">
+                <a href="{{ route('home') }}" class="group flex items-center gap-2.5 sm:gap-3 transition-transform duration-300 hover:scale-[1.02]">
 
-        <!-- Wrapper Logo -->
-        <div class="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
-            @if(isset($settings['site_logo']))
-            <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
-            @else
-            <!-- Fallback Icon jika logo kosong -->
-            <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-            </svg>
-            @endif
-        </div>
+                    <!-- Wrapper Logo -->
+                    <div class="relative w-10 h-10 sm:w-11 sm:h-11 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
+                        @if(isset($settings['site_logo']))
+                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
+                        @else
+                        <!-- Fallback Icon jika logo kosong -->
+                        <svg class="w-5 h-5 sm:w-6 sm:h-6 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                        </svg>
+                        @endif
+                    </div>
 
-        <!-- Wrapper Teks Typography -->
-        <div class="flex flex-col items-end select-none mt-1 sm:mt-0" style="font-family: 'Montserrat', sans-serif;">
+                    <!-- Wrapper Teks Typography -->
+                    <div class="flex flex-col items-end select-none mt-1 sm:mt-0" style="font-family: 'Montserrat', sans-serif;">
 
-            <!-- Baris "Highlight NTT" -->
-            <div class="flex items-baseline leading-none">
-                <!-- Solusi Final: Menggunakan paint-order:stroke_fill agar outline selalu berada di belakang teks putih -->
-                <span class="text-2xl sm:text-[28px] font-black tracking-wide mr-1
+                        <!-- Baris "Highlight NTT" -->
+                        <div class="flex items-baseline leading-none">
+                            <!-- Solusi Final: Menggunakan paint-order:stroke_fill agar outline selalu berada di belakang teks putih -->
+                            <span class="text-2xl sm:text-[28px] font-black tracking-tight mr-0.5
                              text-white [-webkit-text-stroke:1.5px_#000] [paint-order:stroke_fill] 
                              dark:text-[#121212] dark:[-webkit-text-stroke:1.5px_#fff]">
-                    Highlight
-                </span>
+                                Highlight
+                            </span>
 
-                <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase">
-                    NTT
-                </span>
-            </div>
+                            <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase">
+                                NTT
+                            </span>
+                        </div>
 
-            <!-- Baris ".com" dipertegas ukurannya dan dirapatkan -->
-            <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-1.5 sm:-mt-2 leading-none 
+                        <!-- Baris ".com" dipertegas ukurannya dan dirapatkan -->
+                        <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-1.5 sm:-mt-2 leading-none 
                          text-[#041E42] dark:text-[#e2e8f0]">
-                .com
-            </span>
+                            .com
+                        </span>
 
-        </div>
-    </a>
-</div>
+                    </div>
+                </a>
+            </div>
             <!-- NAVIGASI & SEARCH -->
             <div class="flex items-center justify-end gap-4 lg:gap-6 flex-1 min-w-0">
 
