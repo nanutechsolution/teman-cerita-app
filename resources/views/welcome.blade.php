@@ -18,7 +18,7 @@
         <div class="overflow-hidden w-full px-4 relative flex items-center bg-neutral-50 dark:bg-[#1a1a1a] h-full py-2">
             <marquee class="text-[12px] sm:text-[13px] font-semibold text-neutral-800 dark:text-neutral-200 flex items-center h-full" scrollamount="4" onmouseover="this.stop();" onmouseout="this.start();">
                 @foreach($breakingNews as $item)
-                    <a href="{{ route('episode.show', $item->slug) }}" class="hover:text-red-600 transition-colors mx-4">{{ $item->title }}</a>
+                    <a href="{{ route('post.show', $item->slug) }}" class="hover:text-red-600 transition-colors mx-4">{{ $item->title }}</a>
                     @if(!$loop->last) <span class="text-neutral-300 dark:text-neutral-700 mx-2">|</span> @endif
                 @endforeach
             </marquee>
@@ -38,7 +38,7 @@
                     <div id="headline-slider" class="h-full w-full relative">
                         @foreach($headlines as $index => $hl)
                             <div class="headline-slide h-full w-full absolute inset-0 transition-opacity duration-700 ease-in-out {{ $index === 0 ? 'opacity-100 z-10' : 'opacity-0 z-0' }}" data-index="{{ $index }}">
-                                <a href="{{ route('episode.show', $hl->slug) }}" class="block w-full h-full relative group/item">
+                                <a href="{{ route('post.show', $hl->slug) }}" class="block w-full h-full relative group/item">
                                     <!-- Gambar dengan efek zoom halus -->
                                     <img src="{{ $hl->img ? asset('storage/' . $hl->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80' }}" 
                                          alt="{{ $hl->title }}" 
@@ -87,7 +87,7 @@
             <!-- List Terpopuler dengan Nomor Editorial -->
             <div class="flex flex-col">
                 @forelse($trendingNews as $index => $news)
-                <a href="{{ route('episode.show', $news->slug) }}" class="group flex items-start gap-4 py-4 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] transition-colors -mx-4 px-4 sm:mx-0 sm:px-2 rounded-sm">
+                <a href="{{ route('post.show', $news->slug) }}" class="group flex items-start gap-4 py-4 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] transition-colors -mx-4 px-4 sm:mx-0 sm:px-2 rounded-sm">
                     <!-- Angka Klasik Besar -->
                     <span class="text-4xl font-black text-neutral-200 dark:text-neutral-800 leading-none w-8 text-center shrink-0 group-hover:text-red-600 transition-colors italic">
                         {{ $index + 1 }}
@@ -137,7 +137,7 @@
                 @if(!( !isset($headlines) || $headlines->count() == 0 ) || $index > 0)
                     <article class="group flex flex-col h-full">
                         <!-- Area Gambar Edge-to-Edge pada kolom -->
-                        <a href="{{ route('episode.show', $ep->slug) }}" class="relative aspect-[3/2] overflow-hidden bg-neutral-100 dark:bg-neutral-900 block mb-4 border border-neutral-200 dark:border-neutral-800">
+                        <a href="{{ route('post.show', $ep->slug) }}" class="relative aspect-[3/2] overflow-hidden bg-neutral-100 dark:bg-neutral-900 block mb-4 border border-neutral-200 dark:border-neutral-800">
                             <img src="{{ $ep->img ? asset('storage/' . $ep->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=800&q=80' }}" 
                                 alt="{{ $ep->title }}" 
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out">
@@ -158,7 +158,7 @@
                             
                             <!-- Judul Profesional -->
                             <h3 class="text-[17px] sm:text-[19px] font-extrabold text-neutral-900 dark:text-white leading-[1.35] mb-2 line-clamp-3 group-hover:text-red-600 transition-colors">
-                                <a href="{{ route('episode.show', $ep->slug) }}">
+                                <a href="{{ route('post.show', $ep->slug) }}">
                                     {{ $ep->title }}
                                 </a>
                             </h3>
