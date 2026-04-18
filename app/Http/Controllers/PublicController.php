@@ -195,9 +195,20 @@ class PublicController extends Controller
     {
         return view('pages.kontak');
     }
+    
     public function karir()
     {
-        return view('pages.karir');
+        $careers = \App\Models\Career::where('is_active', true)->orderBy('sort_order')->get();
+        return view('pages.karir', compact('careers'));
+    }
+
+    public function page($slug)
+    {
+        $page = \App\Models\Page::where('slug', $slug)
+            ->where('is_active', true)
+            ->firstOrFail();
+
+        return view('pages.show', compact('page'));
     }
 
     /**

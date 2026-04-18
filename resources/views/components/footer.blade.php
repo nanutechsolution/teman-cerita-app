@@ -14,7 +14,7 @@
 
             {{-- Kolom 1: Branding & Philosophy (Dibuat rata tengah di Mobile, rata kiri di Desktop) --}}
             <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
-                
+
                 <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-center lg:origin-left">
 
                     <!-- Wrapper Logo -->
@@ -220,21 +220,21 @@
 
             <div class="flex flex-col md:flex-row items-center gap-6">
                 <nav class="flex flex-wrap justify-center gap-4 text-neutral-600 dark:text-neutral-500 text-xs font-semibold uppercase tracking-wider transition-colors">
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Kode Etik Jurnalistik</a>
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Pedoman Siber</a>
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Penafian</a>
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Privasi</a>
+                    <a href="{{ route('page.show', 'kode-etik-jurnalistik') }}" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">
+                        Kode Etik Jurnalistik
+                    </a>
+                    <a href="{{ route('page.show', 'pedoman-media-siber') }}" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">
+                        Pedoman Siber
+                    </a>
+                    <a href="{{ route('page.show', 'penafian') }}" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">
+                        Penafian
+                    </a>
+                    <a href="{{ route('page.show', 'kebijakan-privasi') }}" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">
+                        Privasi
+                    </a>
                 </nav>
                 <div class="h-4 w-px bg-neutral-300 dark:bg-neutral-800 hidden md:block transition-colors"></div>
 
-                {{-- Live Indicator --}}
-                <div class="flex items-center gap-2 px-3 py-1.5 bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-md text-neutral-700 dark:text-neutral-400 text-xs font-bold uppercase tracking-wider transition-colors">
-                    <span class="relative flex h-2 w-2">
-                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-500 opacity-75"></span>
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
-                    </span>
-                    Sistem Online
-                </div>
             </div>
         </div>
     </div>

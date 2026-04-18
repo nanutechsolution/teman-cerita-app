@@ -12,4 +12,5 @@ enum NavigationGroup: string
     case INBOX = 'Kotak Masuk';
     case PARTNERS = 'Sponsor & Partner';
     case SYSTEM_SECURITY = 'Sistem & Keamanan';
+    case BUSINESS_MANAGEMENT = 'Manajemen Bisnis';
 }

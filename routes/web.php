@@ -20,7 +20,7 @@ Route::get('/indeks', [PublicController::class, 'indeks'])->name('indeks');
 
 // --- ARSIP KONTEN (SEO FRIENDLY) ---
 // Menggunakan parameter slug agar URL terlihat profesional: /berita/judul-berita-anda
-Route::get('/berita/{slug}', [PublicController::class, 'show'])->name('episode.show');
+Route::get('/berita/{slug}', [PublicController::class, 'show'])->name('post.show');
 
 // Arsip berdasarkan Kategori: /rubrik/ekonomi-kreatif
 Route::get('/rubrik/{category:slug}', [PublicController::class, 'category'])->name('category.show');
@@ -28,21 +28,19 @@ Route::get('/rubrik/{category:slug}', [PublicController::class, 'category'])->na
 // Arsip berdasarkan Tag/Topik: /topik/kupang
 Route::get('/topik/{tag:slug}', [PublicController::class, 'tag'])->name('tag.show');
 
-// --- INFORMASI INSTITUSIONAL (STATIS/DINAMIS) ---
+// --- INFORMASI INSTITUSIONAL & HALAMAN DINAMIS ---
+/** * Senior Note: Kita menggunakan rute dinamis untuk halaman yang datanya diambil dari tabel 'pages'.
+ * Ini mencakup: Kebijakan Privasi, Pedoman Siber, Kode Etik, dll.
+ */
+Route::get('/halaman/{slug}', [PublicController::class, 'page'])->name('page.show');
+
+// Rute khusus untuk Redaksi karena memiliki logika grouping anggota yang kompleks di Controller
 Route::get('/redaksi', [PublicController::class, 'redaksi'])->name('redaksi');
-Route::get('/pedoman-media-siber', [PublicController::class, 'pedoman'])->name('pedoman');
-Route::get('/tentang-kami', [PublicController::class, 'tentang'])->name('tentang');
+
+// Halaman lainnya yang masih bersifat fungsional/khusus
 Route::get('/kontak', [PublicController::class, 'kontak'])->name('kontak');
 Route::get('/karir', [PublicController::class, 'karir'])->name('karir');
-
-// --- FITUR ENGAGEMENT & LEGAL ---
-Route::get('/suara-warga', [PublicController::class, 'suaraWarga'])->name('suara-warga');
-Route::get('/disclaimer', [PublicController::class, 'disclaimer'])->name('disclaimer');
 Route::get('/info-iklan', [PublicController::class, 'iklan'])->name('iklan');
 
-/*
-|--------------------------------------------------------------------------
-| Auth & Admin Routes (Filament)
-|--------------------------------------------------------------------------
-| Biasanya Filament akan otomatis mendaftarkan rute /admin-nya sendiri.
-*/
+// --- FITUR ENGAGEMENT ---
+Route::get('/suara-warga', [PublicController::class, 'suaraWarga'])->name('suara-warga');
