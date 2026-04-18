@@ -202,31 +202,75 @@
             </div>
         </div>
 
-        <!-- MENU MOBILE (OVERLAY) -->
-        <div x-show="isMobileMenuOpen" x-transition class="absolute top-full left-0 w-full bg-white dark:bg-[#0f0f0f] border-b border-neutral-200 dark:border-neutral-800 p-6 xl:hidden shadow-2xl z-[100]" x-cloak>
+   <!-- MENU MOBILE (OVERLAY) -->
+        <div x-show="isMobileMenuOpen" 
+             x-transition:enter="transition ease-out duration-300"
+             x-transition:enter-start="opacity-0 -translate-y-4"
+             x-transition:enter-end="opacity-100 translate-y-0"
+             x-transition:leave="transition ease-in duration-200"
+             x-transition:leave-start="opacity-100 translate-y-0"
+             x-transition:leave-end="opacity-0 -translate-y-4"
+             class="absolute top-full left-0 w-full max-h-[85vh] overflow-y-auto bg-white/95 dark:bg-[#121212]/95 backdrop-blur-xl border-b border-neutral-200 dark:border-neutral-800 p-5 sm:p-6 xl:hidden shadow-[0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-[100]" x-cloak>
 
-            <!-- Tambahan Pencarian di Mobile -->
-            <form action="{{ route('search') }}" method="GET" class="mb-6">
-                <input type="text" name="q" placeholder="Cari berita..." class="w-full bg-neutral-100 dark:bg-[#121212] border border-neutral-300 dark:border-neutral-700 focus:border-red-500 rounded-xl px-5 py-3 text-sm text-neutral-900 dark:text-white outline-none font-bold uppercase tracking-widest transition-colors">
+            <!-- Kotak Pencarian Mobile -->
+            <form action="{{ route('search') }}" method="GET" class="relative mb-8">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg class="w-5 h-5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                </div>
+                <input type="text" name="q" placeholder="Cari berita..." 
+                       class="w-full bg-neutral-100 dark:bg-[#1a1a1a] border border-transparent focus:border-red-500/50 rounded-2xl pl-11 pr-5 py-3.5 text-sm text-neutral-900 dark:text-white outline-none font-semibold transition-all shadow-inner focus:bg-white dark:focus:bg-[#121212]">
             </form>
 
-            <div class="flex flex-col gap-4 mb-6 pb-6 border-b border-neutral-200 dark:border-neutral-800">
-                <p class="text-[10px] font-black text-neutral-400 uppercase tracking-widest mb-2">Seluruh Rubrik</p>
-                <a href="{{ route('home') }}" class="text-lg font-black text-neutral-900 dark:text-white uppercase italic hover:text-red-600 transition-colors">Beranda</a>
+            <!-- Menu Kategori (List Style) -->
+            <div class="flex flex-col gap-1.5 mb-8">
+                <p class="text-[11px] font-black text-neutral-400 dark:text-neutral-500 uppercase tracking-[0.2em] mb-2 px-2">Eksplorasi</p>
+                
+                <a href="{{ route('home') }}" class="group flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 hover:bg-red-50 dark:hover:bg-[#1a1a1a] hover:text-red-600 dark:hover:text-red-500 transition-all active:scale-[0.98]">
+                    <div class="flex items-center gap-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        Beranda
+                    </div>
+                    <svg class="w-4 h-4 text-neutral-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
+
                 @foreach($categories as $cat)
-                <a href="{{ route('category.show', $cat->slug) }}" class="text-lg font-black text-neutral-900 dark:text-white uppercase italic hover:text-red-600 transition-colors">{{ $cat->name }}</a>
+                <a href="{{ route('category.show', $cat->slug) }}" class="group flex items-center justify-between px-4 py-3.5 rounded-xl text-sm font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 hover:bg-red-50 dark:hover:bg-[#1a1a1a] hover:text-red-600 dark:hover:text-red-500 transition-all active:scale-[0.98]">
+                    <div class="flex items-center gap-3">
+                        <span class="w-1.5 h-1.5 rounded-full bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                        {{ $cat->name }}
+                    </div>
+                    <svg class="w-4 h-4 text-neutral-400 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+                </a>
                 @endforeach
             </div>
 
-            <!-- Tambahan Switch Dark Mode & YouTube di Menu Mobile -->
-            <div class="flex flex-col gap-4">
-                <button @click="toggleDarkMode()" class="flex items-center justify-between w-full p-4 bg-neutral-50 dark:bg-[#121212] rounded-xl text-xs font-black uppercase tracking-widest transition-colors">
-                    <span x-text="darkMode ? 'Terangkan Layar' : 'Gelapkan Layar'" class="text-neutral-700 dark:text-neutral-300"></span>
-                    <div class="w-10 h-6 bg-neutral-200 dark:bg-neutral-800 rounded-full relative">
-                        <div class="absolute top-1 left-1 w-4 h-4 rounded-full transition-transform bg-white shadow-sm" :class="darkMode ? 'translate-x-4 bg-red-600' : ''"></div>
+            <!-- Bagian Bawah: Switch Dark Mode -->
+            <div class="border-t border-neutral-200 dark:border-neutral-800 pt-6 mt-2 pb-4">
+                <button @click="toggleDarkMode()" class="flex items-center justify-between w-full p-4 bg-neutral-50 dark:bg-[#1a1a1a] rounded-2xl border border-neutral-100 dark:border-neutral-800 hover:border-neutral-300 dark:hover:border-neutral-700 transition-all active:scale-[0.98]">
+                    
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 rounded-full bg-white dark:bg-[#252525] shadow-sm text-neutral-600 dark:text-neutral-400">
+                            <!-- Icon Sun (Light Mode) -->
+                            <svg x-show="!darkMode" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                            </svg>
+                            <!-- Icon Moon (Dark Mode) -->
+                            <svg x-show="darkMode" class="w-4 h-4 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" x-cloak>
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                            </svg>
+                        </div>
+                        <span class="text-xs font-bold uppercase tracking-widest text-neutral-800 dark:text-neutral-200" x-text="darkMode ? 'Mode Gelap Aktif' : 'Mode Terang Aktif'"></span>
+                    </div>
+
+                    <!-- Toggle UI -->
+                    <div class="w-11 h-6 bg-neutral-300 dark:bg-neutral-700 rounded-full relative transition-colors duration-300" :class="darkMode ? 'bg-red-600 dark:bg-red-600' : ''">
+                        <div class="absolute top-1 left-1 w-4 h-4 rounded-full bg-white shadow-md transition-transform duration-300" :class="darkMode ? 'translate-x-5' : ''"></div>
                     </div>
                 </button>
             </div>
+            
         </div>
     </nav>
 
