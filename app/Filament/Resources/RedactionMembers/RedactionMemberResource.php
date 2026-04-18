@@ -21,7 +21,7 @@ class RedactionMemberResource extends Resource
 {
     protected static ?string $model = RedactionMember::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedPencilSquare;
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationLabel = 'Anggota Redaksi';
 

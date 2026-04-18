@@ -6,10 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Spatie\Activitylog\LogOptions;
 
-class Episode extends Model
+class Post extends Model
 {
-    use HasFactory;
+    use HasFactory, LogsActivity; // Tambahkan LogsActivity di sini
+
+    protected $table = 'posts'; // Nama tabel yang sesuai dengan migrasi awal
 
     /**
      * Atribut yang dapat diisi secara massal.
@@ -25,7 +29,6 @@ class Episode extends Model
         'content',
         'is_published',
         'published_at',
-        // SEO Meta Fields
         'meta_title',
         'meta_description',
         'meta_keywords',
@@ -57,27 +60,38 @@ class Episode extends Model
     ];
 
     /**
+     * Konfigurasi Log Aktivitas (Audit Keredaksian)
+     */
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            // Tentukan kolom mana saja yang krusial untuk dicatat jika terjadi perubahan
+            ->logOnly([
+                'title',
+                'slug',
+                'content',
+                'excerpt',
+                'is_published',
+                'is_headline',
+                'is_breaking',
+                'category_id',
+                'author_id',
+                'editor_id'
+            ])
+            // Hanya rekam log jika nilai benar-benar berubah (menghemat database)
+            ->logOnlyDirty()
+            // Jangan simpan log kosong
+            ->dontSubmitEmptyLogs()
+            // Format deskripsi agar mudah dibaca manusia
+            ->setDescriptionForEvent(fn(string $eventName) => "Artikel telah di-{$eventName}");
+    }
+
+    /**
      * Relasi: Setiap Episode milik satu Kategori.
      */
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
-    }
-
-    /**
-     * Relasi: Satu Episode dapat memiliki banyak Narasumber (Speakers).
-     */
-    public function speakers(): BelongsToMany
-    {
-        return $this->belongsToMany(Speaker::class);
-    }
-
-    /**
-     * Relasi: Banyak Episode bisa memiliki banyak Tag.
-     */
-    public function tags(): BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class);
     }
 
     /**
@@ -88,6 +102,11 @@ class Episode extends Model
         return $this->belongsTo(User::class, 'author_id');
     }
 
+    // tags
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class);
+    }
     /**
      * Relasi: Episode (Artikel) disetujui/diedit oleh satu User (Editor).
      */
@@ -95,6 +114,16 @@ class Episode extends Model
     {
         return $this->belongsTo(User::class, 'editor_id');
     }
-
-  
+    /**
+     * Relasi: Banyak Episode bisa memiliki banyak Tag.
+     */
+    // DI DALAM app/Models/Tag.php
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class);
+    }
+    public function speakers(): BelongsToMany
+    {
+        return $this->belongsToMany(Speaker::class);
+    }
 }

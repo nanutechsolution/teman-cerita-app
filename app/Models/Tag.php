@@ -18,12 +18,9 @@ class Tag extends Model
         'slug',
     ];
 
-    /**
-     * Relasi kebalikan (Inverse Relationship): 
-     * Satu Tag dapat dimiliki oleh banyak Episode (Artikel/Video).
-     */
-    public function episodes(): BelongsToMany
+    public function posts(): BelongsToMany
     {
-        return $this->belongsToMany(Episode::class);
+        // Penjelasan parameter: (Model Tujuan, Nama Tabel Pivot, Foreign Key Model Ini, Foreign Key Model Tujuan)
+        return $this->belongsToMany(Post::class);
     }
 }

@@ -21,15 +21,16 @@ class SpeakerResource extends Resource
 {
     protected static ?string $model = Speaker::class;
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserGroup;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMicrophone;
 
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationLabel = 'Narasumber';
+    protected static ?string $modelLabel = 'Narasumber';
     protected static ?int $navigationSort = 3;
 
     public static function getNavigationGroup(): ?string
     {
-        return NavigationGroup::CONTENT->value;
+        return NavigationGroup::USER_MANAGEMENT->value;
     }
     public static function form(Schema $schema): Schema
     {

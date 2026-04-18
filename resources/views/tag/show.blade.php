@@ -12,9 +12,9 @@
             </h1>
         </div>
 
-        @if($episodes->count() > 0)
+        @if($posts->count() > 0)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                @foreach($episodes as $ep)
+                @foreach($posts as $ep)
                     <article class="group relative flex flex-col">
                         <div class="aspect-video rounded-xl overflow-hidden mb-4 border border-neutral-200 dark:border-neutral-800">
                             <img src="{{ $ep->img ? asset('storage/' . $ep->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80' }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
@@ -37,7 +37,7 @@
             </div>
 
             <div class="mt-16">
-                {{ $episodes->links() }}
+                {{ $posts->links() }}
             </div>
 
             {{-- Share & Support Section --}}

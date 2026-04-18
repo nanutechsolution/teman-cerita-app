@@ -1,8 +1,8 @@
 <x-layouts.app :settings="$settings">
     {{-- SEO Meta Dinamis --}}
-    @slot('title', ($episode->meta_title ?? $episode->title) . ' | ' . ($settings['site_name'] ?? 'Highlight NTT'))
-    @slot('meta_description', $episode->meta_description ?? $episode->excerpt)
-    @slot('meta_keywords', $episode->meta_keywords)
+    @slot('title', ($post->meta_title ??$post->title) . ' | ' . ($settings['site_name'] ?? 'Highlight NTT'))
+    @slot('meta_description',$post->meta_description ??$post->excerpt)
+    @slot('meta_keywords',$post->meta_keywords)
 
     <article class="relative pt-24 lg:pt-32 pb-20 bg-white dark:bg-[#121212] transition-colors duration-300">
         <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -11,11 +11,11 @@
             <nav class="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-neutral-500 mb-6 md:mb-8 overflow-x-auto whitespace-nowrap no-scrollbar">
                 <a href="{{ route('home') }}" class="hover:text-red-600 transition-colors">Beranda</a>
                 <span class="text-neutral-300 dark:text-neutral-700">/</span>
-                @if($episode->category)
-                    <a href="{{ route('category.show', $episode->category->slug) }}" class="hover:text-red-600 transition-colors">{{ $episode->category->name }}</a>
+                @if($post->category)
+                    <a href="{{ route('category.show',$post->category->slug) }}" class="hover:text-red-600 transition-colors">{{$post->category->name }}</a>
                     <span class="text-neutral-300 dark:text-neutral-700">/</span>
                 @endif
-                <span class="text-neutral-900 dark:text-neutral-300 truncate max-w-[200px]">{{ Str::limit($episode->title, 30) }}</span>
+                <span class="text-neutral-900 dark:text-neutral-300 truncate max-w-[200px]">{{ Str::limit($post->title, 30) }}</span>
             </nav>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -25,38 +25,38 @@
                     <header class="mb-8">
                         {{-- Kategori Label --}}
                         <div class="mb-4 flex items-center gap-3">
-                            <a href="{{ $episode->category ? route('category.show', $episode->category->slug) : '#' }}" 
+                            <a href="{{$post->category ? route('category.show',$post->category->slug) : '#' }}" 
                                class="text-red-600 text-[11px] font-black uppercase tracking-widest">
-                                {{ $episode->category->name ?? 'News' }}
+                                {{$post->category->name ?? 'News' }}
                             </a>
-                            @if($episode->type !== 'article')
+                            @if($post->type !== 'article')
                                 <span class="text-neutral-300 dark:text-neutral-700">|</span>
                                 <span class="flex items-center gap-1.5 text-[10px] font-bold text-neutral-500 uppercase tracking-widest">
                                     <span class="w-1.5 h-1.5 rounded-full bg-red-600 animate-pulse"></span>
-                                    {{ $episode->type === 'short' ? 'Shorts' : 'Video' }}
+                                    {{$post->type === 'short' ? 'Shorts' : 'Video' }}
                                 </span>
                             @endif
                         </div>
                         
                         {{-- Judul Berita --}}
                         <h1 class="text-3xl sm:text-4xl md:text-[42px] font-black text-neutral-900 dark:text-white leading-[1.2] tracking-tight mb-6">
-                            {{ $episode->title }}
+                            {{$post->title }}
                         </h1>
 
                         {{-- Metadata Row (Penulis & Tanggal) --}}
                         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 py-4 border-y border-neutral-200 dark:border-neutral-800">
                             <div class="flex items-center gap-3">
                                 <div class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center overflow-hidden shrink-0 border border-neutral-200 dark:border-neutral-700">
-                                    @if($episode->author && $episode->author->profile_photo_path)
-                                        <img src="{{ asset('storage/' . $episode->author->profile_photo_path) }}" alt="{{ $episode->author->name }}" class="w-full h-full object-cover grayscale">
+                                    @if($post->author &&$post->author->profile_photo_path)
+                                        <img src="{{ asset('storage/' .$post->author->profile_photo_path) }}" alt="{{$post->author->name }}" class="w-full h-full object-cover grayscale">
                                     @else
-                                        <div class="font-black text-red-600 text-sm">{{ substr($episode->author->name ?? 'TC', 0, 2) }}</div>
+                                        <div class="font-black text-red-600 text-sm">{{ substr($post->author->name ?? 'TC', 0, 2) }}</div>
                                     @endif
                                 </div>
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-neutral-900 dark:text-white text-sm">{{ $episode->author->name ?? 'Redaksi Highlight NTT' }}</span>
+                                    <span class="font-bold text-neutral-900 dark:text-white text-sm">{{$post->author->name ?? 'Redaksi Highlight NTT' }}</span>
                                     <time class="text-[11px] text-neutral-500 font-medium">
-                                        {{ $episode->published_at ? $episode->published_at->translatedFormat('l, d F Y | H:i') : $episode->created_at->translatedFormat('l, d F Y | H:i') }} WIB
+                                        {{$post->published_at ?$post->published_at->translatedFormat('l, d F Y | H:i') :$post->created_at->translatedFormat('l, d F Y | H:i') }} WIB
                                     </time>
                                 </div>
                             </div>
@@ -69,10 +69,10 @@
                                 }
                             }">
                                 <span class="text-[10px] text-neutral-400 font-bold uppercase tracking-widest mr-2">Bagikan:</span>
-                                <a href="https://api.whatsapp.com/send?text={{ urlencode($episode->title . ' - ' . url()->current()) }}" target="_blank" class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors">
+                                <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' - ' . url()->current()) }}" target="_blank" class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center hover:bg-green-600 transition-colors">
                                     <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
                                 </a>
-                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($episode->title) }}" target="_blank" class="w-8 h-8 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:opacity-80 transition-opacity">
+                                <a href="https://twitter.com/intent/tweet?url={{ urlencode(url()->current()) }}&text={{ urlencode($post->title) }}" target="_blank" class="w-8 h-8 rounded-full bg-neutral-900 dark:bg-white text-white dark:text-black flex items-center justify-center hover:opacity-80 transition-opacity">
                                     <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                                 </a>
                                 <button @click="copyTo()" class="w-8 h-8 rounded-full bg-neutral-200 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-neutral-300 dark:hover:bg-neutral-700 transition-colors">
@@ -85,11 +85,11 @@
                     {{-- MEDIA HERO AREA (Edge-to-edge di Mobile) --}}
                     <figure class="mb-8 sm:mb-12 -mx-4 sm:mx-0">
                         <div class="relative aspect-video sm:rounded-sm overflow-hidden bg-neutral-100 dark:bg-neutral-900">
-                            <img src="{{ $episode->img ? asset('storage/' . $episode->img) : asset('images/default-news.jpg') }}" 
-                                 alt="{{ $episode->title }}" 
+                            <img src="{{$post->img ? asset('storage/' .$post->img) : asset('images/default-news.jpg') }}" 
+                                 alt="{{$post->title }}" 
                                  class="w-full h-full object-cover">
                             
-                            @if($episode->link)
+                            @if($post->link)
                                 <div class="absolute top-4 right-4 z-20">
                                     <div class="bg-black/70 backdrop-blur-md text-white px-3 py-1.5 rounded-sm flex items-center gap-1.5">
                                         <svg class="w-4 h-4 fill-current text-red-500" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
@@ -100,11 +100,11 @@
                         </div>
                         
                         {{-- Caption Gambar --}}
-                        @if($episode->image_caption || $episode->image_source)
+                        @if($post->image_caption ||$post->image_source)
                         <figcaption class="mt-2 px-4 sm:px-0 text-[11px] sm:text-xs text-neutral-500 flex flex-col sm:flex-row justify-between gap-1">
-                            <span class="leading-relaxed">{{ $episode->image_caption ?? $episode->title }}</span>
-                            @if($episode->image_source)
-                            <span class="font-semibold uppercase tracking-wider text-neutral-400 shrink-0">Kredit: {{ $episode->image_source }}</span>
+                            <span class="leading-relaxed">{{$post->image_caption ??$post->title }}</span>
+                            @if($post->image_source)
+                            <span class="font-semibold uppercase tracking-wider text-neutral-400 shrink-0">Kredit: {{$post->image_source }}</span>
                             @endif
                         </figcaption>
                         @endif
@@ -117,7 +117,7 @@
                         prose-a:text-red-600 dark:prose-a:text-red-500 prose-a:font-semibold prose-a:no-underline hover:prose-a:underline
                         prose-img:rounded-sm
                         prose-blockquote:border-l-4 prose-blockquote:border-red-600 prose-blockquote:bg-neutral-50 dark:prose-blockquote:bg-[#1a1a1a] prose-blockquote:py-2 prose-blockquote:px-6 prose-blockquote:my-8 prose-blockquote:text-neutral-700 dark:prose-blockquote:text-neutral-300 prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-xl">
-                        {!! $episode->content !!}
+                        {!!$post->content !!}
                     </div>
 
                     {{-- VIDEO PLAYER Bawah Artikel --}}
@@ -139,10 +139,10 @@
                     @endif
 
                     {{-- TAGS (Topik Terkait) --}}
-                    @if($episode->tags && $episode->tags->count() > 0)
+                    @if($post->tags &&$post->tags->count() > 0)
                     <div class="mt-12 flex flex-wrap gap-2 pt-6 border-t border-neutral-200 dark:border-neutral-800">
                         <span class="text-[10px] font-bold text-neutral-400 uppercase tracking-widest w-full mb-1">Topik Berita:</span>
-                        @foreach($episode->tags as $tag)
+                        @foreach($post->tags as $tag)
                             <a href="{{ route('tag.show', $tag->slug) }}" class="px-4 py-1.5 bg-neutral-100 dark:bg-neutral-800 text-neutral-700 dark:text-neutral-300 text-[11px] font-semibold uppercase tracking-wider rounded-sm hover:bg-red-600 hover:text-white transition-colors">
                                 {{ $tag->name }}
                             </a>
@@ -156,13 +156,13 @@
                 <div class="lg:col-span-4 lg:sticky lg:top-28">
                     
                     {{-- Narasumber Profil (Lebih Bersih) --}}
-                    @if($episode->speakers && $episode->speakers->count() > 0)
+                    @if($post->speakers &&$post->speakers->count() > 0)
                     <div class="mb-10">
                         <h3 class="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-tight border-b-2 border-black dark:border-white pb-2 mb-5">
                             Narasumber
                         </h3>
                         <div class="space-y-6">
-                            @foreach($episode->speakers as $speaker)
+                            @foreach($post->speakers as $speaker)
                             <div class="flex items-start gap-4">
                                 <div class="w-14 h-14 rounded-sm overflow-hidden bg-neutral-200 shrink-0">
                                     @if($speaker->photo)

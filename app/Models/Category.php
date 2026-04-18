@@ -8,9 +8,8 @@ class Category extends Model
 {
     protected $fillable = ['name', 'slug'];
 
-    // Relasi: Satu Kategori punya banyak Episode
-    public function episodes()
+    public function posts()
     {
-        return $this->hasMany(Episode::class);
+        return $this->hasMany(Post::class);
     }
 }

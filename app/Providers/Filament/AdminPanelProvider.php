@@ -57,7 +57,9 @@ class AdminPanelProvider extends PanelProvider
                 NavigationNavigationGroup::make()
                     ->label(NavigationGroup::USER_MANAGEMENT->value),
                 NavigationNavigationGroup::make()
-                    ->label(NavigationGroup::SETTINGS->value)
+                    ->label(NavigationGroup::SETTINGS->value),
+                NavigationNavigationGroup::make()
+                    ->label(NavigationGroup::SYSTEM_SECURITY->value)
             ])
             ->middleware([
                 EncryptCookies::class,

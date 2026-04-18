@@ -19,6 +19,6 @@ class Speaker extends Model
 
     public function episodes(): BelongsToMany
     {
-        return $this->belongsToMany(Episode::class);
+        return $this->belongsToMany(Post::class);
     }
 }

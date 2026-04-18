@@ -11,6 +11,7 @@ use App\Filament\Resources\Episodes\Schemas\EpisodeForm;
 use App\Filament\Resources\Episodes\Schemas\EpisodeInfolist;
 use App\Filament\Resources\Episodes\Tables\EpisodesTable;
 use App\Models\Episode;
+use App\Models\Post;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -19,10 +20,10 @@ use Filament\Tables\Table;
 
 class EpisodeResource extends Resource
 {
-    protected static ?string $model = Episode::class;
+    protected static ?string $model = Post::class;
 
 
-    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMicrophone;
+    protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedNewspaper;
     protected static ?string $recordTitleAttribute = 'name';
     protected static ?string $navigationLabel = 'Daftar Berita';
     protected static ?string $modelLabel = 'Berita';

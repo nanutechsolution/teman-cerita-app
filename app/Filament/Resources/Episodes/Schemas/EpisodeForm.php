@@ -79,6 +79,8 @@ class EpisodeForm
                                 ->directory('episode')
                                 ->imageEditorAspectRatioOptions(['16:9', '9:16', '1:1'])
                                 ->maxSize(2048)
+                                ->maxFiles(1)
+                                ->helperText('Maximal 1 file. Format yang diperbolehkan: JPG, PNG, WEBP. Ukuran maksimal 2MB.')
                                 ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
                                 ->required()
                                 ->columnSpanFull(),

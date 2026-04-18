@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Episode;
+use App\Models\AdPackage;
+use App\Models\Post; // Menggunakan Post alih-alih Episode
 use App\Models\Partner;
 use App\Models\Setting;
 use App\Models\Category;
@@ -21,12 +22,13 @@ class PublicController extends Controller
     {
         $settings = Setting::pluck('value', 'key')->toArray();
 
-        $categories = Category::withCount(['episodes' => function ($query) {
-        }])
+        // Mengubah relasi episodes menjadi posts
+        $categories = Category::withCount(['posts' => function ($query) {}])
             ->get();
 
-        $popularTags = Tag::withCount('episodes')
-            ->orderBy('episodes_count', 'desc')
+        // Mengubah relasi episodes menjadi posts
+        $popularTags = Tag::withCount('posts')
+            ->orderBy('posts_count', 'desc')
             ->take(12)
             ->get();
 
@@ -41,7 +43,7 @@ class PublicController extends Controller
     public function index()
     {
         // Ambil koleksi headline (Maksimal 5 untuk slider)
-        $headlines = Episode::with(['category', 'author'])
+        $headlines = Post::with(['category', 'author'])
             ->where('is_published', true)
             ->where('is_headline', true)
             ->where('published_at', '<=', now())
@@ -49,19 +51,19 @@ class PublicController extends Controller
             ->take(5)
             ->get();
 
-        $breakingNews = Episode::where('is_published', true)
+        $breakingNews = Post::where('is_published', true)
             ->where('is_breaking', true)
             ->latest('published_at')
             ->take(5)
             ->get();
 
-        $trendingNews = Episode::where('is_published', true)
+        $trendingNews = Post::where('is_published', true)
             ->orderBy('views', 'desc')
             ->take(5)
             ->get();
 
         // Ambil berita terbaru, kecualikan berita yang sudah masuk di slider headline
-        $latestEpisodes = Episode::with(['category', 'author'])
+        $latestPosts = Post::with(['category', 'author'])
             ->where('is_published', true)
             ->where('published_at', '<=', now())
             ->when($headlines->isNotEmpty(), function ($q) use ($headlines) {
@@ -73,33 +75,35 @@ class PublicController extends Controller
 
         $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
 
-        // Pastikan variabel dikirim sebagai 'headlines' (jamak) sesuai kode di blade
-        return view('welcome', compact('headlines', 'breakingNews', 'latestEpisodes', 'trendingNews', 'partners'));
+        // Mengganti latestEpisodes menjadi latestPosts
+        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners'));
     }
 
     /**
-     * Menampilkan detail Berita / Episode.
+     * Menampilkan detail Berita / Post.
      */
     public function show($slug)
     {
-        $episode = Episode::with(['category', 'speakers', 'tags', 'author'])
+        $post = Post::with(['category', 'speakers', 'tags', 'author'])
             ->where('slug', $slug)
             ->where('is_published', true)
             ->firstOrFail();
 
-        $episode->increment('views');
+        // Catatan Senior: Untuk ke depannya saat trafik tinggi, pindahkan increment ini menggunakan Redis + Job/Scheduler
+        $post->increment('views');
 
         // Deteksi platform video untuk embed otomatis
-        $videoData = $this->detectVideoPlatform($episode->link);
+        $videoData = $this->detectVideoPlatform($post->link);
 
-        $relatedEpisodes = Episode::where('category_id', $episode->category_id)
-            ->where('id', '!=', $episode->id)
+        $relatedPosts = Post::where('category_id', $post->category_id)
+            ->where('id', '!=', $post->id)
             ->where('is_published', true)
             ->latest('published_at')
             ->take(4)
             ->get();
 
-        return view('episodes.show', compact('episode', 'relatedEpisodes', 'videoData'));
+        // Mengarahkan view ke folder posts/
+        return view('episodes.show', compact('post', 'relatedPosts', 'videoData'));
     }
 
     /**
@@ -109,13 +113,13 @@ class PublicController extends Controller
     {
         $date = $request->input('date', now()->format('Y-m-d'));
 
-        $episodes = Episode::with(['category', 'author'])
+        $posts = Post::with(['category', 'author'])
             ->whereDate('published_at', $date)
             ->where('is_published', true)
             ->latest('published_at')
             ->paginate(20);
 
-        return view('pages.indeks', compact('episodes', 'date'));
+        return view('pages.indeks', compact('posts', 'date'));
     }
 
     /**
@@ -123,13 +127,13 @@ class PublicController extends Controller
      */
     public function category(Category $category)
     {
-        $episodes = Episode::with(['category', 'author'])
+        $posts = Post::with(['category', 'author'])
             ->where('category_id', $category->id)
             ->where('is_published', true)
             ->latest('published_at')
             ->paginate(12);
 
-        return view('category.show', compact('category', 'episodes'));
+        return view('category.show', compact('category', 'posts'));
     }
 
     /**
@@ -137,13 +141,13 @@ class PublicController extends Controller
      */
     public function tag(Tag $tag)
     {
-        $episodes = $tag->episodes()
+        $posts = $tag->posts()
             ->with(['category', 'author'])
             ->where('is_published', true)
             ->latest('published_at')
             ->paginate(12);
 
-        return view('tag.show', compact('tag', 'episodes'));
+        return view('tag.show', compact('tag', 'posts'));
     }
 
     /**
@@ -152,7 +156,8 @@ class PublicController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('q');
-        $episodes = Episode::with(['category', 'author'])
+
+        $posts = Post::with(['category', 'author'])
             ->where('is_published', true)
             ->where(function ($q) use ($query) {
                 $q->where('title', 'like', "%{$query}%")
@@ -162,8 +167,7 @@ class PublicController extends Controller
             ->paginate(12)
             ->withQueryString();
 
-        // Tulis 'query' sebagai string, bukan $query
-        return view('search', compact('episodes', 'query'));
+        return view('search', compact('posts', 'query'));
     }
 
     /**
@@ -175,6 +179,7 @@ class PublicController extends Controller
             ->orderBy('sort_order', 'asc')
             ->get()
             ->groupBy('group');
+
         return view('pages.redaksi', compact('members'));
     }
 
@@ -204,11 +209,18 @@ class PublicController extends Controller
     }
     public function disclaimer()
     {
-        return view('pages.disclaimer');
+        $adPackages = AdPackage::where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->get();
+        return view('pages.disclaimer', compact('adPackages'));
     }
     public function iklan()
     {
-        return view('pages.iklan');
+        $adPackages = AdPackage::where('is_active', true)
+            ->orderBy('sort_order', 'asc')
+            ->get();
+
+        return view('pages.iklan', compact('adPackages'));
     }
 
     /**

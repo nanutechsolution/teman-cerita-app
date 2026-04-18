@@ -133,7 +133,7 @@
 
         <!-- Grid 3 Kolom untuk keterbacaan yang optimal -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
-            @forelse($latestEpisodes as $index => $ep)
+            @forelse($latestPosts as $index => $ep)
                 @if(!( !isset($headlines) || $headlines->count() == 0 ) || $index > 0)
                     <article class="group flex flex-col h-full">
                         <!-- Area Gambar Edge-to-Edge pada kolom -->

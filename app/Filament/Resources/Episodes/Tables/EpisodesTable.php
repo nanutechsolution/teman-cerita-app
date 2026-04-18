@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Episodes\Tables;
 
 use App\Models\Episode;
+use App\Models\Post;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -32,7 +33,7 @@ class EpisodesTable
                     ->searchable()
                     ->sortable()
                     ->wrap()
-                    ->description(fn(Episode $record): string => str($record->slug)->limit(40)),
+                    ->description(fn(Post $record): string => str($record->slug)->limit(40)),
 
                 TextColumn::make('type')
                     ->label('Format')
@@ -96,7 +97,7 @@ class EpisodesTable
                     ->label('Link Eksternal')
                     ->icon('heroicon-m-link')
                     ->color('info')
-                    ->url(fn(Episode $record): ?string => $record->link)
+                    ->url(fn(Post $record): ?string => $record->link)
                     ->openUrlInNewTab()
                     ->formatStateUsing(fn() => 'Buka')
                     ->toggleable(isToggledHiddenByDefault: true),

@@ -5,8 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Category;
 use App\Models\Speaker;
-use App\Models\Episode;
 use App\Models\Partner;
+use App\Models\Post;
 use App\Models\Setting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
@@ -42,6 +42,7 @@ class DatabaseSeeder extends Seeder
         foreach ($settings as $setting) {
             Setting::updateOrCreate(['key' => $setting['key']], $setting);
         }
+
         // 3. KATEGORI ISU
         $categories = [
             ['name' => 'Peristiwa', 'slug' => 'peristiwa'],
@@ -102,11 +103,11 @@ class DatabaseSeeder extends Seeder
             Partner::updateOrCreate(['name' => $partner['name']], $partner);
         }
 
-        // 6. EPISODE CONTOH
+        // 6. POST/BERITA CONTOH (Refactored dari Episode)
         $categoryIds = Category::pluck('id')->toArray();
         $speakerIds = Speaker::pluck('id')->toArray();
 
-        $episodes = [
+        $postsData = [
             [
                 'title' => 'Bedah Makan Bergizi Gratis & Tantangannya di Kab. Sikka',
                 'slug' => 'bedah-makan-bergizi-gratis-sikka',
@@ -137,7 +138,7 @@ class DatabaseSeeder extends Seeder
                 'title' => 'Edukasi Politik: Jari Pintar di Tahun Politik NTT',
                 'slug' => 'edukasi-politik-jari-pintar-ntt',
                 'category_id' => $categoryIds[2],
-                'date' => now()->addDays(2), // DIJADWALKAN TAYANG MASA DEPAN
+                'date' => now()->addDays(2),
                 'link' => 'https://www.youtube.com/watch?v=example3',
                 'img' => 'episodes/default-thumbnail.png',
                 'content' => '<p>Menjelang Pilkada, bagaimana warga NTT menyaring informasi hoax di media sosial? Diskusi bersama pakar komunikasi mengenai literasi digital politik.</p>',
@@ -148,11 +149,11 @@ class DatabaseSeeder extends Seeder
             ],
         ];
 
-        foreach ($episodes as $index => $epData) {
-            $episode = Episode::updateOrCreate(['slug' => $epData['slug']], $epData);
+        foreach ($postsData as $index => $postData) {
+            $post = Post::updateOrCreate(['slug' => $postData['slug']], $postData);
 
-            // Hubungkan dengan 1-2 narasumber secara acak
-            $episode->speakers()->sync([
+            // Hubungkan dengan 1-2 narasumber secara acak menggunakan metode relasi yang telah bersih
+            $post->speakers()->sync([
                 $speakerIds[$index % count($speakerIds)],
             ]);
         }

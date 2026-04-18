@@ -111,6 +111,13 @@ class SettingSeeder extends Seeder
                 'type' => 'text',
                 'group' => 'General'
             ],
+            [
+                'key' => 'whatsapp_number',
+                'label' => 'Nomor WhatsApp',
+                'value' => '+628123456789',
+                'type' => 'text',
+                'group' => 'Contact'
+            ]
         ];
 
         foreach ($settings as $setting) {

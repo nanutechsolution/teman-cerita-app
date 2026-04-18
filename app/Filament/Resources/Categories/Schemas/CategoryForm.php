@@ -13,14 +13,13 @@ class CategoryForm
     {
         return $schema
             ->components([
-               Section::make('Detail Kategori')->schema([
+                Section::make('Detail Kategori')->schema([
                     TextInput::make('name')
                         ->label('Nama Kategori')
                         ->required()
                         ->maxLength(255)
                         ->live(onBlur: true)
-                        ->afterStateUpdated(fn (Set $set, ?string $state) => $set('slug', \Illuminate\Support\Str::slug($state))),
-                        
+                        ->afterStateUpdated(fn(Set $set, ?string $state) => $set('slug', \Illuminate\Support\Str::slug($state))),
                     TextInput::make('slug')
                         ->label('Slug Kategori (URL)')
                         ->required()

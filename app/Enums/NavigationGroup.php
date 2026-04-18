@@ -11,4 +11,5 @@ enum NavigationGroup: string
     case MASTER_DATA = 'Data Master';
     case INBOX = 'Kotak Masuk';
     case PARTNERS = 'Sponsor & Partner';
+    case SYSTEM_SECURITY = 'Sistem & Keamanan';
 }
