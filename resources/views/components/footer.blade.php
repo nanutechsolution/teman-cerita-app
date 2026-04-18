@@ -14,25 +14,25 @@
 
             {{-- Kolom 1: Branding & Philosophy --}}
             <div class="lg:col-span-4 space-y-6">
-                
+
                 {{-- KOMPONEN LOGO VERTIKAL FOOTER --}}
                 <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-left">
-                    
+
                     <!-- Wrapper Logo -->
                     <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
                         @if(isset($settings['site_logo']))
-                            <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
+                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
                         @else
-                            <!-- Fallback Icon jika logo kosong -->
-                            <svg class="w-8 h-8 sm:w-10 sm:h-10 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-                            </svg>
+                        <!-- Fallback Icon jika logo kosong -->
+                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
+                        </svg>
                         @endif
                     </div>
 
                     <!-- Wrapper Teks Typography (Logo Vertikal) -->
                     <div class="flex flex-col items-end select-none mt-1 sm:mt-0">
-                        
+
                         <!-- Baris "Highlight NTT" -->
                         <div class="flex items-baseline leading-none">
                             <span class="text-3xl sm:text-[34px] font-black tracking-tight 
@@ -51,7 +51,7 @@
                                      text-[#041E42] dark:text-[#e2e8f0]">
                             .com
                         </span>
-                        
+
                     </div>
                 </a>
                 {{-- END LOGO --}}
@@ -132,7 +132,6 @@
                     <li><a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-500 transition-colors text-sm font-medium">Berita Utama</a></li>
                     <li><a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-500 transition-colors text-sm font-medium">Opini Publik</a></li>
                     <li><a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-500 transition-colors text-sm font-medium">Budaya & Sosok</a></li>
-                    <li><a href="#" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-500 transition-colors text-sm font-medium">Podcast</a></li>
                     @endif
                 </ul>
             </div>
@@ -223,9 +222,9 @@
 
             <div class="flex flex-col md:flex-row items-center gap-6">
                 <nav class="flex flex-wrap justify-center gap-4 text-neutral-600 dark:text-neutral-500 text-xs font-semibold uppercase tracking-wider transition-colors">
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Pedoman Siber</a>
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Kode Etik Jurnalistik</a>
-                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Penafian</a>
+                    <a href="#" class="hover:text-red-600 dark:hover:tr:text-red-500 transition-colors">Kode Etik Jurnalistik</a>
+                    <a href="#" class="hover:text-red-600 dark:hovext-red-500 transition-colors">Pedoman Siber</a>
+                    <a href="#" class="hover:text-red-600 dark:hoveer:text-red-500 transition-colors">Penafian</a>
                     <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Privasi</a>
                 </nav>
                 <div class="h-4 w-px bg-neutral-300 dark:bg-neutral-800 hidden md:block transition-colors"></div>

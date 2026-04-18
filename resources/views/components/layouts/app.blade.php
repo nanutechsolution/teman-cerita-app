@@ -88,28 +88,28 @@
                     </div>
 
                     <!-- Wrapper Teks Typography -->
-                    <div class="flex flex-col items-end select-none mt-0.5 sm:mt-0">
+                   <div class="flex flex-col items-end select-none mt-1 sm:mt-0">
 
-                        <!-- Baris "Highlight NTT" -->
-                        <div class="flex items-baseline leading-none">
-                            <span class="text-2xl sm:text-[28px] font-black tracking-tight 
-                         text-white [-webkit-text-stroke:1px_#000] 
-                         dark:text-[#121212] dark:[-webkit-text-stroke:1px_#fff]">
-                                Highlight
-                            </span>
+    <!-- Baris "Highlight NTT" -->
+    <div class="flex items-baseline leading-none">
+        <span class="text-2xl sm:text-[28px] font-black tracking-tight 
+                     text-white [-webkit-text-stroke:0.5px_#000] sm:[-webkit-text-stroke:1px_#000] 
+                     dark:text-[#121212] dark:[-webkit-text-stroke:0.5px_#fff] sm:dark:[-webkit-text-stroke:1px_#fff]">
+            Highlight
+        </span>
 
-                            <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase ml-0.5">
-                                NTT
-                            </span>
-                        </div>
+        <span class="text-2xl sm:text-[28px] font-black tracking-tight text-red-600 uppercase ml-0.5">
+            NTT
+        </span>
+    </div>
 
-                        <!-- Baris ".com" -->
-                        <span class="text-[10px] sm:text-[12px] font-black tracking-[0.15em] -mt-1 leading-none 
-                     text-[#041E42] dark:text-[#e2e8f0]">
-                            .com
-                        </span>
+    <!-- Baris ".com" -->
+    <span class="text-[10px] sm:text-[12px] font-black tracking-[0.15em] -mt-0.5 sm:-mt-1.5 leading-none 
+                 text-[#041E42] dark:text-[#e2e8f0]">
+        .com
+    </span>
 
-                    </div>
+</div>
                 </a>
             </div>
             <!-- NAVIGASI & SEARCH -->
