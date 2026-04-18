@@ -89,7 +89,7 @@
                     </div>
 
                     <!-- Wrapper Teks Typography -->
-                    <div class="flex flex-col items-end select-none mt-0.5 sm:mt-0" >
+                    <div class="flex flex-col items-end select-none mt-0.5 sm:mt-0">
 
                         <!-- Baris "Highlight NTT" -->
                         <div class="flex items-baseline leading-none">
@@ -113,33 +113,46 @@
                     </div>
                 </a>
             </div>
-
             <!-- NAVIGASI & SEARCH -->
-            <div class="flex items-center justify-end gap-3 lg:gap-6 flex-1 min-w-0 font-black uppercase tracking-wider text-[11px]">
+            <div class="flex items-center justify-end gap-4 lg:gap-6 flex-1 min-w-0">
 
-                <!-- Menu Kategori -->
-                <div class="hidden xl:flex items-center gap-1">
-                    <a href="{{ route('home') }}" class="text-neutral-600 dark:text-neutral-300 hover:text-red-600 px-3 py-2 rounded-lg transition-colors">Home</a>
+                <!-- Menu Kategori (Desktop) -->
+                <div class="hidden xl:flex items-center gap-2">
+                    <a href="{{ route('home') }}" class="relative px-2 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 hover:text-red-600 dark:hover:text-red-500 transition-colors group">
+                        Home
+                        <!-- Animated Underline -->
+                        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full rounded-full"></span>
+                    </a>
 
                     @foreach($categories->take(3) as $navCat)
-                    <a href="{{ route('category.show', $navCat->slug) }}" class="text-neutral-600 dark:text-neutral-300 hover:text-red-600 px-3 py-2 rounded-lg transition-colors whitespace-nowrap">{{ $navCat->name }}</a>
+                    <a href="{{ route('category.show', $navCat->slug) }}" class="relative px-2 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 hover:text-red-600 dark:hover:text-red-500 transition-colors whitespace-nowrap group">
+                        {{ $navCat->name }}
+                        <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full rounded-full"></span>
+                    </a>
                     @endforeach
 
                     @if($categories->count() > 3)
-                    <div class="relative">
-                        <button @click.stop="isOtherMenuOpen = !isOtherMenuOpen" class="flex items-center gap-1 text-neutral-600 dark:text-neutral-300 hover:text-red-600 px-3 py-2 rounded-lg transition-colors">
+                    <div class="relative ml-1">
+                        <button @click.stop="isOtherMenuOpen = !isOtherMenuOpen" class="flex items-center gap-1.5 px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 hover:text-red-600 dark:hover:text-red-500 transition-colors group">
                             Rubrik
-                            <svg class="w-3 h-3 transition-transform" :class="isOtherMenuOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                <path d="M19 9l-7 7-7-7" />
+                            <svg class="w-4 h-4 transition-transform duration-300 group-hover:text-red-600" :class="isOtherMenuOpen ? 'rotate-180 text-red-600' : 'text-neutral-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
+
+                        <!-- Dropdown Menu -->
                         <div x-show="isOtherMenuOpen"
-                            x-transition:enter="transition ease-out duration-100"
-                            x-transition:enter-start="opacity-0 scale-95"
-                            x-transition:enter-end="opacity-100 scale-100"
-                            class="absolute right-0 mt-2 w-56 bg-white dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl py-3 overflow-hidden z-[60]" x-cloak>
+                            @click.away="isOtherMenuOpen = false"
+                            x-transition:enter="transition ease-out duration-200"
+                            x-transition:enter-start="opacity-0 translate-y-2"
+                            x-transition:enter-end="opacity-100 translate-y-0"
+                            x-transition:leave="transition ease-in duration-150"
+                            x-transition:leave-start="opacity-100 translate-y-0"
+                            x-transition:leave-end="opacity-0 translate-y-2"
+                            class="absolute right-0 mt-4 w-64 bg-white/95 dark:bg-[#151515]/95 backdrop-blur-md border border-neutral-100 dark:border-neutral-800 rounded-xl shadow-2xl py-2 overflow-hidden z-[60]" x-cloak>
                             @foreach($categories->skip(3) as $otherCat)
-                            <a href="{{ route('category.show', $otherCat->slug) }}" class="block px-5 py-2.5 text-[10px] font-bold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-red-600 transition-colors uppercase">
+                            <a href="{{ route('category.show', $otherCat->slug) }}" class="flex items-center gap-3 px-5 py-3 text-[11px] font-bold text-neutral-600 dark:text-neutral-300 hover:bg-red-50 dark:hover:bg-[#202020] hover:text-red-600 dark:hover:text-red-500 transition-all uppercase tracking-widest group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-red-600 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                                 {{ $otherCat->name }}
                             </a>
                             @endforeach
@@ -149,31 +162,42 @@
                 </div>
 
                 <!-- PENCARIAN & KONTROL -->
-                <div class="flex items-center gap-2 shrink-0">
-                    <form action="{{ route('search') }}" method="GET" class="hidden md:block relative group">
-                        <input type="text" name="q" placeholder="Cari..."
-                            class="w-32 lg:w-40 focus:w-56 bg-neutral-100 dark:bg-[#121212] border border-neutral-300 dark:border-neutral-700 focus:border-red-500 rounded-full px-4 py-1.5 text-xs text-neutral-900 dark:text-white transition-all duration-300 outline-none">
+                <div class="flex items-center gap-3 shrink-0 ml-2">
+
+                    <!-- Search Bar Desktop -->
+                    <form action="{{ route('search') }}" method="GET" class="hidden lg:block relative group">
+                        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
+                            <svg class="w-4 h-4 text-neutral-400 group-focus-within:text-red-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                        <input type="text" name="q" placeholder="Cari berita..."
+                            class="w-36 xl:w-48 focus:w-64 pl-10 pr-4 py-2 bg-neutral-100/80 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 focus:border-red-500 dark:focus:border-red-600 rounded-full text-[13px] font-medium text-neutral-900 dark:text-white transition-all duration-300 outline-none focus:shadow-[0_0_15px_rgba(220,38,38,0.1)] placeholder-neutral-400 dark:placeholder-neutral-500">
                     </form>
 
-                    <!-- Tombol Dark Mode (Sekarang muncul di semua ukuran layar) -->
-                    <button @click="toggleDarkMode()" class="p-2 flex rounded-full text-neutral-500 hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-colors focus:outline-none">
-                        <svg x-show="!darkMode" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    <!-- Garis Pemisah (Divider) -->
+                    <div class="hidden xl:block w-px h-6 bg-neutral-200 dark:bg-neutral-800 mx-1"></div>
+
+                    <!-- Tombol Dark Mode -->
+                    <button @click="toggleDarkMode()" class="p-2.5 rounded-full bg-neutral-50 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 text-neutral-500 dark:text-neutral-400 hover:text-red-600 dark:hover:text-red-500 hover:border-red-200 dark:hover:border-red-900/50 hover:bg-white dark:hover:bg-[#222] transition-all duration-300 focus:outline-none" aria-label="Toggle Dark Mode">
+                        <svg x-show="!darkMode" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>
-                        <svg x-show="darkMode" class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
-                            <path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
+                        <svg x-show="darkMode" class="w-4 h-4 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" x-cloak>
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                     </button>
 
                     <!-- Tombol Menu Mobile -->
-                    <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="xl:hidden text-neutral-900 dark:text-neutral-300 p-2 focus:outline-none">
-                        <svg x-show="!isMobileMenuOpen" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="xl:hidden p-2.5 rounded-xl bg-neutral-100 dark:bg-[#1a1a1a] text-neutral-900 dark:text-white focus:outline-none hover:bg-neutral-200 dark:hover:bg-[#252525] transition-colors">
+                        <svg x-show="!isMobileMenuOpen" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                         </svg>
-                        <svg x-show="isMobileMenuOpen" class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
+                        <svg x-show="isMobileMenuOpen" class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" x-cloak>
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
+
                 </div>
             </div>
         </div>
