@@ -29,14 +29,13 @@
 
     <!-- HERO SECTION: HEADLINE & TRENDING -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 mb-20 items-start">
-        
         <!-- Berita Utama (Headline) -->
         <div class="lg:col-span-8 group/headline">
             <div class="flex items-center justify-between mb-6">
                 <div class="flex items-center gap-3">
                     <div class="h-8 w-1.5 bg-red-600 rounded-full"></div>
                     <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
-                        {{ (isset($headlines) && $headlines->count() > 0) ? 'Sorotan Utama' : 'Teranyar' }}
+                        {{ (isset($headlines) && $headlines->count() > 0) ? 'Sorotan Utama' : 'Terbaru' }}
                     </h2>
                 </div>
             </div>
@@ -109,7 +108,6 @@
                 @endif
             </div>
         </div>
-
         <!-- Trending Sidebar - Penyesuaian Ruang Kosong -->
         <div class="lg:col-span-4">
             <div class="flex items-center gap-3 mb-6">

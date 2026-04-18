@@ -12,9 +12,10 @@
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6">
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-16 mb-16">
 
-            {{-- Kolom 1: Branding & Philosophy --}}
-            <div class="lg:col-span-4 space-y-6">
-                <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-left">
+            {{-- Kolom 1: Branding & Philosophy (Dibuat rata tengah di Mobile, rata kiri di Desktop) --}}
+            <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+                
+                <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-center lg:origin-left">
 
                     <!-- Wrapper Logo -->
                     <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
@@ -33,10 +34,9 @@
 
                         <!-- Baris "Highlight NTT" -->
                         <div class="flex items-baseline leading-none">
-                            <!-- Menggunakan text-shadow agar garis outline tidak memakan warna putih di layar HP -->
                             <span class="text-3xl sm:text-[34px] font-black tracking-tight 
-                         text-white [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000] 
-                         dark:text-[#121212] dark:[text-shadow:-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff,1px_1px_0_#fff]">
+                                 text-white [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000] 
+                                 dark:text-[#121212] dark:[text-shadow:-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff,1px_1px_0_#fff]">
                                 Highlight
                             </span>
 
@@ -45,22 +45,21 @@
                             </span>
                         </div>
 
-                        <!-- Baris ".com" dibuat lebih rapat lagi dengan -mt-2 -->
+                        <!-- Baris ".com" -->
                         <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-2 sm:-mt-2.5 leading-none 
-                     text-[#041E42] dark:text-[#e2e8f0]">
+                               text-[#041E42] dark:text-[#e2e8f0]">
                             .com
                         </span>
 
                     </div>
                 </a>
-                {{-- END LOGO --}}
 
 
-                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm md:pr-10 font-medium transition-colors">
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm lg:pr-10 font-medium transition-colors">
                     {{ $settings['site_description'] ?? 'Platform jurnalisme independen dari sudut pandang lokal untuk audiens global. Mengangkat isu publik, kebijakan, dan budaya NTT dengan kedalaman dan empati.' }}
                 </p>
 
-                {{-- Lencana Dewan Pers (Penting untuk media resmi) --}}
+                {{-- Lencana Dewan Pers --}}
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-md transition-colors">
                     <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" />
@@ -68,10 +67,10 @@
                     <span class="text-[10px] font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider">Terverifikasi Dewan Pers</span>
                 </div>
 
-                {{-- Social Media --}}
-                <div class="space-y-3 pt-2">
+                {{-- Social Media (Dibuat sejajar tengah di Mobile) --}}
+                <div class="flex flex-col items-center lg:items-start space-y-3 pt-2 w-full">
                     <span class="text-[11px] font-bold text-neutral-900 dark:text-white uppercase tracking-wider">Ikuti Kami</span>
-                    <div class="flex flex-wrap gap-2">
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-2">
                         {{-- YouTube --}}
                         <a href="{{ $settings['youtube_url'] ?? '#' }}" target="_blank" class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-red-600 dark:hover:bg-red-600 hover:text-white dark:hover:text-white hover:border-transparent transition-all" title="YouTube">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
@@ -221,9 +220,9 @@
 
             <div class="flex flex-col md:flex-row items-center gap-6">
                 <nav class="flex flex-wrap justify-center gap-4 text-neutral-600 dark:text-neutral-500 text-xs font-semibold uppercase tracking-wider transition-colors">
-                    <a href="#" class="hover:text-red-600 dark:hover:tr:text-red-500 transition-colors">Kode Etik Jurnalistik</a>
-                    <a href="#" class="hover:text-red-600 dark:hovext-red-500 transition-colors">Pedoman Siber</a>
-                    <a href="#" class="hover:text-red-600 dark:hoveer:text-red-500 transition-colors">Penafian</a>
+                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Kode Etik Jurnalistik</a>
+                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Pedoman Siber</a>
+                    <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Penafian</a>
                     <a href="#" class="hover:text-red-600 dark:hover:text-red-500 transition-colors">Privasi</a>
                 </nav>
                 <div class="h-4 w-px bg-neutral-300 dark:bg-neutral-800 hidden md:block transition-colors"></div>
