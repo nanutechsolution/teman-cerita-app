@@ -188,11 +188,13 @@ class EpisodeForm
                         ->schema([
                             Toggle::make('is_headline')
                                 ->label('Jadikan Headline')
-                                ->helperText('Tampilkan di gambar paling besar di Beranda.'),
+                                ->helperText('Tampilkan di gambar paling besar di Beranda.')
+                                ->disabled(fn() => !auth()->user()->can('Feature:headline')),
 
                             Toggle::make('is_breaking')
                                 ->label('Kilas Berita (Breaking News)')
-                                ->helperText('Munculkan di teks berjalan (ticker).'),
+                                ->helperText('Munculkan di teks berjalan (ticker).')
+                                ->disabled(fn() => !auth()->user()->can('Feature:breaking')),
                         ]),
 
                     Section::make('Pengaturan Publikasi')
@@ -211,7 +213,8 @@ class EpisodeForm
 
                             Toggle::make('is_published')
                                 ->label('Status: Publish')
-                                ->default(true),
+                                ->default(false)
+                                ->disabled(fn() => !auth()->user()->can('Publish:post')),
 
                             DateTimePicker::make('published_at')
                                 ->label('Jadwal Tayang (Otomatis)')
