@@ -1,12 +1,12 @@
 @php
-    $settings = $settings ?? [];
+$settings = $settings ?? [];
 @endphp
 
 <x-layouts.app :settings="$settings">
     @slot('title', 'Struktur Redaksi | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
 
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 pt-24 lg:pt-32 pb-20">
-        
+
         <header class="max-w-4xl mb-20">
             <span class="inline-block bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-sm uppercase tracking-widest mb-6">Informasi Resmi</span>
             <h1 class="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase italic leading-[0.9] mb-8 transition-colors">
@@ -15,9 +15,9 @@
         </header>
 
         <div class="grid lg:grid-cols-12 gap-16 items-start">
-            
+
             <div class="lg:col-span-8 space-y-12">
-                
+
                 {{-- Grup 1: Pimpinan --}}
                 @if(isset($members['pimpinan']))
                 <div class="overflow-hidden border border-neutral-200 dark:border-neutral-800 rounded-[2rem] bg-white dark:bg-[#121212] shadow-sm">
@@ -78,7 +78,7 @@
                 {{-- Widget Alamat & Legalitas (Tetap di sini) --}}
                 <div class="p-8 bg-red-600 rounded-[2rem] text-white">
                     <h3 class="text-lg font-black italic uppercase tracking-tighter mb-4">Pedoman Media Siber</h3>
-                    <a href="{{ route('pedoman') }}" class="inline-block bg-white text-red-600 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-colors">Buka Pedoman</a>
+                    <a href="{{ route('page.show', 'pedoman-media-siber') }}" class="inline-block bg-white text-red-600 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-neutral-100 transition-colors">Buka Pedoman</a>
                 </div>
             </aside>
         </div>
