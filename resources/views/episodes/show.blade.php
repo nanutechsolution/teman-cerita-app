@@ -1,6 +1,6 @@
 <x-layouts.app :settings="$settings">
     {{-- SEO Meta Dinamis --}}
-    @slot('title', ($post->meta_title ??$post->title) . ' | ' . ($settings['site_name'] ?? 'Highlight NTT'))
+    @slot('title', ($post->meta_title ??$post->title))
     @slot('meta_description',$post->meta_description ??$post->excerpt)
     @slot('meta_keywords',$post->meta_keywords)
 

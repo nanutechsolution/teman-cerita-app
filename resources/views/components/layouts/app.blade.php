@@ -12,11 +12,11 @@
     <link rel="canonical" href="{{ url()->current() }}">
 
     {{-- Open Graph / Facebook / WhatsApp --}}
-    <meta property="og:type" content="{{ isset($episode) ? 'article' : 'website' }}">
+    <meta property="og:type" content="{{ isset($post) ? 'article' : 'website' }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? $settings['site_name'] ?? config('app.name') }}">
     <meta property="og:description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
-    <meta property="og:image" content="{{ isset($episode->img) ? asset('storage/' . $episode->img) : (isset($settings['site_logo']) ? asset('storage/' . $settings['site_logo']) : asset('default-share.jpg')) }}">
+    <meta property="og:image" content="{{ isset($post->img) ? asset('storage/' . $post->img) : (isset($settings['site_logo']) ? asset('storage/' . $settings['site_logo']) : asset('default-share.jpg')) }}">
 
     {{-- Favicon --}}
     <link rel="icon" href="{{ isset($settings['site_logo']) ? asset('storage/' . $settings['site_logo']) : asset('favicon.ico') }}" type="image/x-icon">
