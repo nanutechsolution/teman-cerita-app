@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->profile()
             // ->brandLogo(asset('images/logo.png'))
-            ->brandName("HighlightNTT.com")
+            ->brandName(fn() => view('filament.brand'))
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

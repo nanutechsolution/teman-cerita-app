@@ -68,17 +68,17 @@ class EpisodesTable
 
                 // Fitur Redaksional Interaktif (Inline Edit)
                 ToggleColumn::make('is_headline')
-                    // ->disabled(fn() => !auth()->user()->can('feature:headline'))
+                    ->disabled(fn() => !auth()->user()->can('Feature:headline'))
                     ->label('Headline')
                     ->onColor('danger'),
 
                 ToggleColumn::make('is_breaking')
-                    // ->disabled(fn() => !auth()->user()->can('feature:breaking'))
+                    ->disabled(fn() => !auth()->user()->can('Feature:breaking'))
                     ->label('Breaking')
                     ->onColor('warning'),
 
                 ToggleColumn::make('is_published')
-                    // ->disabled(fn() => !auth()->user()->can('publish:post'))
+                    ->disabled(fn() => !auth()->user()->can('Publish:post'))
                     ->label('Publikasi')
                     ->onColor('success'),
                 TextColumn::make('author.name')

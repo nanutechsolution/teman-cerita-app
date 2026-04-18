@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Episode;
 use App\Models\Category;
+use App\Models\Post;
 use App\Models\User;
 use App\Models\Tag;
 use Illuminate\Database\Seeder;
@@ -132,7 +133,7 @@ class EpisodeSeeder extends Seeder
             $category_id = $catIds[$data['category_slug']] ?? null;
             unset($data['category_slug']);
 
-            $newEpisode = Episode::create(array_merge($data, [
+            $newEpisode = Post::create(array_merge($data, [
                 'slug' => Str::slug($data['title']),
                 'excerpt' => 'Liputan mendalam mengenai ' . $data['title'] . ' yang sedang menjadi perhatian masyarakat NTT.',
                 'content' => '<p>Ini adalah isi berita simulasi untuk <strong>' . $data['title'] . '</strong>.</p><p>Laporan tim redaksi <em>Teman Cerita</em> menunjukkan bahwa isu ini memerlukan perhatian serius dari berbagai stakeholder terkait untuk menemukan solusi jangka panjang.</p>',
