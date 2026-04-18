@@ -18,30 +18,58 @@ class RedactionMembersTable
     {
         return $table
             ->columns([
-                ImageColumn::make('photo')
+                 ImageColumn::make('photo')
                     ->label('Foto')
-                    ->circular(),
+                    ->circular() // Membuat foto berbentuk lingkaran di tabel
+                    ->defaultImageUrl(url('/images/placeholder.png')), // Opsional jika foto kosong
+                    
                 TextColumn::make('name')
                     ->label('Nama')
                     ->searchable()
                     ->sortable(),
+                    
                 TextColumn::make('position')
                     ->label('Jabatan')
-                    ->badge()
-                    ->color('gray'),
+                    ->searchable(),
+                    
                 TextColumn::make('group')
                     ->label('Grup')
-                    ->formatStateUsing(fn(string $state): string => match ($state) {
+                    ->badge() // Membuat tampilan UI berupa badge berwarna
+                    ->color(fn (string $state): string => match ($state) {
+                        'pimpinan' => 'danger',
+                        'editorial' => 'success',
+                        'it_sosmed' => 'info',
+                        default => 'gray',
+                    })
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
                         'pimpinan' => 'Pimpinan',
                         'editorial' => 'Editorial',
-                        'it_sosmed' => 'IT/Sosmed',
+                        'it_sosmed' => 'IT & Sosial Media',
                         default => $state,
                     })
+                    ->searchable(),
+                    
+                TextColumn::make('sort_order')
+                    ->label('Urutan')
+                    ->numeric()
                     ->sortable(),
+                    
                 ToggleColumn::make('is_active')
-                    ->label('Status'),
+                    ->label('Status Aktif')
+                    ->sortable(), // Menggunakan ToggleColumn agar admin bisa klik langsung dari tabel
+                    
+                TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
+                    
+                TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
+                    ->dateTime()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->defaultSort('sort_order', 'asc')
             ->filters([
                 //
             ])

@@ -22,13 +22,13 @@ class RedactionMemberResource extends Resource
     protected static ?string $model = RedactionMember::class;
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUsers;
-    protected static ?int $navigationSort = 1; // Agar muncul paling atas di grupnya
-      protected static ?string $modelLabel = 'Anggota Redaksi';
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $navigationLabel = 'Anggota Redaksi';
+
     public static function getNavigationGroup(): ?string
     {
-        return NavigationGroup::USER_MANAGEMENT->value;
+        return NavigationGroup::SETTINGS->value;
     }
-    protected static ?string $recordTitleAttribute = 'name';
 
     public static function form(Schema $schema): Schema
     {
