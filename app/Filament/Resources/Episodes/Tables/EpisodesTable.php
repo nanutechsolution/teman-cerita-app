@@ -8,6 +8,7 @@ use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -108,6 +109,14 @@ class EpisodesTable
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
+
+                SelectFilter::make('is_headline')
+                    ->label('Filter Headline')
+                    ->placeholder('Semua Konten')
+                    ->options([
+                        true => 'Headline',
+                        false => 'Bukan Headline',
+                    ]),
                 SelectFilter::make('type')
                     ->label('Format Konten')
                     ->options([
