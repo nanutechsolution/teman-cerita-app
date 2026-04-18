@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Episode;
+use App\Models\Post;
 use App\Models\User;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget;
@@ -19,9 +20,9 @@ class StatsOverview extends StatsOverviewWidget
     protected function getStats(): array
     {
         // Menghitung metrik utama
-        $totalNews = Episode::count();
-        $totalViews = Episode::sum('views');
-        $publishedNews = Episode::where('is_published', true)->count();
+        $totalNews = Post::count();
+        $totalViews = Post::sum('views');
+        $publishedNews = Post::where('is_published', true)->count();
         $totalAuthors = User::count();
 
         return [

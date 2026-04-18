@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Episode;
+use App\Models\Post;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\ChartWidget;
 
@@ -18,7 +19,7 @@ class EpisodesChart extends ChartWidget
         // Mengambil tren data konten baru dalam 30 hari terakhir
         // Catatan: Ini membutuhkan paket 'flowframe/laravel-trend'
         // Jika tidak ada, kita bisa gunakan agregasi manual sederhana
-        $data = Episode::selectRaw('DATE(created_at) as date_label, COUNT(*) as count')
+        $data = Post::selectRaw('DATE(created_at) as date_label, COUNT(*) as count')
             ->where('created_at', '>=', now()->subDays(30))
             ->groupByRaw('DATE(created_at)')
             ->orderBy('date_label', 'asc')

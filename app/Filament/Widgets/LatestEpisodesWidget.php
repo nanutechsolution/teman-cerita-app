@@ -3,6 +3,7 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Episode;
+use App\Models\Post;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Actions\Action;
 use Filament\Tables\Columns\ImageColumn;
@@ -24,7 +25,7 @@ class LatestEpisodesWidget extends StatsOverviewWidget
     {
         return $table
             ->query(
-                Episode::query()->latest()->limit(5)
+                Post::query()->latest()->limit(5)
             )
             ->columns([
                 ImageColumn::make('img')
@@ -53,7 +54,7 @@ class LatestEpisodesWidget extends StatsOverviewWidget
             ->actions([
                 Action::make('view')
                     ->label('Lihat')
-                    ->url(fn(Episode $record): string => route('episode.show', $record->slug))
+                    ->url(fn(Post $record): string => route('post.show', $record->slug))
                     ->openUrlInNewTab()
                     ->icon('heroicon-m-arrow-top-right-on-square'),
             ]);
