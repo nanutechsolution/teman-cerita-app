@@ -42,12 +42,12 @@ Route::get('/redaksi', [PublicController::class, 'redaksi'])->name('redaksi');
 Route::get('/kontak', [PublicController::class, 'kontak'])->name('kontak');
 Route::get('/karir', [PublicController::class, 'karir'])->name('karir');
 Route::get('/info-iklan', [PublicController::class, 'iklan'])->name('iklan');
-
+// Menampilkan daftar SEMUA kategori/rubrik
+Route::get('/rubrik', [PublicController::class, 'categoriesIndex'])->name('category.index');
 // --- FITUR ENGAGEMENT ---
 Route::get('/suara-warga', [PublicController::class, 'suaraWarga'])->name('suara-warga');
-
-// contack us form submission
-
+Route::get('/kontributor', [PublicController::class, 'kontributor'])->name('kontributor');
+Route::get('/kontributor/{slug}', [PublicController::class, 'kontributorShow'])->name('kontributor.show');
 Route::post('/kontak/kirim', function (Request $request) {
     // 1. Validasi Input Form
     $request->validate([

@@ -269,4 +269,12 @@ class PublicController extends Controller
 
         return redirect()->route('kontak')->with('success', 'Pesan Anda telah terkirim. Terima kasih!');
     }
+    public function categoriesIndex()
+    {
+        $categories = Category::withCount(['posts' => function ($query) {
+            $query->where('is_published', true);
+        }])->get();
+
+        return view('pages.categories-index', compact('categories'));
+    }
 }
