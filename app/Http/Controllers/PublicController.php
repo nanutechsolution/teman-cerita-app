@@ -7,6 +7,7 @@ use App\Models\Post; // Menggunakan Post alih-alih Episode
 use App\Models\Partner;
 use App\Models\Setting;
 use App\Models\Category;
+use App\Models\Contact;
 use App\Models\Tag;
 use App\Models\RedactionMember;
 use Illuminate\Http\Request;
@@ -195,7 +196,7 @@ class PublicController extends Controller
     {
         return view('pages.kontak');
     }
-    
+
     public function karir()
     {
         $careers = \App\Models\Career::where('is_active', true)->orderBy('sort_order')->get();
@@ -251,5 +252,21 @@ class PublicController extends Controller
             $videoData['id'] = substr(parse_url($videoLink, PHP_URL_PATH), 1);
         }
         return $videoData;
+    }
+
+
+    public function submitContact(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'subject' => 'required|string|max:255',
+            'message' => 'required|string',
+        ]);
+
+        // Simpan ke database atau kirim email
+        Contact::create($validated);
+
+        return redirect()->route('kontak')->with('success', 'Pesan Anda telah terkirim. Terima kasih!');
     }
 }

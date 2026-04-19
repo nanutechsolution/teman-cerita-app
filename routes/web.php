@@ -1,8 +1,9 @@
 <?php
 
 use App\Http\Controllers\PublicController;
+use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Http\Request;
 /*
 |--------------------------------------------------------------------------
 | Web Routes - Portal Berita Teman Cerita NTT
@@ -44,3 +45,21 @@ Route::get('/info-iklan', [PublicController::class, 'iklan'])->name('iklan');
 
 // --- FITUR ENGAGEMENT ---
 Route::get('/suara-warga', [PublicController::class, 'suaraWarga'])->name('suara-warga');
+
+// contack us form submission
+
+Route::post('/kontak/kirim', function (Request $request) {
+    // 1. Validasi Input Form
+    $request->validate([
+        'name'    => 'required|string|max:255',
+        'email'   => 'required|email',
+        'subject' => 'required|string',
+        'message' => 'required|string|min:10',
+    ]);
+    // 2. Di sini Anda bisa menambahkan logika pengiriman Email atau menyimpan ke Database.
+    // Contoh menyimpan ke tabel Contact (jika Anda punya modelnya):
+    Contact::create($request->all());
+
+    // 3. Kembalikan pengguna ke halaman kontak dengan pesan sukses
+    return back()->with('success', 'Terima kasih, pesan Anda telah berhasil dikirim ke Redaksi.');
+})->name('kontak.send');
