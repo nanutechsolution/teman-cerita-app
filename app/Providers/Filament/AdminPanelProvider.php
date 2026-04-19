@@ -77,6 +77,7 @@ class AdminPanelProvider extends PanelProvider
             ->plugins([
                 FilamentShieldPlugin::make()
                     ->navigationGroup(NavigationGroup::SETTINGS->value)
+                    ->navigationLabel('Peran & Hak Akses')
                     ->gridColumns([
                         'default' => 1,
                         'sm' => 2,
