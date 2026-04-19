@@ -1,10 +1,12 @@
-<footer class="bg-white dark:bg-[#0a0a0a] pt-20 pb-8 border-t border-neutral-200 dark:border-neutral-900 transition-colors duration-300 relative overflow-hidden">
+<footer class="bg-white dark:bg-[#0a0a0a] pt-20 pb-8 border-t border-neutral-200 dark:border-neutral-900 transition-colors duration-300 relative">
 
-    {{-- Efek Glow Latar Belakang (Opsional untuk estetika premium) --}}
-    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-32 bg-red-600/5 dark:bg-red-600/10 blur-[100px] pointer-events-none"></div>
+    {{-- Wrapper Khusus Efek Glow Latar Belakang (Menggunakan overflow-hidden di sini agar tidak memotong tombol) --}}
+    <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-2xl h-32 bg-red-600/5 dark:bg-red-600/10 blur-[100px]"></div>
+    </div>
 
     {{-- Tombol Kembali ke Atas (Back to Top) --}}
-    <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-10">
+    <div class="absolute -top-6 left-1/2 -translate-x-1/2 z-20">
         <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="group bg-white dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 text-neutral-500 hover:text-red-600 p-3 rounded-full shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:-translate-y-1.5 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-red-600/50">
             <svg class="w-5 h-5 group-hover:animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
