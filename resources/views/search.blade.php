@@ -1,19 +1,19 @@
 <x-layouts.app :settings="$settings">
     @slot('title', 'Hasil Pencarian: ' . $query . ' | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
 
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-10 pb-20">
+    <div class="mx-auto px-4 sm:px-6 pt-10 pb-20">
         
         <div class="max-w-2xl mb-12">
             <h1 class="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
                 Hasil pencarian untuk: <span class="text-red-600">"{{ $query }}"</span>
             </h1>
-            <p class="text-neutral-500 text-sm">Ditemukan {{ $episodes->total() }} berita yang relevan.</p>
+            <p class="text-neutral-500 text-sm">Ditemukan {{ $posts->total() }} berita yang relevan.</p>
         </div>
 
-        @if($episodes->count() > 0)
+        @if($posts->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                @foreach($episodes as $ep)
-                    <a href="{{ route('episode.show', $ep->slug) }}" class="group flex flex-col sm:flex-row gap-5 bg-white dark:bg-[#121212] p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-xl transition-all">
+                @foreach($posts as $ep)
+                    <a href="{{ route('post.show', $ep->slug) }}" class="group flex flex-col sm:flex-row gap-5 bg-white dark:bg-[#121212] p-4 rounded-2xl border border-neutral-200 dark:border-neutral-800 hover:shadow-xl transition-all">
                         <div class="w-full sm:w-48 h-32 shrink-0 rounded-xl overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a]">
                             <img src="{{ $ep->img ? asset('storage/' . $ep->img) : asset('placeholder-news.jpg') }}" class="w-full h-full object-cover">
                         </div>
@@ -27,7 +27,7 @@
             </div>
 
             <div class="mt-12">
-                {{ $episodes->links() }}
+                {{ $posts->links() }}
             </div>
         @else
             <div class="py-20 text-center bg-neutral-100 dark:bg-[#121212] rounded-3xl border border-neutral-200 dark:border-neutral-800">

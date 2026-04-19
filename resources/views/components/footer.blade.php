@@ -15,58 +15,73 @@
             {{-- Kolom 1: Branding & Philosophy (Dibuat rata tengah di Mobile, rata kiri di Desktop) --}}
             <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
 
-                <a href="/" class="group inline-flex flex-col items-center gap-3 transition-transform duration-300 hover:scale-[1.02] origin-center lg:origin-left">
+                {{-- Kolom 1: Branding & Philosophy (Centered National Style) --}}
+                <div class="lg:col-span-4 flex flex-col items-center text-center space-y-7">
 
-                    <!-- Wrapper Logo -->
-                    <div class="relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0 bg-neutral-100 dark:bg-[#1a1a1a] rounded-full flex items-center justify-center border border-neutral-200 dark:border-neutral-800 shadow-sm group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-300">
-                        @if(isset($settings['site_logo']))
-                        <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo HighlightNTT" class="w-full h-full object-cover rounded-full">
-                        @else
-                        <!-- Fallback Icon jika logo kosong -->
-                        <svg class="w-8 h-8 sm:w-10 sm:h-10 text-neutral-800 dark:text-neutral-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z" />
-                        </svg>
-                        @endif
-                    </div>
+                    <a href="/" class="group inline-flex flex-col items-center gap-6 transition-all duration-500">
 
-                    <!-- Wrapper Teks Typography (Logo Vertikal) -->
-                    <div class="flex flex-col items-end select-none mt-1 sm:mt-0" style="font-family: 'Montserrat', sans-serif;">
+                        <div class="relative flex-shrink-0">
+                            <div class="absolute -inset-3 bg-red-600/5 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
 
-                        <!-- Baris "Highlight NTT" -->
-                        <div class="flex items-baseline leading-none">
-                            <span class="text-3xl sm:text-[34px] font-black tracking-tight 
-                                 text-white [text-shadow:-1px_-1px_0_#000,1px_-1px_0_#000,-1px_1px_0_#000,1px_1px_0_#000] 
-                                 dark:text-[#121212] dark:[text-shadow:-1px_-1px_0_#fff,1px_-1px_0_#fff,-1px_1px_0_#fff,1px_1px_0_#fff]">
-                                Highlight
-                            </span>
-
-                            <span class="text-3xl sm:text-[34px] font-black tracking-tight text-red-600 uppercase ml-0.5">
-                                NTT
-                            </span>
+                            <div class="relative w-24 h-24 sm:w-28 sm:h-28 bg-white dark:bg-[#121212] rounded-full flex items-center justify-center p-2 border-2 border-neutral-100 dark:border-neutral-800 shadow-xl group-hover:border-red-600 group-hover:shadow-red-500/10 transition-all duration-500">
+                                <div class="w-full h-full rounded-full overflow-hidden border border-neutral-50 dark:border-neutral-700">
+                                    @if(isset($settings['site_logo']))
+                                    <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo {{ $settings['site_name'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                    @else
+                                    <div class="w-full h-full bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center">
+                                        <span class="text-red-600 font-[1000] text-3xl tracking-tighter">H.</span>
+                                    </div>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- Baris ".com" -->
-                        <span class="text-[12px] sm:text-[14px] font-black tracking-[0.15em] -mt-2 sm:-mt-2.5 leading-none 
-                               text-[#041E42] dark:text-[#e2e8f0]">
-                            .com
-                        </span>
+                        <div class="flex flex-col items-center select-none" style="font-family: 'Montserrat', sans-serif;">
+                            <div class="flex items-baseline justify-center whitespace-nowrap flex-nowrap leading-none select-none" style="font-family: 'Montserrat', sans-serif;">
 
+                                <span class="text-[7vw] sm:text-[52px] font-[1000] tracking-[-0.05em] text-white [-webkit-text-stroke:1.5px_#000] [paint-order:stroke_fill] dark:text-[#0f0f0f] dark:[-webkit-text-stroke:2px_#fff]">
+                                    {{ Str::before($settings['site_name'] ?? 'Highlight NTT', ' ') }}
+                                </span>
+
+                                <div class="flex items-baseline flex-nowrap">
+                                    <span class="text-[7vw] sm:text-[52px] font-[1000] tracking-[-0.05em] text-red-600 uppercase ml-1.5 sm:ml-3 group-hover:text-red-700 transition-colors duration-300">
+                                        {{ Str::after($settings['site_name'] ?? 'Highlight NTT', ' ') }}
+                                    </span>
+
+                                    <span class="text-[3vw] sm:text-xl font-black tracking-tighter text-neutral-400 ml-0.5">.com</span>
+                                </div>
+                            </div>
+
+                            <div class="relative mt-6 flex flex-col items-center group/tagline">
+                                <span class="text-[14px] sm:text-[16px] font-black uppercase tracking-[0.25em] text-neutral-800 dark:text-neutral-100 leading-tight">
+                                    {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta, Teguh Menjaga Etika' }}
+                                </span>
+
+                                <div class="mt-3 flex items-center justify-center gap-2 w-full">
+                                    <div class="h-[1px] w-12 bg-neutral-300 dark:bg-neutral-800"></div>
+                                    <div class="w-2 h-2 bg-red-600 rotate-45"></div>
+                                    <div class="h-[1px] w-12 bg-neutral-300 dark:bg-neutral-800"></div>
+                                </div>
+
+                                <span class="text-[11px] font-bold text-neutral-500 uppercase tracking-[0.3em] mt-3">
+                                    {{ $settings['site_motto'] ?? 'Nusa Tenggara Timur' }}
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+
+                    <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm max-w-2xl font-medium transition-colors">
+                        {{ $settings['site_description'] ?? 'Menyajikan jurnalisme berkualitas dengan kedalaman data dan integritas fakta. Kami hadir sebagai mata dan suara masyarakat Nusa Tenggara Timur.' }}
+                    </p>
+
+                    {{-- Badge Verifikasi Centered --}}
+                    <div class="inline-flex items-center gap-2.5 px-5 py-2.5 bg-neutral-50 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 rounded-full group hover:border-red-600/30 transition-all shadow-sm">
+                        <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" />
+                        </svg>
+                        <span class="text-[11px] font-black text-neutral-700 dark:text-neutral-300 uppercase tracking-[0.15em]">Lembaga Media Terverifikasi</span>
                     </div>
-                </a>
-
-
-                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm lg:pr-10 font-medium transition-colors">
-                    {{ $settings['site_description'] ?? 'Platform jurnalisme independen dari sudut pandang lokal untuk audiens global. Mengangkat isu publik, kebijakan, dan budaya NTT dengan kedalaman dan empati.' }}
-                </p>
-
-                {{-- Lencana Dewan Pers --}}
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-md transition-colors">
-                    <svg class="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" />
-                    </svg>
-                    <span class="text-[10px] font-bold text-neutral-700 dark:text-neutral-300 uppercase tracking-wider">Terverifikasi Dewan Pers</span>
                 </div>
-
                 {{-- Social Media (Dibuat sejajar tengah di Mobile) --}}
                 <div class="flex flex-col items-center lg:items-start space-y-3 pt-2 w-full">
                     <span class="text-[11px] font-bold text-neutral-900 dark:text-white uppercase tracking-wider">Ikuti Kami</span>
@@ -96,13 +111,13 @@
                             </svg>
                         </a>
                         {{-- WhatsApp --}}
-                        <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}" target="_blank" class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-green-600 hover:text-white dark:hover:text-white hover:border-transparent transition-all" title="WhatsApp">
+                        <a href="https://wa.me/{{ $settings['contact_whatsapp'] ?? '' }}" target="_blank" class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-green-600 hover:text-white dark:hover:text-white hover:border-transparent transition-all" title="WhatsApp">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
                             </svg>
                         </a>
                         {{-- RSS Feed --}}
-                        <a href="/rss" target="_blank" class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-orange-500 hover:text-white dark:hover:text-white hover:border-transparent transition-all" title="RSS Feed">
+                        <a href="{{ $settings['rss_feed_url'] ?? '#' }}" target="_blank" class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-600 dark:text-neutral-400 hover:bg-orange-500 hover:text-white dark:hover:text-white hover:border-transparent transition-all" title="RSS Feed">
                             <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
                                 <path d="M4 11a9 9 0 0 1 9 9H9c0-2.76-2.24-5-5-5v-4zm0-7a16 16 0 0 1 16 16h-4a12 12 0 0 0-12-12V4zm2 14a2 2 0 1 1-4 0 2 2 0 0 1 4 0z" />
                             </svg>
@@ -214,7 +229,7 @@
                     {{ $settings['footer_text'] ?? '© ' . date('Y') . ' Highlight NTT. Seluruh Hak Cipta Dilindungi.' }}
                 </div>
                 <p class="text-neutral-600 dark:text-neutral-500 text-xs font-medium transition-colors">
-                    Suara Independen dari Timur untuk Indonesia.
+                    {{ $settings['site_motto'] ?? 'Suara Independen dari Timur untuk Indonesia.' }}
                 </p>
             </div>
 

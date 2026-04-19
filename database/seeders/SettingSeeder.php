@@ -17,74 +17,75 @@ class SettingSeeder extends Seeder
             [
                 'key' => 'site_name',
                 'label' => 'Nama Website',
-                'value' => 'Teman Cerita NTT',
+                'value' => 'Highlight NTT',
+                'type' => 'text',
+                'group' => 'General'
+            ],
+            // logo
+            [
+                'key' => 'site_logo',
+                'label' => 'Logo Website',
+                'value' => 'https://highlightntt.com/logo.png',
+                'type' => 'file',
+                'group' => 'General'
+            ],
+            [
+                'key' => 'site_tagline',
+                'label' => 'Tagline Website',
+                'value' => 'Menyoroti Fakta, Menjaga Etika',
                 'type' => 'text',
                 'group' => 'General'
             ],
             [
                 'key' => 'site_description',
                 'label' => 'Deskripsi Situs',
-                'value' => 'Kanal berbagi informasi, ide-ide, dan cerita-cerita menarik dari berbagai sudut pandang seputar Nusa Tenggara Timur.',
+                'value' => 'Highlight NTT menyajikan berita dan informasi terkini seputar Nusa Tenggara Timur dengan menjunjung tinggi integritas fakta dan etika jurnalistik.',
                 'type' => 'textarea',
                 'group' => 'General'
             ],
-            [
-                'key' => 'site_logo',
-                'label' => 'Logo Website',
-                'value' => 'settings/default-logo.png',
-                'type' => 'file',
-                'group' => 'General'
-            ],
-            [
-                'key' => 'site_favicon',
-                'label' => 'Favicon',
-                'value' => 'settings/default-favicon.png',
-                'type' => 'file',
-                'group' => 'General'
-            ],
 
-            // --- GROUP: SOCIAL MEDIA ---
+            [
+                'key' => 'site_motto',
+                'label' => 'Motto Operasional',
+                'value' => 'Suara Independen dari Timur untuk Indonesia.',
+                'type' => 'text',
+                'group' => 'General'
+            ],
+            // --- GROUP: SOCIAL & SYNDICATION ---
+            [
+                'key' => 'rss_feed_url',
+                'label' => 'URL RSS Feed',
+                'value' => 'https://highlightntt.com/feed',
+                'type' => 'text',
+                'group' => 'Social'
+            ],
             [
                 'key' => 'instagram_url',
                 'label' => 'Link Instagram',
-                'value' => 'https://instagram.com/temancerita.ntt',
-                'type' => 'text',
-                'group' => 'Social'
-            ],
-            [
-                'key' => 'youtube_url',
-                'label' => 'Link YouTube',
-                'value' => 'https://youtube.com/@teman-cerita-ntt',
-                'type' => 'text',
-                'group' => 'Social'
-            ],
-            [
-                'key' => 'facebook_url',
-                'label' => 'Link Facebook',
-                'value' => 'https://facebook.com/temancerita.ntt',
-                'type' => 'text',
-                'group' => 'Social'
-            ],
-            [
-                'key' => 'tiktok_url',
-                'label' => 'Link TikTok',
-                'value' => 'https://tiktok.com/@temancerita.ntt',
+                'value' => 'https://instagram.com/highlightntt.com',
                 'type' => 'text',
                 'group' => 'Social'
             ],
 
-            // --- GROUP: CONTACT ---
+            // --- GROUP: CONTACT & WHATSAPP ---
             [
-                'key' => 'contact_email',
-                'label' => 'Email Kontak',
-                'value' => 'halo@temancerita.com',
+                'key' => 'contact_whatsapp',
+                'label' => 'Nomor WhatsApp (Aktif)',
+                'value' => '628123456789', // Gunakan format angka tanpa '+' untuk link API
                 'type' => 'text',
                 'group' => 'Contact'
             ],
             [
-                'key' => 'contact_phone',
-                'label' => 'Nomor WhatsApp',
-                'value' => '+628123456789',
+                'key' => 'whatsapp_message_default',
+                'label' => 'Pesan Otomatis WA',
+                'value' => 'Halo Redaksi Highlight NTT, saya ingin memberikan informasi/saran...',
+                'type' => 'text',
+                'group' => 'Contact'
+            ],
+            [
+                'key' => 'contact_email',
+                'label' => 'Email Kontak',
+                'value' => 'redaksi@highlightntt.com',
                 'type' => 'text',
                 'group' => 'Contact'
             ],
@@ -96,28 +97,21 @@ class SettingSeeder extends Seeder
                 'group' => 'Contact'
             ],
 
-            // --- GROUP: SEO GLOBAL ---
+            // --- GROUP: SEO ---
             [
                 'key' => 'meta_keywords_default',
                 'label' => 'Default Keywords SEO',
-                'value' => 'podcast ntt, berita ntt, cerita rakyat ntt, diskusi publik ntt, maumere, kupang, flores',
+                'value' => 'berita ntt, highlight ntt, fakta ntt, informasi kupang, rss news ntt',
                 'type' => 'text',
                 'group' => 'SEO'
             ],
             [
                 'key' => 'footer_text',
                 'label' => 'Teks Footer',
-                'value' => 'Dibuat dengan cinta untuk masyarakat Nusa Tenggara Timur.',
+                'value' => '© Highlight NTT. Menyoroti Fakta, Menjaga Etika.',
                 'type' => 'text',
                 'group' => 'General'
             ],
-            [
-                'key' => 'whatsapp_number',
-                'label' => 'Nomor WhatsApp',
-                'value' => '+628123456789',
-                'type' => 'text',
-                'group' => 'Contact'
-            ]
         ];
 
         foreach ($settings as $setting) {
