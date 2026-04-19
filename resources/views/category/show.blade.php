@@ -14,7 +14,7 @@
         @if($posts->count() > 0)
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($posts as $ep)
-                    <a href="{{ route('episode.show', $ep->slug) }}" class="group flex flex-col bg-white dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden hover:border-red-600/30 transition-all h-full shadow-sm">
+                    <a href="{{ route('post.show', $ep->slug) }}" class="group flex flex-col bg-white dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden hover:border-red-600/30 transition-all h-full shadow-sm">
                         <div class="relative aspect-[16/10] overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a]">
                             <img src="{{ $ep->img ? asset('storage/' . $ep->img) : asset('placeholder-news.jpg') }}" alt="{{ $ep->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                             
