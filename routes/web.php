@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\PublicController;
 use App\Models\Contact;
 use Illuminate\Support\Facades\Route;
@@ -48,6 +49,8 @@ Route::get('/rubrik', [PublicController::class, 'categoriesIndex'])->name('categ
 Route::get('/suara-warga', [PublicController::class, 'suaraWarga'])->name('suara-warga');
 Route::get('/kontributor', [PublicController::class, 'kontributor'])->name('kontributor');
 Route::get('/kontributor/{slug}', [PublicController::class, 'kontributorShow'])->name('kontributor.show');
+Route::get('/galeri', [GalleryController::class, 'index'])->name('gallery.index');
+Route::get('/galeri/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
 Route::post('/kontak/kirim', function (Request $request) {
     // 1. Validasi Input Form
     $request->validate([

@@ -306,7 +306,7 @@
             <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Galeri</h2>
 
             <div class="ml-auto hidden sm:flex items-center gap-4">
-                <a href="#" class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2">Lihat Semua &rarr;</a>
+                <a href="{{ route('gallery.index') }}" class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2">Lihat Semua &rarr;</a>
                 <div class="flex gap-2">
                     <button @click="scrollPrev()" class="p-2 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-colors shadow-sm">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

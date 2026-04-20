@@ -48,6 +48,8 @@ class GalleryForm
                                     ->label('Cover Galeri')
                                     ->image()
                                     ->directory('galleries/covers')
+                                    ->visibility('public')
+                                    ->disk('public')
                                     ->imageEditor()
                                     ->columnSpanFull(),
 
@@ -68,6 +70,8 @@ class GalleryForm
                                             ->image()
                                             ->directory('galleries/images')
                                             ->required()
+                                            ->visibility('public')
+                                            ->disk('public')
                                             ->columnSpan([
                                                 'md' => 5,
                                             ]),
