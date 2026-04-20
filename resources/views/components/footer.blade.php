@@ -41,16 +41,25 @@
 
                     <!-- 2. TYPOGRAPHY (Konsisten dengan Navbar: Timbul, Bersih, Tanpa Stroke) -->
                     <div class="flex flex-col items-center lg:items-start select-none w-full" style="font-family: 'Montserrat', sans-serif;">
-                        <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.9] gap-x-1.5 drop-shadow-md">
-                            <!-- NAMA SITUS -->
+                        <!-- NAMA SITUS -->
+                        <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.9] drop-shadow-md">
+                            <!-- Kata Pertama (Highlight) -->
                             <span class="text-3xl sm:text-[40px] xl:text-[33px] font-[1000] tracking-tight text-neutral-900 dark:text-white  transition-colors">
-                                {{ $settings['site_name'] ?? 'HIGHLIGHT' }}
+                                {{ Str::before($settings['site_name'] ?? 'Highlight NTT', ' ') }}
                             </span>
-                            <span class="text-xl sm:text-2xl font-black tracking-tighter text-red-600 dark:text-red-500 ml-0.5 group-hover:text-red-700 transition-colors duration-300">.com</span>
+
+                            <!-- Kata Kedua (NTT) warna Merah -->
+                            <span class="text-3xl sm:text-[40px] xl:text-[33px] font-[1000] tracking-tight text-red-600 dark:text-red-500  transition-colors duration-300">
+                                {{ trim(Str::after($settings['site_name'] ?? 'Highlight NTT', ' ')) }}
+                            </span>
+
+                            <!-- Suffix (.com) warna biru tua, tanpa margin -->
+                            <span class="text-xl sm:text-2xl font-black tracking-tighter text-blue-800 dark:text-blue-600 group-hover:text-blue-900 transition-colors duration-300">.com</span>
                         </div>
 
                         <!-- 3. TAGLINE & MOTTO (Hierarki Rapi & Garis Estetik) -->
                         <div class="relative mt-1 flex flex-col items-center lg:items-start w-full">
+                            <!-- Menambahkan atribut  agar lebih tegas -->
                             <span class="text-[11px] sm:text-[13px] font-extrabold  tracking-[0.15em] text-neutral-800 dark:text-neutral-200 leading-tight drop-shadow-sm">
                                 {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta' }}
                             </span>
@@ -77,8 +86,8 @@
                     </div>
                     <!-- Teks Lencana -->
                     <div class="flex flex-col text-left">
-                        <span class="text-[9px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-0.5">Media Siber Terverifikasi</span>
-                        <span class="text-[11px] sm:text-[12px] font-black text-neutral-900 dark:text-neutral-100 uppercase tracking-[0.1em] leading-none drop-shadow-sm">Dewan Pers Indonesia</span>
+                        <span class="text-[9px] font-bold text-neutral-400 dark:text-neutral-500  tracking-widest mb-0.5">Media Siber Terverifikasi</span>
+                        <span class="text-[11px] sm:text-[12px] font-black text-neutral-900 dark:text-neutral-100  tracking-[0.1em] leading-none drop-shadow-sm">Dewan Pers Indonesia</span>
                     </div>
                 </div>
             </div>
@@ -91,7 +100,7 @@
 
                 <!-- Kategori -->
                 <div>
-                    <h4 class="text-neutral-900 dark:text-white font-black uppercase tracking-widest text-xs mb-6 border-b-2 border-red-600 inline-block pb-2">
+                    <h4 class="text-neutral-900 dark:text-white font-black  tracking-widest text-xs mb-6 border-b-2 border-red-600 inline-block pb-2">
                         Kategori
                     </h4>
                     <ul class="space-y-4">
@@ -112,7 +121,7 @@
                         {{-- Tautan "Lihat Semua" jika kategori lebih dari 5 --}}
                         @if(collect($categories ?? [])->count() > 5)
                         <li class="pt-2">
-                            <a href="{{ route('category.index') }}" class="text-red-600 dark:text-red-500 hover:text-red-700 transition-colors text-xs font-black uppercase tracking-wider flex items-center gap-1.5 group">
+                            <a href="{{ route('category.index') }}" class="text-red-600 dark:text-red-500 hover:text-red-700 transition-colors text-xs font-black  tracking-wider flex items-center gap-1.5 group">
                                 Lihat Semua
                                 <svg class="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
@@ -125,7 +134,7 @@
 
                 <!-- Informasi -->
                 <div>
-                    <h4 class="text-neutral-900 dark:text-white font-black uppercase tracking-widest text-xs mb-6 border-b-2 border-red-600 inline-block pb-2">
+                    <h4 class="text-neutral-900 dark:text-white font-black  tracking-widest text-xs mb-6 border-b-2 border-red-600 inline-block pb-2">
                         Informasi
                     </h4>
                     <ul class="space-y-4 font-bold text-sm">
@@ -146,7 +155,7 @@
                 <!-- Newsletter Box -->
                 <div class="bg-neutral-50 dark:bg-[#151515] border border-neutral-200 dark:border-neutral-800 p-6 rounded-2xl relative overflow-hidden group">
                     <div class="absolute top-0 right-0 w-1 h-full bg-red-600"></div>
-                    <h4 class="text-neutral-900 dark:text-white font-black uppercase tracking-wider text-xs mb-2">Buletin Redaksi</h4>
+                    <h4 class="text-neutral-900 dark:text-white font-black  tracking-wider text-xs mb-2">Buletin Redaksi</h4>
                     <p class="text-neutral-500 dark:text-neutral-400 text-xs mb-5 leading-relaxed">Kurasi berita independen terbaik NTT, langsung ke kotak masuk Anda.</p>
 
                     <form action="#" class="flex flex-col sm:flex-row gap-2">
@@ -159,14 +168,14 @@
 
                 <!-- App Stores -->
                 <div>
-                    <p class="text-neutral-900 dark:text-white text-xs font-black uppercase tracking-widest mb-3">Aplikasi Mobile</p>
+                    <p class="text-neutral-900 dark:text-white text-xs font-black  tracking-widest mb-3">Aplikasi Mobile</p>
                     <div class="flex flex-wrap gap-3">
                         <a href="#" class="flex items-center gap-3 bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 hover:border-red-600 dark:hover:border-red-600 px-4 py-2.5 rounded-xl transition-all group active:scale-95">
                             <svg class="w-6 h-6 text-neutral-700 dark:text-white group-hover:text-red-600 transition-colors" viewBox="0 0 24 24" fill="currentColor">
                                 <path d="M3.6 3.1c-.2.2-.3.6-.3 1.1v15.6c0 .5.1.9.3 1.1l.1.1 8.8-8.8v-.2L3.7 3l-.1.1z M12.8 12l2.8-2.8 3.3 1.9c.9.5.9 1.4 0 1.9l-3.3 1.9-2.8-2.9v0z M13.1 12.3l-8.3 8.3c.5.5 1.3.6 2.2.1l6.1-3.5-0-4.9z M13.1 11.7l0-4.9-6.1-3.5C6.1 2.8 5.3 2.9 4.8 3.4l8.3 8.3z" />
                             </svg>
                             <div class="flex flex-col text-left">
-                                <span class="text-[9px] uppercase tracking-wider text-neutral-500 font-bold leading-none mb-0.5">Get it on</span>
+                                <span class="text-[9px]  tracking-wider text-neutral-500 font-bold leading-none mb-0.5">Get it on</span>
                                 <span class="text-xs font-black text-neutral-900 dark:text-white leading-none">Google Play</span>
                             </div>
                         </a>
@@ -175,7 +184,7 @@
                                 <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702z" />
                             </svg>
                             <div class="flex flex-col text-left">
-                                <span class="text-[9px] uppercase tracking-wider text-neutral-500 font-bold leading-none mb-0.5">Download on the</span>
+                                <span class="text-[9px]  tracking-wider text-neutral-500 font-bold leading-none mb-0.5">Download on the</span>
                                 <span class="text-xs font-black text-neutral-900 dark:text-white leading-none">App Store</span>
                             </div>
                         </a>
@@ -184,7 +193,7 @@
 
                 <!-- Social Media -->
                 <div>
-                    <p class="text-neutral-900 dark:text-white text-xs font-black uppercase tracking-widest mb-3">Media Sosial</p>
+                    <p class="text-neutral-900 dark:text-white text-xs font-black  tracking-widest mb-3">Media Sosial</p>
                     <div class="flex flex-wrap gap-2.5">
                         @php
                         $socials = [
@@ -222,7 +231,7 @@
             </div>
 
             <!-- Legal Links -->
-            <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3 text-neutral-500 text-xs font-bold uppercase tracking-widest">
+            <nav class="flex flex-wrap justify-center md:justify-end gap-x-6 gap-y-3 text-neutral-500 text-xs font-bold  tracking-widest">
                 <a href="{{ route('page.show', 'kode-etik-jurnalistik') ?? '#' }}" class="hover:text-red-600 transition-colors">Kode Etik</a>
                 <a href="{{ route('page.show', 'pedoman-media-siber') ?? '#' }}" class="hover:text-red-600 transition-colors">Pedoman Siber</a>
                 <a href="{{ route('page.show', 'penafian') ?? '#' }}" class="hover:text-red-600 transition-colors">Penafian</a>

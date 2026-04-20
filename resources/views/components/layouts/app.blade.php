@@ -101,16 +101,16 @@
                         <!-- NAMA SITUS -->
                         <div class="flex items-baseline leading-[0.9] flex-nowrap drop-shadow-md">
                             <!-- Kata Pertama (Highlight) -->
-                            <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
+                            <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-neutral-900 dark:text-white  transition-colors">
                                 {{ Str::before($settings['site_name'] ?? 'Highlight NTT', ' ') }}
                             </span>
 
                             <!-- Kata Kedua (NTT) warna Merah -->
-                            <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-red-600 dark:text-red-500 uppercase ml-1.5 group-hover:text-red-700 transition-colors duration-300">
+                            <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-red-600 dark:text-red-500  group-hover:text-red-700 transition-colors duration-300">
                                 {{ trim(Str::after($settings['site_name'] ?? 'Highlight NTT', ' ')) }}
                             </span>
-                            <!-- Suffix (.com) tanpa margin kiri -->
-                            <span class="text-[clamp(12px,1.8vw,18px)] font-black tracking-tighter text-red-600 dark:text-red-500 group-hover:text-red-700 transition-colors duration-300">.com</span>
+                            <!-- Suffix (.com) warna biru tua, tanpa margin kiri -->
+                            <span class="text-[clamp(12px,1.8vw,18px)] font-black tracking-tighter text-blue-800 dark:text-blue-600 group-hover:text-blue-900 transition-colors duration-300">.com</span>
                         </div>
 
                         <!-- TAGLINE -->
