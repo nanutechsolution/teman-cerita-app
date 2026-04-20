@@ -39,16 +39,15 @@
 
                     <!-- Typography: Responsive Font Sizes agar tidak tumpah di kolom -->
                     <div class="flex flex-col items-center lg:items-start select-none w-full" style="font-family: 'Montserrat', sans-serif;">
-
                         <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.85] gap-x-1.5">
-                            <span class="text-3xl sm:text-[40px] xl:text-[46px] font-[1000] tracking-[-0.04em] text-white [-webkit-text-stroke:2px_#000] [paint-order:stroke_fill] dark:text-[#0f0f0f] dark:[-webkit-text-stroke:2px_#fff]">
+                            <span class="text-3xl sm:text-[40px] xl:text-[46px] font-[1000] tracking-[-0.02em] text-neutral-50 [-webkit-text-stroke:1px_#000] drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)] [paint-order:stroke_fill] dark:text-[#0f0f0f] dark:[-webkit-text-stroke:2px_#fff]">
                                 {{ Str::before($settings['site_name'] ?? 'HighlightNTT', ' ') }}
                             </span>
                             <div class="flex items-baseline">
-                                <span class="text-3xl sm:text-[40px] xl:text-[46px] font-[1000] tracking-[-0.04em] text-red-600 uppercase group-hover:text-red-700 transition-colors duration-300">
+                                <span class="text-3xl sm:text-[40px] xl:text-[46px] font-[1000] tracking-[-0.02em] text-red-600 uppercase group-hover:text-red-700 transition-colors duration-300">
                                     {{ Str::after($settings['site_name'] ?? 'Highlight NTT', ' ') }}
                                 </span>
-                                <span class="text-sm sm:text-base font-black tracking-tighter text-neutral-400 ml-0.5">.com</span>
+                                <span class="text-sm sm:text-base font-black tracking-tighter text-neutral-200 ml-0.5">.com</span>
                             </div>
                         </div>
 
