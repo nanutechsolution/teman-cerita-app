@@ -36,7 +36,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Typography: Responsive Font Sizes agar tidak tumpah di kolom -->
                     <div class="flex flex-col items-center lg:items-start select-none w-full" style="font-family: 'Montserrat', sans-serif;">
                         <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.85] gap-x-1.5">
@@ -50,7 +49,6 @@
                                 <span class="text-sm sm:text-base font-black tracking-tighter text-neutral-200 ml-0.5">.com</span>
                             </div>
                         </div>
-
                         <!-- Tagline & Motto -->
                         <div class="relative mt-4 sm:mt-5 flex flex-col items-center lg:items-start group/tagline w-full">
                             <span class="text-[11px] sm:text-[13px] font-black uppercase tracking-[0.15em] text-neutral-800 dark:text-neutral-200 leading-tight">
