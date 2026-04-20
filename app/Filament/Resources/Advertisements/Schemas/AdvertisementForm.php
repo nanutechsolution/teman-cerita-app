@@ -32,6 +32,8 @@ class AdvertisementForm
                                     ->image()
                                     ->directory('ads')
                                     ->imageEditor()
+                                    ->visibility('public')
+                                    ->disk('public')
                                     ->required()
                                     ->helperText('Rekomendasi ukuran: 728x90 (Horizontal) atau 300x250 (Sidebar)'),
 
