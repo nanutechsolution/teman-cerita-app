@@ -67,14 +67,13 @@
     <!-- NAVBAR PORTAL -->
     <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-md border-neutral-200 dark:border-neutral-800 py-2 shadow-lg' : 'bg-transparent border-transparent py-4'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-        <div :class="isScrolled ? 'opacity-15 dark:opacity-20' : 'opacity-0'"
-            class="absolute inset-0 z-[-1] transition-opacity duration-500 pointer-events-none opacity-0"
+        <div class="absolute inset-0 z-0 opacity-40 dark:opacity-25 pointer-events-none"
             style="background-image: url('{{ asset('images/header.jpeg') }}'); 
-        background-size: cover; 
-        background-position: center;
-        background-repeat: no-repeat;
-        mix-blend-mode: multiply;">
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;">
         </div>
+
         <!-- Kontainer Navbar Tengah -->
         <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-4">
 
@@ -84,13 +83,9 @@
             <div class="flex items-center shrink-0 py-1">
                 <a href="{{ route('home') }}" class="group flex items-center gap-3 sm:gap-4 transition-all duration-500">
 
-                    <!-- LOGO MEDALLION -->
                     <div class="relative flex-shrink-0">
-                        <!-- Glow Effect -->
-                        <div class="absolute -inset-2 bg-red-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000 hidden sm:block"></div>
-
-                        <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[68px] lg:h-[68px] bg-white dark:bg-[#121212] rounded-full flex items-center justify-center border-2 border-neutral-100 dark:border-neutral-800 shadow-sm group-hover:border-red-600 transition-all duration-500 p-1">
-                            <div class="w-full h-full rounded-full overflow-hidden border border-neutral-100 dark:border-neutral-700">
+                        <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[78px] lg:h-[78px]   flex items-center justify-center transition-all duration-500 p-1">
+                            <div class="w-full h-full ">
                                 @if(isset($settings['site_logo']))
                                 <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                 @else
@@ -100,14 +95,12 @@
                         </div>
                     </div>
 
-                    <!-- TYPOGRAPHY LOGO (Anti-Wrap) -->
                     <div class="flex flex-col select-none whitespace-nowrap" style="font-family: 'Montserrat', sans-serif;">
 
-                        <div class="flex items-baseline leading-[0.85] flex-nowrap">
+                        <div class="flex items-baseline leading-none flex-nowrap">
                             <span class="text-[clamp(20px,3.5vw,40px)] font-[1000] tracking-[-0.04em] text-white [-webkit-text-stroke:clamp(1px,0.2vw,2px)_#000] [paint-order:stroke_fill] dark:text-[#0f0f0f] dark:[-webkit-text-stroke:clamp(1px,0.2vw,2px)_#fff]">
                                 {{ Str::before($settings['site_name'] ?? 'Highlight NTT', ' ') }}
                             </span>
-
                             <div class="flex items-baseline">
                                 <span class="text-[clamp(20px,3.5vw,40px)] font-[1000] tracking-[-0.04em] text-red-600 uppercase ml-1.5 group-hover:text-red-700 transition-colors duration-300">
                                     {{ Str::after($settings['site_name'] ?? 'Highlight NTT', ' ') }}
@@ -116,10 +109,9 @@
                             </div>
                         </div>
 
-                        <!-- TAGLINE (Selalu Muncul) -->
-                        <div class="relative mt-1 sm:mt-1.5 flex items-center gap-1.5 sm:gap-2 group/tagline">
-                            <div class="w-0.5 sm:w-1 h-3 sm:h-4 bg-red-600 rounded-full transition-transform group-hover:scale-y-125"></div>
-                            <span class="text-[8px] sm:text-[10px] lg:text-[12px] font-black uppercase tracking-[0.05em] sm:tracking-[0.15em] text-neutral-700 dark:text-neutral-300 leading-none">
+                        <div class="relative mt-1 sm:mt-1.5 group/tagline grid grid-cols-[auto_1fr] items-center">
+                            <!-- <div class="w-0.5 sm:w-1 h-3 sm:h-4 bg-red-600 rounded-full transition-transform group-hover:scale-y-125 -ml-2.5 sm:-ml-3 lg:-ml-4 mr-1.5 sm:mr-2"></div> -->
+                            <span class="text-[7px] sm:text-[9px] lg:text-[11px] font-black uppercase tracking-[0.05em] sm:tracking-[0.15em] text-neutral-700 dark:text-neutral-300 leading-none">
                                 {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta, Teguh Menjaga Etika' }}
                             </span>
                         </div>
