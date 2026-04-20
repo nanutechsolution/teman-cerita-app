@@ -64,10 +64,10 @@
     <!-- BAR PROGRES SCROLL -->
     <div class="fixed top-0 left-0 h-1 bg-red-600 z-[70] transition-all duration-150 ease-out" :style="'width: ' + scrollProgress + '%'"></div>
 
-  <!-- NAVBAR PORTAL -->
+    <!-- NAVBAR PORTAL -->
     <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-xl border-neutral-200 dark:border-neutral-800 py-2 shadow-md' : 'bg-white/90 dark:bg-[#0f0f0f]/90 backdrop-blur-md border-transparent py-4 shadow-sm'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-        
+
         <!-- LAYER GAMBAR BACKGROUND -->
         <div class="absolute inset-0 z-0 opacity-30 dark:opacity-15 pointer-events-none"
             style="background-image: url('{{ asset('images/header.jpeg') }}'); 
@@ -87,13 +87,13 @@
 
                     <!-- LOGO MEDALLION -->
                     <div class="relative flex-shrink-0">
-                        <div class="absolute -inset-2 bg-red-600/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block"></div>
-                        <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[68px] lg:h-[68px] bg-transparent rounded-full flex items-center justify-center border border-neutral-200/50 dark:border-neutral-700/50 shadow-md group-hover:border-red-600/50 group-hover:shadow-red-600/20 transition-all duration-500 p-0.5">
-                            <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-[#121212]">
+                        <div class="absolute -inset-2 duration-700 hidden sm:block"></div>
+                        <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[68px] lg:h-[68px]  flex items-center justify-center transition-all duration-500 p-0.5">
+                            <div class="w-full h-full overflow-hidden">
                                 @if(isset($settings['site_logo']))
-                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700">
                                 @else
-                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700">
                                 @endif
                             </div>
                         </div>
