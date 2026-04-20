@@ -300,7 +300,6 @@
     </section>
     @endif
 
-    <!-- 6. GALERI FOTO -->
     <!-- 6. GALERI FOTO DINAMIS DENGAN LIGHTBOX & SLIDER -->
     <section x-data="galleryLightbox()" class="mb-16 px-4 sm:px-0">
         <!-- Header Section -->
