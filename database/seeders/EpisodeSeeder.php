@@ -2,7 +2,6 @@
 
 namespace Database\Seeders;
 
-use App\Models\Episode;
 use App\Models\Category;
 use App\Models\Post;
 use App\Models\User;
@@ -13,16 +12,19 @@ use Illuminate\Support\Str;
 class EpisodeSeeder extends Seeder
 {
     /**
-     * Jalankan database seeds untuk 10 berita contoh.
+     * Jalankan database seeds untuk 20 berita contoh portal berita NTT.
      */
     public function run(): void
     {
+        // hapus semua data lama untuk menghindari duplikasi saat seeding ulang
+        Post::truncate();
+
         // 1. Pastikan ada minimal satu User sebagai Penulis (Author)
         $author = User::first() ?? User::factory()->create([
             'name' => 'Admin Redaksi',
-            'email' => 'redaksi@temancerita.com',
+            'email' => 'redaksi@highlightntt.com',
         ]);
-        
+
         // 2. Siapkan Kategori Berita Utama
         $categories = [
             ['name' => 'Kebijakan Publik', 'slug' => 'kebijakan-publik'],
@@ -39,7 +41,7 @@ class EpisodeSeeder extends Seeder
         // Ambil ID kategori untuk pemetaan
         $catIds = Category::pluck('id', 'slug')->toArray();
 
-        // 3. Data 10 Berita/Episode (Sebagian berdasarkan screenshot Anda)
+        // 3. Data 20 Berita/Episode NTT
         $newsData = [
             [
                 'title' => 'ISU HANGAT JADI KEBIJAKAN PUBLIK! - Rektor Universitas Nusa Nipa Buka Suara',
@@ -54,7 +56,7 @@ class EpisodeSeeder extends Seeder
                 'title' => 'PUSKESMAS BOGANATAR KAB. SIKKA MANGKRAK, Warga Menjerit Minta Kepastian',
                 'type' => 'article',
                 'category_slug' => 'kesehatan',
-                'is_headline' => false,
+                'is_headline' => true,
                 'is_breaking' => true,
                 'views' => 497,
             ],
@@ -80,7 +82,7 @@ class EpisodeSeeder extends Seeder
                 'title' => 'Fenomena Bunuh Diri di NTT. Sehatkah Mental Kita? Tinjauan Psikologi Sosial',
                 'type' => 'article',
                 'category_slug' => 'sosial-budaya',
-                'is_headline' => false,
+                'is_headline' => true,
                 'is_breaking' => false,
                 'views' => 3200,
             ],
@@ -126,30 +128,118 @@ class EpisodeSeeder extends Seeder
                 'is_breaking' => false,
                 'views' => 310,
             ],
+            [
+                'title' => 'Harga Beras Melambung di Pasar Kasih Naikoten Kupang, Pemprov Siapkan Operasi Pasar',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => true,
+                'views' => 1450,
+            ],
+            [
+                'title' => 'Polemik Tapal Batas Wilayah di Timor Tengah Selatan, Tokoh Adat Turun Tangan',
+                'type' => 'article',
+                'category_slug' => 'kebijakan-publik',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 670,
+            ],
+            [
+                'title' => 'Mitos vs Fakta Obat Tradisional NTT: Pandangan Medis Modern',
+                'type' => 'video',
+                'duration' => '28:15',
+                'category_slug' => 'podcast',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 850,
+            ],
+            [
+                'title' => 'Menjelajah Pesona Bukit Cinta, Surga Tersembunyi di Rote Ndao',
+                'type' => 'video',
+                'duration' => '08:45',
+                'category_slug' => 'sosial-budaya',
+                'is_headline' => true,
+                'is_breaking' => false,
+                'views' => 3400,
+            ],
+            [
+                'title' => 'Dana Desa untuk Pemberdayaan UMKM Perempuan di Sumba, Sudah Tepat Sasaran?',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 420,
+            ],
+            [
+                'title' => 'KLB Rabies di Kabupaten TTS Menelan Korban Jiwa, Vaksinasi Massal Digelar',
+                'type' => 'article',
+                'category_slug' => 'kesehatan',
+                'is_headline' => true,
+                'is_breaking' => true,
+                'views' => 5600,
+            ],
+            [
+                'title' => 'Merawat Tradisi Pasola di Sumba: Peran Generasi Muda #pasola #ntt',
+                'type' => 'short',
+                'duration' => '00:55',
+                'category_slug' => 'sosial-budaya',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 2800,
+            ],
+            [
+                'title' => 'Diskusi Panel: Transisi Energi Terbarukan di Kepulauan Sunda Kecil',
+                'type' => 'video',
+                'duration' => '55:30',
+                'category_slug' => 'kebijakan-publik',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 320,
+            ],
+            [
+                'title' => 'Geliat Startup Kopi Manggarai: Dari Kebun Petani Lokal Menuju Kedai Global',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 780,
+            ],
+            [
+                'title' => 'Waspada Demam Berdarah! Kenali Gejala dan Langkah Pencegahan Awal',
+                'type' => 'short',
+                'duration' => '00:40',
+                'category_slug' => 'kesehatan',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 1900,
+            ],
         ];
 
         // 4. Proses Input ke Database
         foreach ($newsData as $data) {
             $category_id = $catIds[$data['category_slug']] ?? null;
+            
+            // Hapus slug dari array sebelum di-merge karena tidak ada di kolom tabel posts
             unset($data['category_slug']);
 
-            $newEpisode = Post::create(array_merge($data, [
-                'slug' => Str::slug($data['title']),
-                'excerpt' => 'Liputan mendalam mengenai ' . $data['title'] . ' yang sedang menjadi perhatian masyarakat NTT.',
-                'content' => '<p>Ini adalah isi berita simulasi untuk <strong>' . $data['title'] . '</strong>.</p><p>Laporan tim redaksi <em>Teman Cerita</em> menunjukkan bahwa isu ini memerlukan perhatian serius dari berbagai stakeholder terkait untuk menemukan solusi jangka panjang.</p>',
-                'image_caption' => 'Visualisasi dari ' . $data['title'],
-                'image_source' => 'Tim Produksi Teman Cerita',
-                'link' => 'https://www.youtube.com/watch?v=example',
+            $newPost = Post::create(array_merge($data, [
+                'category_id' => $category_id, // Perbaikan: Menambahkan category_id yang sebelumnya hilang
+                'slug' => Str::slug($data['title']) . '-' . Str::random(5), // Tambahan random string agar slug pasti unik
+                'excerpt' => 'Liputan mendalam mengenai ' . $data['title'] . ' yang sedang menjadi perhatian masyarakat Nusa Tenggara Timur.',
+                'content' => '<p>Ini adalah isi berita simulasi untuk <strong>' . $data['title'] . '</strong>.</p><p>Laporan tim redaksi <em>Highlight NTT</em> menunjukkan bahwa isu ini memerlukan perhatian serius dari berbagai stakeholder terkait untuk menemukan solusi jangka panjang yang menguntungkan masyarakat luas.</p><p>Berdasarkan data di lapangan, banyak warga yang masih menantikan langkah konkret dari pihak berwenang. Kami akan terus memperbarui perkembangan isu ini secara berkala.</p>',
+                'image_caption' => 'Ilustrasi ' . $data['title'],
+                'image_source' => 'Dok. Redaksi Highlight NTT',
+                'link' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Link dummy
                 'is_published' => true,
-                'published_at' => now(),
-                'date' => now(),
+                'published_at' => now()->subHours(rand(1, 48)), // Acak waktu tayang dari 1 hingga 48 jam yang lalu
+                'date' => now()->subHours(rand(1, 48))->toDateString(),
                 'author_id' => $author->id,
             ]));
 
-            // Pasangkan dengan 1-2 tag acak (jika TagSeeder sudah dijalankan)
+            // Pasangkan dengan 1-2 tag acak (jika TagSeeder sudah dijalankan dan tabel tags tidak kosong)
             if (Tag::count() > 0) {
-                $tags = Tag::inRandomOrder()->take(rand(1, 2))->pluck('id');
-                $newEpisode->tags()->attach($tags);
+                $tags = Tag::inRandomOrder()->take(rand(1, 3))->pluck('id');
+                $newPost->tags()->attach($tags);
             }
         }
     }

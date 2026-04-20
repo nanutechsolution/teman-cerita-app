@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // 1. BUAT AKUN ADMIN UTAMA
-        User::updateOrCreate(
+        $admin = User::updateOrCreate(
             ['email' => 'admin@temancerita.com'],
             [
                 'name' => 'Admin Teman Cerita',
@@ -104,58 +104,202 @@ class DatabaseSeeder extends Seeder
         }
 
         // 6. POST/BERITA CONTOH (Refactored dari Episode)
-        $categoryIds = Category::pluck('id')->toArray();
+        // Ambil mapping slug ke ID untuk kategori
+        $catMap = Category::pluck('id', 'slug')->toArray();
         $speakerIds = Speaker::pluck('id')->toArray();
 
-        $postsData = [
+        // Data 20 Berita/Post
+        $newsData = [
             [
-                'title' => 'Bedah Makan Bergizi Gratis & Tantangannya di Kab. Sikka',
-                'slug' => 'bedah-makan-bergizi-gratis-sikka',
-                'category_id' => $categoryIds[0],
-                'date' => now()->subDays(5),
-                'link' => 'https://www.youtube.com/watch?v=example1',
-                'img' => 'episodes/default-thumbnail.png',
-                'content' => '<h2>Ringkasan Diskusi</h2><p>Episode kali ini membahas mengenai implementasi program makan bergizi gratis di Kabupaten Sikka. Kami mengupas tuntas mengenai kesiapan logistik, anggaran daerah, hingga dampak gizi bagi anak-anak sekolah.</p>',
-                'is_published' => true,
-                'published_at' => now()->subDays(5),
-                'meta_title' => 'Analisis Makan Bergizi Gratis di Sikka - Teman Cerita NTT',
-                'meta_description' => 'Bagaimana kesiapan Kab. Sikka menyambut program makan bergizi? Simak diskusi mendalamnya di sini.',
+                'title' => 'ISU HANGAT JADI KEBIJAKAN PUBLIK! - Rektor Universitas Nusa Nipa Buka Suara',
+                'type' => 'video',
+                'duration' => '14:20',
+                'category_slug' => 'politik',
+                'is_headline' => true,
+                'is_breaking' => true,
+                'views' => 1250,
             ],
             [
-                'title' => 'Cerita Para Pendamping: Ketika Janji Kerja Berujung Perbudakan',
-                'slug' => 'cerita-pendamping-trafficking-ntt',
-                'category_id' => $categoryIds[1],
-                'date' => now()->subDays(10),
-                'link' => 'https://www.youtube.com/watch?v=example2',
-                'img' => 'episodes/default-thumbnail.png',
-                'content' => '<h2>Tragedi Human Trafficking</h2><p>NTT masih darurat perdagangan orang. Maria Londa berbagi cerita pilu sekaligus strategi pencegahan dari akar rumput untuk melindungi para calon pekerja migran.</p>',
-                'is_published' => true,
-                'published_at' => now()->subDays(10),
-                'meta_title' => 'Melawan Perbudakan Modern di NTT',
-                'meta_description' => 'Edukasi dan cerita nyata perjuangan melawan human trafficking di Nusa Tenggara Timur.',
+                'title' => 'PUSKESMAS BOGANATAR KAB. SIKKA MANGKRAK, Warga Menjerit Minta Kepastian',
+                'type' => 'article',
+                'category_slug' => 'peristiwa',
+                'is_headline' => true,
+                'is_breaking' => true,
+                'views' => 497,
             ],
             [
-                'title' => 'Edukasi Politik: Jari Pintar di Tahun Politik NTT',
-                'slug' => 'edukasi-politik-jari-pintar-ntt',
-                'category_id' => $categoryIds[2],
-                'date' => now()->addDays(2),
-                'link' => 'https://www.youtube.com/watch?v=example3',
-                'img' => 'episodes/default-thumbnail.png',
-                'content' => '<p>Menjelang Pilkada, bagaimana warga NTT menyaring informasi hoax di media sosial? Diskusi bersama pakar komunikasi mengenai literasi digital politik.</p>',
-                'is_published' => true,
-                'published_at' => now()->addDays(2),
-                'meta_title' => 'Literasi Politik Digital NTT',
-                'meta_description' => 'Tips menghindari hoax politik di media sosial bagi warga NTT.',
+                'title' => 'Cerita Bersama Rektor Universitas Nusa Nipa Maumere: Masa Depan Pendidikan NTT',
+                'type' => 'video',
+                'duration' => '45:10',
+                'category_slug' => 'edukasi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 2100,
+            ],
+            [
+                'title' => 'Budaya Ngada NTT #bajawa #ngada #budaya - Tradisi yang Tetap Terjaga',
+                'type' => 'short',
+                'duration' => '00:59',
+                'category_slug' => 'sosbud',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 1600,
+            ],
+            [
+                'title' => 'Fenomena Bunuh Diri di NTT. Sehatkah Mental Kita? Tinjauan Psikologi Sosial',
+                'type' => 'article',
+                'category_slug' => 'opini',
+                'is_headline' => true,
+                'is_breaking' => false,
+                'views' => 3200,
+            ],
+            [
+                'title' => 'Dampak Kekeringan di Flores Timur: Petani Jagung Terancam Gagal Panen Total',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => true,
+                'views' => 540,
+            ],
+            [
+                'title' => 'Pariwisata Labuan Bajo: Antara Konservasi Komodo dan Target Wisatawan Masif',
+                'type' => 'video',
+                'duration' => '12:05',
+                'category_slug' => 'ekonomi',
+                'is_headline' => true,
+                'is_breaking' => false,
+                'views' => 2400,
+            ],
+            [
+                'title' => 'Potret Pendidikan di Perbatasan: Perjuangan Siswa di Atambua Demi Menuntut Ilmu',
+                'type' => 'article',
+                'category_slug' => 'edukasi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 890,
+            ],
+            [
+                'title' => 'Inovasi Tenun Ikat Sikka: Bagaimana Menembus Pasar Fashion Internasional?',
+                'type' => 'short',
+                'duration' => '00:45',
+                'category_slug' => 'sosbud',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 1200,
+            ],
+            [
+                'title' => 'Anggaran Stunting NTT: Evaluasi Efektivitas Penyaluran Dana di Tingkat Desa',
+                'type' => 'article',
+                'category_slug' => 'politik',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 310,
+            ],
+            [
+                'title' => 'Harga Beras Melambung di Pasar Kasih Naikoten Kupang, Pemprov Siapkan Operasi Pasar',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => true,
+                'views' => 1450,
+            ],
+            [
+                'title' => 'Polemik Tapal Batas Wilayah di Timor Tengah Selatan, Tokoh Adat Turun Tangan',
+                'type' => 'article',
+                'category_slug' => 'peristiwa',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 670,
+            ],
+            [
+                'title' => 'Mitos vs Fakta Obat Tradisional NTT: Pandangan Medis Modern',
+                'type' => 'video',
+                'duration' => '28:15',
+                'category_slug' => 'edukasi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 850,
+            ],
+            [
+                'title' => 'Menjelajah Pesona Bukit Cinta, Surga Tersembunyi di Rote Ndao',
+                'type' => 'video',
+                'duration' => '08:45',
+                'category_slug' => 'sosbud',
+                'is_headline' => true,
+                'is_breaking' => false,
+                'views' => 3400,
+            ],
+            [
+                'title' => 'Dana Desa untuk Pemberdayaan UMKM Perempuan di Sumba, Sudah Tepat Sasaran?',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 420,
+            ],
+            [
+                'title' => 'KLB Rabies di Kabupaten TTS Menelan Korban Jiwa, Vaksinasi Massal Digelar',
+                'type' => 'article',
+                'category_slug' => 'peristiwa',
+                'is_headline' => true,
+                'is_breaking' => true,
+                'views' => 5600,
+            ],
+            [
+                'title' => 'Merawat Tradisi Pasola di Sumba: Peran Generasi Muda #pasola #ntt',
+                'type' => 'short',
+                'duration' => '00:55',
+                'category_slug' => 'sosbud',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 2800,
+            ],
+            [
+                'title' => 'Diskusi Panel: Transisi Energi Terbarukan di Kepulauan Sunda Kecil',
+                'type' => 'video',
+                'duration' => '55:30',
+                'category_slug' => 'politik',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 320,
+            ],
+            [
+                'title' => 'Geliat Startup Kopi Manggarai: Dari Kebun Petani Lokal Menuju Kedai Global',
+                'type' => 'article',
+                'category_slug' => 'ekonomi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 780,
+            ],
+            [
+                'title' => 'Waspada Demam Berdarah! Kenali Gejala dan Langkah Pencegahan Awal',
+                'type' => 'short',
+                'duration' => '00:40',
+                'category_slug' => 'edukasi',
+                'is_headline' => false,
+                'is_breaking' => false,
+                'views' => 1900,
             ],
         ];
 
-        foreach ($postsData as $index => $postData) {
-            $post = Post::updateOrCreate(['slug' => $postData['slug']], $postData);
+        // Looping untuk memasukkan data ke tabel posts
+        foreach ($newsData as $data) {
+            $catSlug = $data['category_slug'];
+            unset($data['category_slug']); // Hapus slug karena tidak ada di tabel posts
 
-            // Hubungkan dengan 1-2 narasumber secara acak menggunakan metode relasi yang telah bersih
-            $post->speakers()->sync([
-                $speakerIds[$index % count($speakerIds)],
-            ]);
+            Post::create(array_merge($data, [
+                'category_id' => $catMap[$catSlug] ?? array_values($catMap)[0], // Fallback ke kategori pertama jika tidak cocok
+                'slug' => Str::slug($data['title']) . '-' . Str::random(5),
+                'excerpt' => 'Liputan mendalam mengenai ' . $data['title'] . ' yang sedang menjadi perhatian masyarakat.',
+                'content' => '<p>Ini adalah isi berita simulasi untuk <strong>' . $data['title'] . '</strong>.</p><p>Laporan tim redaksi <em>Teman Cerita NTT</em> menunjukkan bahwa isu ini memerlukan perhatian serius dari berbagai stakeholder terkait untuk menemukan solusi jangka panjang yang menguntungkan masyarakat luas.</p>',
+                'image_caption' => 'Ilustrasi ' . $data['title'],
+                'image_source' => 'Dok. Redaksi Teman Cerita',
+                'link' => 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Link dummy
+                'is_published' => true,
+                'published_at' => now()->subHours(rand(1, 48)), // Acak waktu tayang 1 - 48 jam lalu
+                'date' => now()->subHours(rand(1, 48))->toDateString(),
+                'author_id' => $admin->id,
+            ]));
         }
     }
 }

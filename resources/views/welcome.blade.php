@@ -49,7 +49,7 @@
         @endif
 
         <!-- TOPIK HANGAT (TRENDING TAGS) -->
-        <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-8 sm:mb-10 px-4 sm:px-0">
+        <!-- <div class="flex flex-wrap items-center gap-2 sm:gap-3 mb-8 sm:mb-10 px-4 sm:px-0">
             <span class="text-[10px] sm:text-[11px] font-black text-neutral-500 uppercase tracking-widest flex items-center gap-1">
                 <svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"/></svg>
                 Topik Hangat:
@@ -59,7 +59,7 @@
                 <a href="#" class="px-3 py-1 bg-neutral-100 text-neutral-700 dark:bg-[#1a1a1a] dark:text-neutral-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all border border-neutral-200 dark:border-neutral-800">#KTT_ASEAN_LabuanBajo</a>
                 <a href="#" class="px-3 py-1 bg-neutral-100 text-neutral-700 dark:bg-[#1a1a1a] dark:text-neutral-300 text-[10px] sm:text-xs font-bold uppercase tracking-wider rounded-full hover:bg-neutral-200 dark:hover:bg-neutral-800 transition-all border border-neutral-200 dark:border-neutral-800 hidden sm:inline-block">#EkonomiDigital</a>
             </div>
-        </div>
+        </div> -->
 
         <!-- 2. HERO SECTION: MOSAIC HEADLINES & TERPOPULER -->
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-0 sm:gap-6 lg:gap-8 mb-12 items-start px-4 sm:px-0">
@@ -109,7 +109,6 @@
                                     </a>
                                 </div>
                             @else
-                                {{-- Placeholder jika berita kurang dari 5 --}}
                                 <div class="relative overflow-hidden rounded-xl bg-neutral-200 dark:bg-[#1a1a1a] animate-pulse h-[200px] lg:h-full hidden lg:block border border-neutral-200 dark:border-neutral-800"></div>
                             @endif
                         @endfor
