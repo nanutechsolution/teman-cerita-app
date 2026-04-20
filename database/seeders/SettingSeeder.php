@@ -17,7 +17,7 @@ class SettingSeeder extends Seeder
             [
                 'key' => 'site_name',
                 'label' => 'Nama Website',
-                'value' => 'Highlight NTT',
+                'value' => 'HighlightNTT',
                 'type' => 'text',
                 'group' => 'General'
             ],
