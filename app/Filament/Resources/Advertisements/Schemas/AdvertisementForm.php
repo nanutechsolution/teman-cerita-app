@@ -35,6 +35,7 @@ class AdvertisementForm
                                     ->visibility('public')
                                     ->disk('public')
                                     ->required()
+                                    ->imageEditor()
                                     ->helperText('Rekomendasi ukuran: 728x90 (Horizontal) atau 300x250 (Sidebar)'),
 
                                 TextInput::make('link_url')
