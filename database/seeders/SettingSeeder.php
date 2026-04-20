@@ -11,7 +11,7 @@ class SettingSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {   
+    {
         // hapus
         Setting::truncate();
         $settings = [
@@ -23,6 +23,7 @@ class SettingSeeder extends Seeder
                 'type' => 'text',
                 'group' => 'General'
             ],
+            ['key' => 'home_focus_category', 'label' => 'Kategori Fokus Beranda (Slug)', 'value' => 'politik', 'type' => 'text', 'group' => 'General'],
             // logo
             [
                 'key' => 'site_logo',
