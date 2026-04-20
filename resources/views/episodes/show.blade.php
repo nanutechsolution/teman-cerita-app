@@ -6,22 +6,36 @@
 
     @push('head')
     <style>
-        .prose blockquote p::before, .prose blockquote p::after { content: none !important; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        .prose blockquote p::before,
+        .prose blockquote p::after {
+            content: none !important;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
         .trending-number {
             -webkit-text-stroke: 1px rgba(220, 38, 38, 0.2);
             color: transparent;
             font-family: 'Montserrat', sans-serif;
         }
-        .dark .trending-number { -webkit-text-stroke: 1px rgba(239, 68, 68, 0.2); }
+
+        .dark .trending-number {
+            -webkit-text-stroke: 1px rgba(239, 68, 68, 0.2);
+        }
     </style>
     @endpush
 
     <!-- READING PROGRESS BAR -->
-    <div x-data="{ percent: 0 }" 
-         x-init="window.addEventListener('scroll', () => { percent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 })"
-         class="fixed top-0 left-0 w-full h-1 z-[100] pointer-events-none">
+    <div x-data="{ percent: 0 }"
+        x-init="window.addEventListener('scroll', () => { percent = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100 })"
+        class="fixed top-0 left-0 w-full h-1 z-[100] pointer-events-none">
         <div class="h-full bg-red-600 transition-all duration-150 shadow-[0_0_10px_rgba(220,38,38,0.5)]" :style="'width: ' + percent + '%'"></div>
     </div>
 
@@ -34,12 +48,12 @@
                     <a href="{{ route('home') }}" class="hover:text-red-600 transition-colors">Beranda</a>
                     <span class="opacity-30">/</span>
                     @if($post->category)
-                        <a href="{{ route('category.show', $post->category->slug) }}" class="hover:text-red-600 transition-colors">{{ $post->category->name }}</a>
-                        <span class="opacity-30">/</span>
+                    <a href="{{ route('category.show', $post->category->slug) }}" class="hover:text-red-600 transition-colors">{{ $post->category->name }}</a>
+                    <span class="opacity-30">/</span>
                     @endif
                     <span class="text-neutral-900 dark:text-neutral-200 truncate max-w-[150px] sm:max-w-none">{{ $post->title }}</span>
                 </nav>
-                
+
                 <x-ad-banner position="home_top" class="!my-0" />
             </div>
 
@@ -47,36 +61,88 @@
 
                 {{-- LEFT SIDE: Main Article Content --}}
                 <div class="lg:col-span-8">
-                    <header class="mb-10">
-                        <h1 class="text-3xl sm:text-5xl xl:text-[52px] font-[1000] text-neutral-900 dark:text-white leading-[1.1] tracking-tight mb-8">
+                    <header class="mb-8 sm:mb-12">
+                        {{-- Judul: Ukuran dinamis untuk mobile-first --}}
+                        <h1 class="text-2xl sm:text-4xl lg:text-5xl xl:text-[52px] font-[1000] text-neutral-900 dark:text-white leading-[1.2] sm:leading-[1.1] tracking-tight mb-6 sm:mb-8">
                             {{ $post->title }}
                         </h1>
 
-                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-6 py-6 border-y border-neutral-100 dark:border-neutral-800">
-                            <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-red-600/20 p-0.5">
-                                    <img src="{{ $post->author && $post->author->profile_photo_path ? asset('storage/' . $post->author->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($post->author->name ?? 'Redaksi').'&background=random' }}" 
-                                         class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-500">
+                        <div class="flex flex-col gap-6 py-6 border-y border-neutral-100 dark:border-neutral-800">
+                            {{-- Baris Atas: Info Penulis & Waktu --}}
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center gap-3 sm:gap-4">
+                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-red-600/20 p-0.5">
+                                        <img src="{{ $post->author && $post->author->profile_photo_path ? asset('storage/' . $post->author->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($post->author->name ?? 'Redaksi').'&background=random' }}"
+                                            class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-500">
+                                    </div>
+                                    <div class="flex flex-col">
+                                        <span class="font-black text-neutral-900 dark:text-white text-xs sm:text-sm uppercase tracking-wide">
+                                            {{ $post->author->name ?? 'Redaksi Highlight NTT' }}
+                                        </span>
+                                        <time class="text-[10px] sm:text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-0.5">
+                                            {{ $post->published_at ? $post->published_at->translatedFormat('l, d F Y | H:i') : $post->created_at->translatedFormat('l, d F Y | H:i') }}
+                                        </time>
+                                    </div>
                                 </div>
-                                <div class="flex flex-col">
-                                    <span class="font-black text-neutral-900 dark:text-white text-sm uppercase tracking-wide">{{ $post->author->name ?? 'Redaksi Highlight NTT' }}</span>
-                                    <time class="text-[11px] text-neutral-500 font-bold uppercase tracking-wider mt-0.5">
-                                        {{ $post->published_at ? $post->published_at->translatedFormat('l, d F Y | H:i') : $post->created_at->translatedFormat('l, d F Y | H:i') }} WIB
-                                    </time>
+
+                                {{-- Waktu Baca: Muncul di mobile & desktop tapi lebih ringkas --}}
+                                <div class="flex flex-col items-end shrink-0">
+                                    <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest leading-none">Waktu Baca</span>
+                                    <span class="text-[11px] sm:text-xs font-bold dark:text-neutral-200">± {{ max(1, ceil(str_word_count(strip_tags($post->content)) / 200)) }} Min</span>
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-4">
-                                <div class="hidden sm:flex flex-col items-end border-r border-neutral-100 dark:border-neutral-800 pr-4">
-                                    <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest">Waktu Baca</span>
-                                    <span class="text-xs font-bold dark:text-neutral-200">± {{ max(1, ceil(str_word_count(strip_tags($post->content)) / 200)) }} Menit</span>
-                                </div>
-                                <div class="flex items-center gap-2" x-data="{ copyTo() { navigator.clipboard.writeText(window.location.href); alert('Tautan disalin!'); } }">
-                                    <a href="https://api.whatsapp.com/send?text={{ urlencode($post->title . ' - ' . url()->current()) }}" target="_blank" class="w-9 h-9 rounded-full bg-green-500 text-white flex items-center justify-center hover:scale-110 transition-transform shadow-lg shadow-green-500/20">
-                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+                            {{-- Baris Bawah: Social Share Lengkap --}}
+                            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <span class="text-[10px] font-black text-neutral-400 uppercase tracking-[0.2em] sm:hidden text-center italic">Bagikan Artikel</span>
+
+                                <div class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3"
+                                    x-data="{ 
+                    url: window.location.href, 
+                    title: '{{ addslashes($post->title) }}',
+                    copyTo() { 
+                        navigator.clipboard.writeText(this.url); 
+                        alert('Tautan disalin!'); 
+                    } 
+                 }">
+
+                                    {{-- Facebook --}}
+                                    <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`"
+                                        target="_blank" class="w-10 h-10 rounded-full bg-[#1877F2] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md" title="Share ke Facebook">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+                                        </svg>
                                     </a>
-                                    <button @click="copyTo()" class="w-9 h-9 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all shadow-sm">
-                                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" /></svg>
+
+                                    {{-- WhatsApp --}}
+                                    <a :href="`https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' - ' + url)}`"
+                                        target="_blank" class="w-10 h-10 rounded-full bg-[#25D366] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md" title="Share ke WhatsApp">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
+                                        </svg>
+                                    </a>
+
+                                    {{-- Twitter / X --}}
+                                    <a :href="`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`"
+                                        target="_blank" class="w-10 h-10 rounded-full bg-black text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md" title="Share ke X">
+                                        <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                                        </svg>
+                                    </a>
+
+                                    {{-- Telegram --}}
+                                    <a :href="`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`"
+                                        target="_blank" class="w-10 h-10 rounded-full bg-[#0088cc] text-white flex items-center justify-center hover:scale-110 transition-transform shadow-md" title="Share ke Telegram">
+                                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.07-.2-.08-.06-.19-.04-.27-.02-.11.02-1.93 1.23-5.46 3.62-.51.35-.98.52-1.4.51-.46-.01-1.35-.26-2.01-.48-.81-.27-1.45-.42-1.39-.89.03-.24.36-.49.99-.75 3.88-1.69 6.47-2.8 7.76-3.32 3.7-1.5 4.46-1.76 4.96-1.77.11 0 .36.03.52.17.13.12.17.28.18.39z" />
+                                        </svg>
+                                    </a>
+
+                                    {{-- Copy Link --}}
+                                    <button @click="copyTo()" class="w-10 h-10 rounded-full bg-neutral-100 dark:bg-neutral-800 text-neutral-600 dark:text-neutral-300 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all shadow-sm" title="Salin Tautan">
+                                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                                        </svg>
                                     </button>
                                 </div>
                             </div>
@@ -88,14 +154,14 @@
                         <div class="relative aspect-video sm:rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 shadow-2xl">
                             {{-- Jika ada video, tampilkan player. Jika tidak, tampilkan gambar --}}
                             @if(isset($videoData) && $videoData['platform'] === 'youtube' && $videoData['id'])
-                                <iframe class="absolute inset-0 w-full h-full" 
-                                    src="https://www.youtube.com/embed/{{ $videoData['id'] }}?rel=0&modestbranding=1" 
-                                    frameborder="0" allowfullscreen></iframe>
+                            <iframe class="absolute inset-0 w-full h-full"
+                                src="https://www.youtube.com/embed/{{ $videoData['id'] }}?rel=0&modestbranding=1"
+                                frameborder="0" allowfullscreen></iframe>
                             @else
-                                <img src="{{ $post->img ? asset('storage/' . $post->img) : asset('images/default-news.jpg') }}" 
-                                     alt="{{ $post->title }}" 
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[4000ms] ease-out">
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                            <img src="{{ $post->img ? asset('storage/' . $post->img) : asset('images/default-news.jpg') }}"
+                                alt="{{ $post->title }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[4000ms] ease-out">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             @endif
                         </div>
 
@@ -116,7 +182,7 @@
                         prose-a:text-red-600 dark:prose-a:text-red-500 prose-a:font-black prose-a:no-underline hover:prose-a:underline
                         prose-img:rounded-xl prose-img:shadow-lg
                         prose-blockquote:border-l-4 prose-blockquote:border-red-600 prose-blockquote:bg-neutral-50 dark:prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:my-10 prose-blockquote:text-neutral-700 dark:prose-blockquote:text-neutral-200 prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-xl">
-                        
+
                         {!! $post->content !!}
 
                         {{-- IN-CONTENT BACA JUGA (Sinkron dengan $relatedPosts) --}}
@@ -163,18 +229,22 @@
                     {{-- SEARCH WIDGET --}}
                     <div class="bg-neutral-50 dark:bg-[#151515] p-6 rounded-3xl border border-neutral-100 dark:border-neutral-800 shadow-sm">
                         <h3 class="text-xs font-black text-neutral-900 dark:text-white uppercase tracking-widest mb-5 flex items-center gap-2">
-                            <svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                            <svg class="w-4 h-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
                             Cari Berita
                         </h3>
                         <form action="{{ route('search') }}" method="GET" class="relative">
-                            <input type="text" name="q" placeholder="E.g: Pilkada NTT..." 
-                                   class="w-full bg-white dark:bg-[#0c0c0c] border border-neutral-200 dark:border-neutral-700 rounded-2xl px-5 py-3.5 text-sm focus:ring-2 focus:ring-red-600/20 focus:border-red-600 outline-none transition-all placeholder:text-neutral-400">
+                            <input type="text" name="q" placeholder="E.g: Pilkada NTT..."
+                                class="w-full bg-white dark:bg-[#0c0c0c] border border-neutral-200 dark:border-neutral-700 rounded-2xl px-5 py-3.5 text-sm focus:ring-2 focus:ring-red-600/20 focus:border-red-600 outline-none transition-all placeholder:text-neutral-400">
                             <button type="submit" class="absolute right-4 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-red-600 transition-colors">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5"><path d="M17 8l4 4m0 0l-4 4m4-4H3" /></svg>
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2.5">
+                                    <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                </svg>
                             </button>
                         </form>
                     </div>
-                    
+
                     {{-- TRENDING NTT --}}
                     @if(isset($relatedPosts) && $relatedPosts->count() > 0)
                     <section>
@@ -260,10 +330,12 @@
                 <div class="h-[2px] flex-1 bg-neutral-200 dark:bg-neutral-800 mx-8 hidden md:block"></div>
                 <a href="{{ route('home') }}" class="text-[10px] font-black uppercase tracking-[0.3em] text-neutral-400 hover:text-red-600 transition-all flex items-center gap-3 group">
                     Indeks Berita
-                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                        <path d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
                 </a>
             </div>
-            
+
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 xl:gap-10">
                 @foreach($relatedPosts as $bottom)
                 <a href="{{ route('post.show', $bottom->slug) }}" class="group flex flex-col h-full bg-white dark:bg-[#111] p-3 rounded-3xl border border-neutral-100 dark:border-neutral-800 hover:border-red-600/30 transition-all hover:shadow-xl">
