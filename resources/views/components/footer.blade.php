@@ -31,9 +31,9 @@
                         <div class="relative w-20 h-20 sm:w-24 sm:h-24 bg-transparent rounded-full flex items-center justify-center border border-neutral-200/80 dark:border-neutral-700/50 shadow-md group-hover:shadow-red-600/20 group-hover:border-red-600/50 transition-all duration-500 p-0.5">
                             <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-[#121212]">
                                 @if(isset($settings['site_logo']))
-                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
-                                @else
                                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
+                                @else
+                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 @endif
                             </div>
                         </div>
