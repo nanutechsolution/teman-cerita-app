@@ -28,9 +28,8 @@
                     
                     <!-- Logo Medallion -->
                     <div class="relative flex-shrink-0">
-                        <div class="absolute -inset-3 bg-red-600/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000"></div>
-                        <div class="relative w-20 h-20 sm:w-24 sm:h-24 bg-white dark:bg-[#121212] rounded-full flex items-center justify-center p-1.5 border-2 border-neutral-100 dark:border-neutral-800 shadow-xl group-hover:border-red-600 group-hover:shadow-red-500/20 transition-all duration-500">
-                            <div class="w-full h-full rounded-full overflow-hidden border border-neutral-50 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center">
+                        <div class="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center p-1.5  transition-all duration-500">
+                            <div class="w-full h-full  overflow-hidden flex items-center justify-center">
                                 @if(isset($settings['site_logo']))
                                     <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                                     @else
