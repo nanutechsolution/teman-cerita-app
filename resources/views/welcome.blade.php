@@ -301,7 +301,9 @@
     @endif
 
     <!-- 6. GALERI FOTO -->
-    <section class="mb-16 px-4 sm:px-0">
+    <!-- 6. GALERI FOTO DINAMIS DENGAN LIGHTBOX & SLIDER -->
+    <section x-data="galleryLightbox()" class="mb-16 px-4 sm:px-0">
+        <!-- Header Section -->
         <div class="flex items-center gap-4 border-b-[3px] border-black dark:border-white pb-2 mb-6">
             <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
@@ -309,51 +311,124 @@
             </svg>
             <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Galeri</h2>
 
-            <div class="ml-auto hidden sm:flex gap-2">
-                <button id="btn-prev-gallery" class="p-2 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-colors focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                </button>
-                <button id="btn-next-gallery" class="p-2 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-colors focus:outline-none">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                    </svg>
-                </button>
+            <div class="ml-auto hidden sm:flex items-center gap-4">
+                <a href="#" class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2">Lihat Semua &rarr;</a>
+                <div class="flex gap-2">
+                    <button @click="scrollPrev()" class="p-2 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-colors shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    <button @click="scrollNext()" class="p-2 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-colors shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
+        <!-- Main Slider Container -->
         <div id="gallery-container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-4 hide-scroll scroll-smooth">
-            @php
-            $dummyGallery = [
-            ['img' => '1518002171953-a080ee817e1f', 'title' => 'Keindahan Alam Pulau Komodo yang Mendunia'],
-            ['img' => '1528164344705-47542687000d', 'title' => 'Festival Budaya Daerah Tampilkan Ratusan Penari Tradisional'],
-            ['img' => '1533669955142-6a73332af4db', 'title' => 'Potret Kehidupan Nelayan Tradisional di Pesisir Pantai'],
-            ['img' => '1493246507139-91e8fad9978e', 'title' => 'Kawasan Pegunungan yang Sejuk Menarik Minat Wisatawan'],
-            ['img' => '1465809873722-b4f71b3e4046', 'title' => 'Detail Arsitektur Rumah Adat yang Tetap Terjaga'],
-            ['img' => '1476514525535-07fb3b4ae5f1', 'title' => 'Keriuhan Pasar Tradisional di Pagi Hari'],
-            ];
-            @endphp
+            @forelse($galleries as $gallery)
+            <div @click="openModal({{ json_encode($gallery) }}, {{ $gallery->images->map(fn($img) => ['path' => asset('storage/' . $img->image_path), 'caption' => $img->caption]) }})"
+                class="snap-start shrink-0 w-[85vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative group cursor-pointer overflow-hidden rounded-xl bg-neutral-200 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-xl transition-all duration-500 block">
 
-            @foreach($dummyGallery as $foto)
-            <div class="snap-start shrink-0 w-[85vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative group cursor-pointer overflow-hidden rounded-xl bg-neutral-200 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 shadow-sm hover:shadow-md transition-shadow">
                 <div class="aspect-[4/5] w-full">
-                    <img src="https://images.unsplash.com/photo-{{ $foto['img'] }}?auto=format&fit=crop&w=600&q=80" alt="Gallery" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                    <img src="{{ $gallery->cover_image ? asset('storage/' . $gallery->cover_image) : 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=600&q=80' }}"
+                        alt="{{ $gallery->title }}"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+                <!-- Gradasi Overlay -->
+                <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/30 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
+
+                <!-- Info Badge & Title -->
                 <div class="absolute bottom-0 left-0 w-full p-5 flex flex-col justify-end">
-                    <h3 class="text-white font-bold text-[14px] leading-[1.4] line-clamp-3">{{ $foto['title'] }}</h3>
+                    <div class="flex items-center gap-1.5 bg-red-600 text-white text-[9px] font-bold px-2 py-1 rounded-sm uppercase tracking-widest w-max mb-3 shadow-lg">
+                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                            <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {{ $gallery->images_count ?? 0 }} Foto
+                    </div>
+                    <h3 class="text-white font-bold text-[15px] leading-[1.4] line-clamp-3 group-hover:text-red-400 transition-colors">
+                        {{ $gallery->title }}
+                    </h3>
                 </div>
-                <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">
-                    <div class="p-2 bg-red-600/90 backdrop-blur-sm rounded-full text-white shadow-lg">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+
+                <!-- Hover Icon -->
+                <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-all transform translate-y-2 group-hover:translate-y-0">
+                    <div class="p-2.5 bg-white/20 backdrop-blur-md rounded-full text-white border border-white/30 shadow-2xl">
+                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </div>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <!-- Placeholder jika kosong -->
+            <div class="w-full py-12 text-center text-neutral-400 font-bold uppercase tracking-widest text-xs border-2 border-dashed border-neutral-200 dark:border-neutral-800 rounded-xl">Belum ada galeri foto terbaru</div>
+            @endforelse
         </div>
+
+        <!-- MODAL LIGHTBOX & SLIDER (Teleport ke Body) -->
+        <template x-teleport="body">
+            <div x-show="isOpen"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-200"
+                x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 sm:p-10"
+                x-cloak
+                @keydown.escape.window="closeModal()"
+                @keydown.right.window="nextImage()"
+                @keydown.left.window="prevImage()">
+
+                <!-- Close Button -->
+                <button @click="closeModal()" class="absolute top-6 right-6 z-[110] text-white/50 hover:text-white transition-colors p-2 bg-white/10 hover:bg-red-600 rounded-full">
+                    <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+
+                <!-- Navigation Buttons -->
+                <button @click="prevImage()" class="absolute left-4 sm:left-10 z-[110] p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all">
+                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path d="M15 19l-7-7 7-7" />
+                    </svg>
+                </button>
+                <button @click="nextImage()" class="absolute right-4 sm:right-10 z-[110] p-4 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all">
+                    <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                        <path d="M9 5l7 7-7 7" />
+                    </svg>
+                </button>
+
+                <!-- Main Content Container -->
+                <div class="w-full max-w-6xl h-full flex flex-col justify-center items-center">
+                    <!-- Image Display -->
+                    <div class="relative w-full h-[60vh] sm:h-[75vh] flex items-center justify-center">
+                        <template x-for="(img, index) in activeImages" :key="index">
+                            <div x-show="currentIndex === index"
+                                x-transition:enter="transition duration-500 ease-out"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                class="absolute inset-0 flex items-center justify-center">
+                                <img :src="img.path" class="max-w-full max-h-full object-contain shadow-2xl rounded-sm">
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Footer Info -->
+                    <div class="mt-8 text-center max-w-3xl">
+                        <div class="text-red-500 font-black text-xs uppercase tracking-[0.3em] mb-2" x-text="'Foto ' + (currentIndex + 1) + ' dari ' + activeImages.length"></div>
+                        <h3 class="text-white text-xl sm:text-2xl font-black mb-3" x-text="activeGallery?.title"></h3>
+                        <p class="text-neutral-400 text-sm leading-relaxed italic" x-text="activeImages[currentIndex]?.caption || 'Tidak ada deskripsi untuk foto ini.'"></p>
+                    </div>
+                </div>
+            </div>
+        </template>
     </section>
 
     <!-- 7. INDEKS TERKINI (BERITA TERBARU GRID) -->
@@ -408,6 +483,53 @@
 
     @push('scripts')
     <script>
+        function galleryLightbox() {
+            return {
+                isOpen: false,
+                activeGallery: null,
+                activeImages: [],
+                currentIndex: 0,
+
+                openModal(gallery, images) {
+                    this.activeGallery = gallery;
+                    this.activeImages = images;
+                    this.currentIndex = 0;
+                    this.isOpen = true;
+                    document.body.classList.add('overflow-hidden');
+                },
+
+                closeModal() {
+                    this.isOpen = false;
+                    document.body.classList.remove('overflow-hidden');
+                },
+
+                nextImage() {
+                    this.currentIndex = (this.currentIndex + 1) % this.activeImages.length;
+                },
+
+                prevImage() {
+                    this.currentIndex = (this.currentIndex - 1 + this.activeImages.length) % this.activeImages.length;
+                },
+
+                scrollNext() {
+                    const el = document.getElementById('gallery-container');
+                    const itemWidth = el.querySelector('.snap-start').offsetWidth + 16;
+                    el.scrollBy({
+                        left: itemWidth,
+                        behavior: 'smooth'
+                    });
+                },
+
+                scrollPrev() {
+                    const el = document.getElementById('gallery-container');
+                    const itemWidth = el.querySelector('.snap-start').offsetWidth + 16;
+                    el.scrollBy({
+                        left: -itemWidth,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        }
         document.addEventListener('DOMContentLoaded', function() {
             // --- Logika Navigasi Galeri Foto ---
             const gallery = document.getElementById('gallery-container');

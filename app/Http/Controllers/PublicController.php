@@ -87,7 +87,14 @@ class PublicController extends Controller
             ->latest('published_at')
             ->take(12)
             ->get();
-
+        $galleries = \App\Models\Gallery::with(['images' => function ($q) {
+            $q->orderBy('sort_order', 'asc');
+        }])
+            ->withCount('images')
+            ->where('is_published', true)
+            ->latest('published_at')
+            ->take(8)
+            ->get();
         $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
 
         $videoPosts = Post::with('category')
@@ -99,7 +106,7 @@ class PublicController extends Controller
             ->get();
 
         // Mengganti latestEpisodes menjadi latestPosts
-        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners', 'focusPosts', 'focusCategory', 'videoPosts'));
+        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners', 'focusPosts', 'focusCategory', 'videoPosts', 'galleries'));
     }
 
     /**

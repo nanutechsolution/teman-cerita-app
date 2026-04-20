@@ -31,7 +31,7 @@ class GalleryResource extends Resource
 
     public static function getNavigationGroup(): ?string
     {
-        return NavigationGroup::BUSINESS_MANAGEMENT->value;
+        return NavigationGroup::CONTENT->value;
     }
 
     public static function form(Schema $schema): Schema
