@@ -64,10 +64,12 @@
     <!-- BAR PROGRES SCROLL -->
     <div class="fixed top-0 left-0 h-1 bg-red-600 z-[70] transition-all duration-150 ease-out" :style="'width: ' + scrollProgress + '%'"></div>
 
-    <!-- NAVBAR PORTAL -->
-    <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-md border-neutral-200 dark:border-neutral-800 py-2 shadow-lg' : 'bg-transparent border-transparent py-4'"
+  <!-- NAVBAR PORTAL -->
+    <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-xl border-neutral-200 dark:border-neutral-800 py-2 shadow-md' : 'bg-white/90 dark:bg-[#0f0f0f]/90 backdrop-blur-md border-transparent py-4 shadow-sm'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-        <div class="absolute inset-0 z-0 opacity-40 dark:opacity-25 pointer-events-none"
+        
+        <!-- LAYER GAMBAR BACKGROUND -->
+        <div class="absolute inset-0 z-0 opacity-30 dark:opacity-15 pointer-events-none"
             style="background-image: url('{{ asset('images/header.jpeg') }}'); 
             background-size: cover; 
             background-position: center;
@@ -75,7 +77,7 @@
         </div>
 
         <!-- Kontainer Navbar Tengah -->
-        <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-4">
+        <div class="relative z-10 w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-4">
 
             <!-- ========================================== -->
             <!-- 1. BRANDING SECTION (KIRI)                 -->
@@ -83,35 +85,34 @@
             <div class="flex items-center shrink-0 py-1">
                 <a href="{{ route('home') }}" class="group flex items-center gap-3 sm:gap-4 transition-all duration-500">
 
+                    <!-- LOGO MEDALLION -->
                     <div class="relative flex-shrink-0">
-                        <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[78px] lg:h-[78px]   flex items-center justify-center transition-all duration-500 p-1">
-                            <div class="w-full h-full ">
+                        <div class="absolute -inset-2 bg-red-600/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 hidden sm:block"></div>
+                        <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[68px] lg:h-[68px] bg-transparent rounded-full flex items-center justify-center border border-neutral-200/50 dark:border-neutral-700/50 shadow-md group-hover:border-red-600/50 group-hover:shadow-red-600/20 transition-all duration-500 p-0.5">
+                            <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-[#121212]">
                                 @if(isset($settings['site_logo']))
-                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                 @else
-                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                 @endif
                             </div>
                         </div>
                     </div>
 
-                    <div class="flex flex-col select-none whitespace-nowrap" style="font-family: 'Montserrat', sans-serif;">
+                    <!-- TYPOGRAPHY LOGO (Profesional, Timbul, Rata Kiri) -->
+                    <div class="flex flex-col justify-center items-start select-none whitespace-nowrap pt-1" style="font-family: 'Montserrat', sans-serif;">
 
-                        <div class="flex items-baseline leading-none flex-nowrap">
-                            <span class="text-[clamp(20px,3.5vw,40px)] font-[1000] tracking-[-0.04em] text-white [-webkit-text-stroke:clamp(1px,0.2vw,2px)_#000] [paint-order:stroke_fill] dark:text-[#0f0f0f] dark:[-webkit-text-stroke:clamp(1px,0.2vw,2px)_#fff]">
-                                {{ Str::before($settings['site_name'] ?? 'Highlight NTT', ' ') }}
+                        <!-- NAMA SITUS -->
+                        <div class="flex items-baseline leading-[0.9] flex-nowrap drop-shadow-md">
+                            <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
+                                {{ $settings['site_name'] ?? 'HIGHLIGHT' }}
                             </span>
-                            <div class="flex items-baseline">
-                                <span class="text-[clamp(20px,3.5vw,40px)] font-[1000] tracking-[-0.04em] text-red-600 uppercase ml-1.5 group-hover:text-red-700 transition-colors duration-300">
-                                    {{ Str::after($settings['site_name'] ?? 'Highlight NTT', ' ') }}
-                                </span>
-                                <span class="text-[clamp(10px,1.5vw,18px)] font-black tracking-tighter text-neutral-400 ml-0.5">.com</span>
-                            </div>
+                            <span class="text-[clamp(12px,1.8vw,18px)] font-black tracking-tighter text-red-600 dark:text-red-500 ml-1 group-hover:text-red-700 transition-colors duration-300">.com</span>
                         </div>
 
-                        <div class="relative mt-1 sm:mt-1.5 group/tagline grid grid-cols-[auto_1fr] items-center">
-                            <!-- <div class="w-0.5 sm:w-1 h-3 sm:h-4 bg-red-600 rounded-full transition-transform group-hover:scale-y-125 -ml-2.5 sm:-ml-3 lg:-ml-4 mr-1.5 sm:mr-2"></div> -->
-                            <span class="text-[7px] sm:text-[9px] lg:text-[11px] font-black uppercase tracking-[0.05em] sm:tracking-[0.15em] text-neutral-700 dark:text-neutral-300 leading-none">
+                        <!-- TAGLINE -->
+                        <div class="relative mt-1.5 flex items-center group/tagline">
+                            <span class="text-[8px] sm:text-[10px] lg:text-[11px] font-bold uppercase tracking-[0.15em] text-neutral-600 dark:text-neutral-400 drop-shadow-sm">
                                 {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta, Teguh Menjaga Etika' }}
                             </span>
                         </div>
@@ -125,35 +126,35 @@
             <!-- ========================================== -->
             <div class="flex items-center justify-end gap-2 lg:gap-5 flex-1 min-w-0">
 
-                <!-- MENU DESKTOP (Sembunyi di HP/Tablet kecil) -->
+                <!-- MENU DESKTOP -->
                 <div class="hidden xl:flex items-center gap-1">
-                    <a href="{{ route('home') }}" class="relative px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 hover:text-red-600 transition-colors group">
+                    <a href="{{ route('home') }}" class="relative px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 hover:text-red-600 transition-colors group">
                         Home
                         <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full rounded-full"></span>
                     </a>
 
                     @if(isset($categories))
                     @foreach($categories->take(3) as $navCat)
-                    <a href="{{ route('category.show', $navCat->slug) }}" class="relative px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 hover:text-red-600 transition-colors group">
+                    <a href="{{ route('category.show', $navCat->slug) }}" class="relative px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 hover:text-red-600 transition-colors group">
                         {{ $navCat->name }}
                         <span class="absolute -bottom-1 left-0 w-0 h-[2px] bg-red-600 transition-all duration-300 group-hover:w-full rounded-full"></span>
                     </a>
                     @endforeach
 
-                    <!-- DROPDOWN RUBRIK (Jika lebih dari 3) -->
+                    <!-- DROPDOWN RUBRIK -->
                     @if($categories->count() > 3)
                     <div class="relative ml-1">
-                        <button @click.stop="isOtherMenuOpen = !isOtherMenuOpen" class="flex items-center gap-1.5 px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-200 hover:text-red-600 transition-colors group focus:outline-none">
+                        <button @click.stop="isOtherMenuOpen = !isOtherMenuOpen" class="flex items-center gap-1.5 px-3 py-2 text-[13px] font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 hover:text-red-600 transition-colors group focus:outline-none">
                             Rubrik
                             <svg class="w-4 h-4 transition-transform duration-300" :class="isOtherMenuOpen ? 'rotate-180 text-red-600' : 'text-neutral-400'" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                                 <path d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
 
-                        <div x-show="isOtherMenuOpen" @click.away="isOtherMenuOpen = false" x-transition class="absolute right-0 mt-4 w-60 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-md border border-neutral-100 dark:border-neutral-800 rounded-xl shadow-2xl py-2 z-[100]" x-cloak>
+                        <div x-show="isOtherMenuOpen" @click.away="isOtherMenuOpen = false" x-transition class="absolute right-0 mt-4 w-60 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-xl border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl py-2 z-[100]" x-cloak>
                             @foreach($categories->skip(3) as $otherCat)
-                            <a href="{{ route('category.show', $otherCat->slug) }}" class="flex items-center gap-3 px-5 py-3 text-[11px] font-bold text-neutral-600 dark:text-neutral-300 hover:bg-red-50 dark:hover:bg-neutral-800 hover:text-red-600 transition-all uppercase tracking-widest group">
-                                <span class="w-1.5 h-1.5 rounded-full bg-red-600 opacity-0 group-hover:opacity-100"></span>
+                            <a href="{{ route('category.show', $otherCat->slug) }}" class="flex items-center gap-3 px-5 py-3 text-[11px] font-bold text-neutral-600 dark:text-neutral-300 hover:bg-neutral-50 dark:hover:bg-neutral-800 hover:text-red-600 transition-all uppercase tracking-widest group">
+                                <span class="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-red-600 transition-colors"></span>
                                 {{ $otherCat->name }}
                             </a>
                             @endforeach
@@ -166,22 +167,21 @@
                 <!-- CONTROLS: Search, Theme, Hamburger -->
                 <div class="flex items-center gap-2 sm:gap-3 shrink-0">
 
-
                     <!-- Search Input (Desktop/Tablet) -->
                     <form action="{{ route('search') }}" method="GET" class="hidden md:block relative group">
-                        <input type="text" name="q" placeholder="Cari berita..." class="w-28 lg:w-44 focus:w-60 pl-9 pr-4 py-1.5 bg-neutral-100/80 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 focus:border-red-500 rounded-full text-[13px] transition-all duration-300 outline-none">
+                        <input type="text" name="q" placeholder="Cari berita..." class="w-28 lg:w-44 focus:w-60 pl-9 pr-4 py-2 bg-neutral-100/80 dark:bg-[#1a1a1a]/80 backdrop-blur-sm border border-neutral-200 dark:border-neutral-800 focus:border-red-500 rounded-full text-[13px] transition-all duration-300 outline-none">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center">
-                            <svg class="w-4 h-4 text-neutral-400 group-focus-within:text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                            <svg class="w-4 h-4 text-neutral-400 group-focus-within:text-red-600 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                 <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
                         </div>
                     </form>
 
-                    <div class="hidden sm:block w-px h-6 bg-neutral-200 dark:bg-neutral-800 mx-1"></div>
+                    <div class="hidden sm:block w-px h-6 bg-neutral-300 dark:bg-neutral-700 mx-1"></div>
 
                     <!-- Toggle Dark Mode -->
-                    <button @click="toggleDarkMode()" class="p-2 sm:p-2.5 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-all focus:outline-none">
-                        <svg x-show="!darkMode" class="w-5 h-5 text-neutral-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <button @click="toggleDarkMode()" class="p-2 sm:p-2.5 rounded-full hover:bg-neutral-200/50 dark:hover:bg-neutral-800/50 transition-all focus:outline-none group">
+                        <svg x-show="!darkMode" class="w-5 h-5 text-neutral-600 group-hover:text-neutral-900 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                             <path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
                         </svg>
                         <svg x-show="darkMode" class="w-5 h-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" x-cloak>
@@ -190,7 +190,7 @@
                     </button>
 
                     <!-- Tombol Menu Mobile -->
-                    <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="xl:hidden p-2 sm:p-2.5 rounded-xl bg-neutral-100 dark:bg-[#1a1a1a] text-neutral-900 dark:text-white transition-colors focus:outline-none">
+                    <button @click="isMobileMenuOpen = !isMobileMenuOpen" class="xl:hidden p-2 sm:p-2.5 rounded-xl bg-neutral-100 dark:bg-[#1a1a1a] text-neutral-900 dark:text-white transition-colors focus:outline-none hover:bg-neutral-200 dark:hover:bg-neutral-800">
                         <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path x-show="!isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
                             <path x-show="isMobileMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" x-cloak />
@@ -210,7 +210,7 @@
             x-transition:leave="transition ease-in duration-200"
             x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-4"
-            class="absolute top-full left-0 w-full max-h-[85vh] overflow-y-auto bg-white/98 dark:bg-[#0f0f0f]/98 backdrop-blur-xl border-b border-neutral-200 dark:border-neutral-800 p-6 xl:hidden shadow-2xl z-[100]" x-cloak>
+            class="absolute top-full left-0 w-full max-h-[85vh] overflow-y-auto bg-white/98 dark:bg-[#0f0f0f]/98 backdrop-blur-2xl border-b border-neutral-200 dark:border-neutral-800 p-6 xl:hidden shadow-2xl z-[100]" x-cloak>
 
             <!-- Form Cari Mobile -->
             <form action="{{ route('search') }}" method="GET" class="relative mb-8">
@@ -219,7 +219,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                     </svg>
                 </div>
-                <input type="text" name="q" placeholder="Cari berita..." class="w-full bg-neutral-100 dark:bg-[#1a1a1a] border-none rounded-2xl pl-12 pr-5 py-4 text-sm focus:ring-2 focus:ring-red-600 outline-none text-neutral-900 dark:text-white">
+                <input type="text" name="q" placeholder="Cari berita..." class="w-full bg-neutral-100 dark:bg-[#1a1a1a] border border-transparent focus:border-red-600 rounded-2xl pl-12 pr-5 py-4 text-sm outline-none text-neutral-900 dark:text-white transition-all">
             </form>
 
             <!-- Daftar Menu -->
@@ -231,19 +231,19 @@
                 <a href="{{ route('home') }}" class="flex items-center justify-between px-4 py-4 rounded-2xl bg-neutral-50 dark:bg-[#1a1a1a] text-sm font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 active:scale-[0.98] transition-all">
                     Beranda
                     <svg class="w-4 h-4 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M9 5l7 7-7 7" stroke-width="3" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
 
                 @if(isset($categories))
                 @foreach($categories as $cat)
-                <a href="{{ route('category.show', $cat->slug) }}" class="group flex items-center justify-between px-4 py-4 rounded-2xl hover:bg-red-50 dark:hover:bg-red-900/10 text-sm font-bold uppercase tracking-wider text-neutral-800 dark:text-neutral-200 transition-all border border-transparent hover:border-red-100 dark:hover:border-red-900/30">
+                <a href="{{ route('category.show', $cat->slug) }}" class="group flex items-center justify-between px-4 py-4 rounded-2xl hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] text-sm font-bold uppercase tracking-wider text-neutral-700 dark:text-neutral-300 transition-all border border-transparent hover:border-neutral-200 dark:hover:border-neutral-800">
                     <div class="flex items-center gap-3">
-                        <span class="w-1.5 h-1.5 rounded-full bg-red-600"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-neutral-300 dark:bg-neutral-600 group-hover:bg-red-600 transition-colors"></span>
                         {{ $cat->name }}
                     </div>
                     <svg class="w-4 h-4 text-neutral-300 group-hover:text-red-600 group-hover:translate-x-1 transition-all" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path d="M9 5l7 7-7 7" stroke-width="3" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
                     </svg>
                 </a>
                 @endforeach
@@ -266,7 +266,6 @@
             </div>
         </div>
     </nav>
-
     <!-- AREA KONTEN - DIBATASI LEBARNYA DAN DI TENGAH -->
     <main class="pt-24 pb-12 min-h-[60vh] flex flex-col items-center">
         <div class="w-full max-w-[1400px]">
