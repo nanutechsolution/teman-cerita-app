@@ -51,6 +51,7 @@ Route::get('/kontributor', [PublicController::class, 'kontributor'])->name('kont
 Route::get('/kontributor/{slug}', [PublicController::class, 'kontributorShow'])->name('kontributor.show');
 Route::get('/galeri', [GalleryController::class, 'index'])->name('gallery.index');
 Route::get('/galeri/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
+Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
 Route::post('/kontak/kirim', function (Request $request) {
     // 1. Validasi Input Form
     $request->validate([
