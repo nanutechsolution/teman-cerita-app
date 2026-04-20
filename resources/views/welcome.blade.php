@@ -272,6 +272,7 @@
     </section>
     @endif
 
+    @if(isset($galleries) && $galleries->count() > 0)
     <!-- 6. GALERI FOTO (DINAMIS DENGAN LIGHTBOX) -->
     <section x-data="galleryLightbox()" class="mb-16 px-4 sm:px-0">
         <div class="flex items-center gap-4 border-b-[3px] border-black dark:border-white pb-3 mb-6">
@@ -346,6 +347,7 @@
             </div>
         </template>
     </section>
+    @endif
 
 
 
