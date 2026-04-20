@@ -64,10 +64,17 @@
     <!-- BAR PROGRES SCROLL -->
     <div class="fixed top-0 left-0 h-1 bg-red-600 z-[70] transition-all duration-150 ease-out" :style="'width: ' + scrollProgress + '%'"></div>
 
-    <!-- NAVBAR PORTAL BERITA NASIONAL -->
+    <!-- NAVBAR PORTAL -->
     <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-md border-neutral-200 dark:border-neutral-800 py-2 shadow-lg' : 'bg-transparent border-transparent py-4'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-
+        <div :class="isScrolled ? 'opacity-15 dark:opacity-20' : 'opacity-0'"
+            class="absolute inset-0 z-[-1] transition-opacity duration-500 pointer-events-none opacity-0"
+            style="background-image: url('{{ asset('images/header.jpeg') }}'); 
+        background-size: cover; 
+        background-position: center;
+        background-repeat: no-repeat;
+        mix-blend-mode: multiply;">
+        </div>
         <!-- Kontainer Navbar Tengah -->
         <div class="w-full max-w-[1400px] px-4 sm:px-6 flex justify-between items-center gap-4">
 
@@ -87,7 +94,7 @@
                                 @if(isset($settings['site_logo']))
                                 <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                 @else
-                                <img src="{{ asset('images/27.png') }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
                                 @endif
                             </div>
                         </div>

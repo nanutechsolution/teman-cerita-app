@@ -33,8 +33,8 @@
                             <div class="w-full h-full rounded-full overflow-hidden border border-neutral-50 dark:border-neutral-700 bg-neutral-50 dark:bg-neutral-900 flex items-center justify-center">
                                 @if(isset($settings['site_logo']))
                                     <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
-                                @else
-                                    <span class="text-red-600 font-[1000] text-3xl tracking-tighter">H.</span>
+                                    @else
+                                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
                                 @endif
                             </div>
                         </div>
