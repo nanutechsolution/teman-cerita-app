@@ -81,17 +81,25 @@ class PublicController extends Controller
         $latestPosts = Post::with(['category', 'author'])
             ->where('is_published', true)
             ->where('published_at', '<=', now())
-            ->when($headlines->isNotEmpty(), function ($q) use ($headlines) {
-                return $q->whereNotIn('id', $headlines->pluck('id'));
-            })
+            // ->when($headlines->isNotEmpty(), function ($q) use ($headlines) {
+            //     return $q->whereNotIn('id', $headlines->pluck('id'));
+            // })
             ->latest('published_at')
             ->take(12)
             ->get();
 
         $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
 
+        $videoPosts = Post::with('category')
+            ->where('is_published', true)
+            ->whereIn('type', ['video', 'short']) // Filter khusus tipe video/short
+            ->where('published_at', '<=', now())
+            ->latest('published_at')
+            ->take(4)
+            ->get();
+
         // Mengganti latestEpisodes menjadi latestPosts
-        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners', 'focusPosts', 'focusCategory'));
+        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners', 'focusPosts', 'focusCategory', 'videoPosts'));
     }
 
     /**
