@@ -105,7 +105,7 @@ class Post extends Model
     // tags
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'post_tag');
     }
     /**
      * Relasi: Episode (Artikel) disetujui/diedit oleh satu User (Editor).
@@ -114,14 +114,7 @@ class Post extends Model
     {
         return $this->belongsTo(User::class, 'editor_id');
     }
-    /**
-     * Relasi: Banyak Episode bisa memiliki banyak Tag.
-     */
-    // DI DALAM app/Models/Tag.php
-    public function posts(): BelongsToMany
-    {
-        return $this->belongsToMany(Post::class);
-    }
+
     public function speakers(): BelongsToMany
     {
         return $this->belongsToMany(Speaker::class);

@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             // Menambah kolom baru setelah kolom 'img'
-            $table->string('tags')->nullable()->after('img');
 
             // Mengubah kolom yang sudah ada (Misal: link jadi nullable)
             // Catatan: Perlu install package 'doctrine/dbal' jika versi Laravel lama
@@ -25,7 +24,6 @@ return new class extends Migration
     {
         Schema::table('posts', function (Blueprint $table) {
             // Batalkan perubahan jika migrasi di-rollback
-            $table->dropColumn('tags');
             $table->string('link')->nullable(false)->change();
         });
     }
