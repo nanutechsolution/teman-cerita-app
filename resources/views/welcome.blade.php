@@ -224,73 +224,68 @@
 
     <!-- 5. MULTIMEDIA / GALERI VIDEO -->
     @if(isset($videoPosts) && $videoPosts->count() > 0)
-    <section class="mb-16 -mx-4 sm:mx-0 px-4 py-12 sm:p-12 bg-neutral-900 dark:bg-[#0a0a0a] sm:rounded-2xl relative overflow-hidden shadow-lg border border-neutral-800">
-        <div class="absolute top-0 right-0 w-64 h-64 bg-red-600/10 blur-[100px] rounded-full"></div>
+    <section class="mb-16 -mx-4 sm:mx-0 px-4 py-12 sm:p-12 bg-neutral-900 dark:bg-[#0a0a0a] sm:rounded-3xl relative overflow-hidden shadow-2xl border border-neutral-800">
+        <!-- Dekorasi Cahaya (Glow) -->
+        <div class="absolute top-0 right-0 w-96 h-96 bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-blue-600/5 blur-[100px] rounded-full pointer-events-none"></div>
 
-        <div class="flex items-center gap-4 border-b-[3px] border-neutral-700 pb-2 mb-8 relative z-10">
-            <div class="w-4 h-4 bg-red-600 rounded-full animate-pulse"></div>
-            <h2 class="text-2xl font-black text-white uppercase tracking-tighter">Highlight Video</h2>
-            <a href="{{ route('category.index') }}?type=video" class="ml-auto text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-white transition-colors">Lihat Semua &rarr;</a>
+        <div class="flex items-center gap-4 border-b-[3px] border-neutral-700 pb-3 mb-8 relative z-10">
+            <div class="w-4 h-4 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
+            <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter">Highlight Video</h2>
+            <a href="{{ route('category.index') }}?type=video" class="ml-auto text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-red-500 transition-colors">Lihat Semua &rarr;</a>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10">
-
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
             <!-- Video Utama (Kiri - 2 Kolom) -->
             @php $mainVideo = $videoPosts->first(); @endphp
-            <a href="{{ route('post.show', $mainVideo->slug) }}" class="md:col-span-2 relative group cursor-pointer block">
-                <div class="aspect-video w-full overflow-hidden bg-black rounded-xl border border-neutral-800">
-                    <img src="{{ $mainVideo->img ? asset('storage/' . $mainVideo->img) : 'https://images.unsplash.com/photo-1517554558209-4081c7f8a70c?q=80&w=800&auto=format&fit=crop' }}"
+            <div class="lg:col-span-2">
+                <a href="{{ route('post.show', $mainVideo->slug) }}" class="group relative block overflow-hidden rounded-2xl border border-neutral-800 bg-black aspect-video shadow-2xl">
+                    <img src="{{ $mainVideo->img ? asset('storage/' . $mainVideo->img) : 'https://images.unsplash.com/photo-1517554558209-4081c7f8a70c?q=80&w=1200' }}"
                         alt="{{ $mainVideo->title }}"
-                        class="w-full h-full object-cover opacity-80 group-hover:scale-105 group-hover:opacity-100 transition-all duration-500">
-                </div>
-                <!-- Tombol Play Tengah -->
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <div class="w-16 h-16 bg-red-600/90 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-red-500 group-hover:scale-110 transition-all shadow-lg shadow-red-600/30">
-                        <svg class="w-8 h-8 text-white ml-1" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M8 5v14l11-7z" />
-                        </svg>
+                        class="w-full h-full object-cover opacity-70 group-hover:scale-105 group-hover:opacity-90 transition-all duration-700">
+
+                    <!-- Play Button Center -->
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-20 h-20 bg-red-600/90 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-red-500 group-hover:scale-110 transition-all shadow-xl shadow-red-600/30">
+                            <svg class="w-10 h-10 text-white ml-1.5" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                        </div>
                     </div>
-                </div>
-                <!-- Caption Bawah -->
-                <div class="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 via-black/40 to-transparent rounded-b-xl">
-                    <span class="bg-red-600 text-white text-[9px] font-bold px-2 py-0.5 uppercase tracking-widest w-max mb-2 block rounded-sm">
-                        {{ $mainVideo->category->name ?? 'Video' }}
-                    </span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white line-clamp-2 group-hover:text-neutral-200 transition-colors">
-                        {{ $mainVideo->title }}
-                    </h3>
-                </div>
-            </a>
+
+                    <!-- Info Overlay -->
+                    <div class="absolute bottom-0 left-0 w-full p-6 sm:p-10 bg-gradient-to-t from-black via-black/40 to-transparent">
+                        <span class="bg-red-600 text-white text-[10px] font-black px-3 py-1 uppercase tracking-widest w-max mb-3 block rounded-sm shadow-lg">Eksklusif</span>
+                        <h3 class="text-2xl sm:text-3xl font-black text-white leading-tight group-hover:text-red-400 transition-colors line-clamp-2">
+                            {{ $mainVideo->title }}
+                        </h3>
+                    </div>
+                </a>
+            </div>
 
             <!-- List Video (Kanan - 1 Kolom) -->
-            <div class="flex flex-col gap-4">
-                {{-- Melewati video pertama, ambil maksimal 3 video berikutnya --}}
+            <div class="flex flex-col gap-5">
                 @foreach($videoPosts->skip(1)->take(3) as $video)
-                <a href="{{ route('post.show', $video->slug) }}" class="group flex gap-4 cursor-pointer p-2 -mx-2 hover:bg-white/5 rounded-xl transition-colors">
-                    <div class="w-32 aspect-video shrink-0 relative overflow-hidden bg-black rounded-lg border border-neutral-800">
-                        <img src="{{ $video->img ? asset('storage/' . $video->img) : 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=300&auto=format&fit=crop' }}"
-                            alt="{{ $video->title }}"
-                            class="w-full h-full object-cover opacity-70 group-hover:opacity-100 transition-opacity">
+                <a href="{{ route('post.show', $video->slug) }}" class="group flex gap-4 items-center p-3 rounded-2xl hover:bg-white/5 transition-all border border-transparent hover:border-neutral-800">
+                    <div class="w-32 sm:w-40 aspect-video shrink-0 relative overflow-hidden bg-black rounded-xl border border-neutral-800">
+                        <img src="{{ $video->img ? asset('storage/' . $video->img) : 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?q=80&w=400' }}" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 transition-opacity">
                         <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-8 h-8 bg-black/60 rounded-full flex items-center justify-center backdrop-blur-sm group-hover:bg-red-600 transition-colors">
+                            <div class="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center shadow-lg transform group-hover:scale-110 transition-transform">
                                 <svg class="w-4 h-4 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M8 5v14l11-7z" />
                                 </svg>
                             </div>
                         </div>
-                        {{-- Durasi Video (Jika ada di database) --}}
                         @if($video->duration)
-                        <div class="absolute bottom-1 right-1 bg-black/80 text-white text-[8px] font-bold px-1.5 py-0.5 rounded">
+                        <div class="absolute bottom-1 right-1 bg-black/80 text-white text-[9px] font-bold px-1.5 py-0.5 rounded-md">
                             {{ $video->duration }}
                         </div>
                         @endif
                     </div>
-                    <div class="flex flex-col justify-center">
-                        <h4 class="text-sm font-bold text-neutral-300 group-hover:text-white leading-snug line-clamp-3">
-                            {{ $video->title }}
-                        </h4>
-                        <span class="text-[10px] text-neutral-500 font-medium mt-1">
-                            {{ number_format($video->views ?? 0, 0, ',', '.') }} Tayangan • {{ $video->published_at ? \Carbon\Carbon::parse($video->published_at)->diffForHumans() : '' }}
+                    <div class="flex flex-col">
+                        <h4 class="text-sm font-bold text-neutral-200 group-hover:text-white leading-snug line-clamp-2 transition-colors">{{ $video->title }}</h4>
+                        <span class="text-[10px] text-neutral-500 font-medium mt-2 uppercase tracking-wider">
+                            {{ number_format($video->views ?? 0, 0, ',', '.') }} Tayangan
                         </span>
                     </div>
                 </a>

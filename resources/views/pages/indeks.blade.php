@@ -35,10 +35,10 @@
         </header>
 
         {{-- Daftar Berita --}}
-        @if($episodes->count() > 0)
+        @if($posts->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                @foreach($episodes as $ep)
-                    <a href="{{ route('episode.show', $ep->slug) }}" class="group flex flex-col sm:flex-row gap-6 bg-white dark:bg-[#121212] p-5 rounded-3xl border border-neutral-200 dark:border-neutral-800 hover:border-red-600/30 transition-all shadow-sm hover:shadow-xl">
+                @foreach($posts as $ep)
+                    <a href="{{ route('post.show', $ep->slug) }}" class="group flex flex-col sm:flex-row gap-6 bg-white dark:bg-[#121212] p-5 rounded-3xl border border-neutral-200 dark:border-neutral-800 hover:border-red-600/30 transition-all shadow-sm hover:shadow-xl">
                         <div class="w-full sm:w-48 h-32 shrink-0 rounded-2xl overflow-hidden bg-neutral-100 dark:bg-[#1a1a1a]">
                             <img src="{{ $ep->img ? asset('storage/' . $ep->img) : asset('images/placeholder.jpg') }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" onerror="this.src='https://images.unsplash.com/photo-1585829365234-78d9b8129f17?q=80&w=300&auto=format&fit=crop'">
                         </div>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="mt-12">
-                {{ $episodes->links() }}
+                {{ $posts->links() }}
             </div>
         @else
             <div class="py-32 text-center bg-neutral-50 dark:bg-[#121212] rounded-[3rem] border border-dashed border-neutral-200 dark:border-neutral-800">
