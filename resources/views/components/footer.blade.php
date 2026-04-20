@@ -19,65 +19,68 @@
         <!-- GRID UTAMA (Mobile First: 1 Kolom -> Tablet: 2 Kolom -> Desktop: 12 Kolom) -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-y-14 gap-x-10 xl:gap-x-16 mb-16">
 
-            {{-- ========================================== --}}
-            {{-- KOLOM 1: BRANDING & FILOSOFI (Span 4)      --}}
-            {{-- ========================================== --}}
-            <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left space-y-7">
-                <a href="/" class="group inline-flex flex-col items-center lg:items-start gap-5 transition-all duration-500 w-full">
-                    <!-- Logo Medallion -->
-                    <div class="relative flex-shrink-0">
-                        <div class="relative w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center p-1.5 transition-all duration-500">
-                            <div class="w-full h-full flex items-center justify-center">
+            <!-- ========================================== -->
+            <!-- KOLOM 1: BRANDING & FILOSOFI (Span 4)      -->
+            <!-- ========================================== -->
+            <div class="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
+                <a href="{{ route('home') }}" class="group flex flex-col items-center lg:items-start gap-4 transition-all duration-500 w-full outline-none">
+
+                    <!-- 1. LOGO MEDALLION (Sama dengan Navbar: Transparan & Elegan) -->
+                    <div class="relative flex-shrink-0 mb-1">
+                        <div class="absolute -inset-3 bg-red-600/10 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                        <div class="relative w-20 h-20 sm:w-24 sm:h-24 bg-transparent rounded-full flex items-center justify-center border border-neutral-200/80 dark:border-neutral-700/50 shadow-md group-hover:shadow-red-600/20 group-hover:border-red-600/50 transition-all duration-500 p-0.5">
+                            <div class="w-full h-full rounded-full overflow-hidden border-2 border-white dark:border-[#121212]">
                                 @if(isset($settings['site_logo']))
-                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 @else
-                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105">
                                 @endif
                             </div>
                         </div>
                     </div>
-                    <!-- Typography: Responsive Font Sizes agar tidak tumpah di kolom -->
+
+                    <!-- 2. TYPOGRAPHY (Konsisten dengan Navbar: Timbul, Bersih, Tanpa Stroke) -->
                     <div class="flex flex-col items-center lg:items-start select-none w-full" style="font-family: 'Montserrat', sans-serif;">
-                        <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.85] gap-x-1.5">
-                            <span class="text-3xl sm:text-[40px] xl:text-[46px] font-[1000] tracking-[-0.02em] text-neutral-50 [-webkit-text-stroke:1px_#000] drop-shadow-[0_2px_2px_rgba(0,0,0,0.4)] [paint-order:stroke_fill] dark:text-[#0f0f0f] dark:[-webkit-text-stroke:2px_#fff]">
-                                {{ Str::before($settings['site_name'] ?? 'HighlightNTT', ' ') }}
+                        <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.9] gap-x-1.5 drop-shadow-md">
+                            <!-- NAMA SITUS -->
+                            <span class="text-3xl sm:text-[40px] xl:text-[44px] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
+                                {{ $settings['site_name'] ?? 'HIGHLIGHT' }}
                             </span>
-                            <div class="flex items-baseline">
-                                <span class="text-3xl sm:text-[40px] xl:text-[46px] font-[1000] tracking-[-0.02em] text-red-600 uppercase group-hover:text-red-700 transition-colors duration-300">
-                                    {{ Str::after($settings['site_name'] ?? 'Highlight NTT', ' ') }}
-                                </span>
-                                <span class="text-sm sm:text-base font-black tracking-tighter text-neutral-200 ml-0.5">.com</span>
-                            </div>
+                            <!-- .com -->
+                            <span class="text-xl sm:text-2xl font-black tracking-tighter text-red-600 dark:text-red-500 ml-0.5 group-hover:text-red-700 transition-colors duration-300">.com</span>
                         </div>
-                        <!-- Tagline & Motto -->
-                        <div class="relative mt-4 sm:mt-5 flex flex-col items-center lg:items-start group/tagline w-full">
-                            <span class="text-[11px] sm:text-[13px] font-black uppercase tracking-[0.15em] text-neutral-800 dark:text-neutral-200 leading-tight">
+
+                        <!-- 3. TAGLINE & MOTTO (Hierarki Rapi & Garis Estetik) -->
+                        <div class="relative mt-3 flex flex-col items-center lg:items-start w-full">
+                            <span class="text-[11px] sm:text-[13px] font-extrabold uppercase tracking-[0.15em] text-neutral-800 dark:text-neutral-200 leading-tight drop-shadow-sm">
                                 {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta' }}
                             </span>
-
-                            <!-- Aksen Garis Khas -->
-                            <div class="mt-2.5 flex items-center justify-center lg:justify-start gap-1.5 w-full max-w-[200px]">
-                                <div class="h-[2px] w-8 bg-red-600"></div>
-                                <div class="h-[1px] flex-1 bg-neutral-200 dark:bg-neutral-800"></div>
+                            <!-- Aksen Garis (Garis padat + Gradasi memudar) -->
+                            <div class="mt-3 flex items-center justify-center lg:justify-start gap-2 w-full max-w-[240px]">
+                                <div class="h-[3px] w-8 bg-red-600 rounded-full"></div>
+                                <div class="h-[1px] flex-1 bg-gradient-to-r from-neutral-300 dark:from-neutral-700 to-transparent"></div>
                             </div>
-
-                            <span class="text-[9px] sm:text-[10px] font-bold text-neutral-500 uppercase tracking-[0.25em] mt-2.5">
-                                {{ $settings['site_motto'] ?? 'Nusa Tenggara Timur' }}
-                            </span>
                         </div>
                     </div>
                 </a>
-
-                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm font-medium">
+                <!-- 4. DESKRIPSI -->
+                <p class="text-neutral-600 dark:text-neutral-400 leading-relaxed text-sm font-medium max-w-sm mx-auto lg:mx-0">
                     {{ $settings['site_description'] ?? 'Menyajikan jurnalisme berkualitas dengan kedalaman data dan integritas fakta. Mata dan suara masyarakat Nusa Tenggara Timur.' }}
                 </p>
 
-                <!-- Badge Dewan Pers -->
-                <div class="inline-flex items-center gap-2.5 px-4 py-2.5 bg-neutral-50 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 rounded-xl hover:border-blue-500/30 transition-all shadow-sm">
-                    <svg class="w-4 h-4 sm:w-5 sm:h-5 text-blue-600 shrink-0" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" />
-                    </svg>
-                    <span class="text-[10px] sm:text-[11px] font-black text-neutral-700 dark:text-neutral-300 uppercase tracking-[0.1em]">Media Siber Terverifikasi</span>
+                <!-- 5. BADGE DEWAN PERS (Desain Lencana Premium / Trust Mark) -->
+                <div class="inline-flex items-center gap-3.5 px-4 py-3 bg-white dark:bg-[#161616] border border-neutral-200/80 dark:border-neutral-800 rounded-xl hover:border-blue-500/50 hover:bg-blue-50/30 dark:hover:bg-blue-900/10 transition-all shadow-sm group/badge cursor-default">
+                    <!-- Lingkaran Icon -->
+                    <div class="w-10 h-10 rounded-full bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800/30 flex items-center justify-center text-blue-600 dark:text-blue-400 group-hover/badge:scale-110 group-hover/badge:bg-blue-100 dark:group-hover/badge:bg-blue-900/40 transition-all shadow-sm">
+                        <svg class="w-5 h-5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" />
+                        </svg>
+                    </div>
+                    <!-- Teks Lencana -->
+                    <div class="flex flex-col text-left">
+                        <span class="text-[9px] font-bold text-neutral-400 dark:text-neutral-500 uppercase tracking-widest mb-0.5">Media Siber Terverifikasi</span>
+                        <span class="text-[11px] sm:text-[12px] font-black text-neutral-900 dark:text-neutral-100 uppercase tracking-[0.1em] leading-none drop-shadow-sm">Dewan Pers Indonesia</span>
+                    </div>
                 </div>
             </div>
 
@@ -217,9 +220,6 @@
                 <div class="text-neutral-900 dark:text-neutral-100 text-sm font-bold tracking-wide">
                     {{ $settings['footer_text'] ?? '© ' . date('Y') . ' Highlight NTT. Hak Cipta Dilindungi.' }}
                 </div>
-                <p class="text-neutral-500 dark:text-neutral-500 text-xs font-semibold">
-                    {{ $settings['site_motto'] ?? 'Suara Independen dari Timur untuk Indonesia.' }}
-                </p>
             </div>
 
             <!-- Legal Links -->

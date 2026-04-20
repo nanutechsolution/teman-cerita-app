@@ -298,26 +298,6 @@
             </div>
         </section>
 
-        <!-- AREA NEWSLETTER / LANGGANAN -->
-        <section class="mb-16 bg-neutral-100 dark:bg-[#161616] border-y sm:border border-neutral-200 dark:border-neutral-800 sm:rounded-2xl px-6 py-10 sm:px-12 sm:py-16 text-center relative overflow-hidden shadow-sm">
-            <div class="relative z-10 max-w-2xl mx-auto flex flex-col items-center">
-                <svg class="w-12 h-12 text-red-600 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                <h2 class="text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tight mb-3">Jangan Ketinggalan Berita</h2>
-                <p class="text-neutral-600 dark:text-neutral-400 text-sm sm:text-base mb-8">Dapatkan kurasi berita terbaik dan laporan eksklusif Highlight NTT langsung ke kotak masuk email Anda setiap pagi.</p>
-                
-                <form class="w-full flex flex-col sm:flex-row gap-2 shadow-sm">
-                    <input type="email" placeholder="Masukkan alamat email Anda..." class="flex-1 px-5 py-3.5 bg-white dark:bg-[#0f0f0f] border border-neutral-300 dark:border-neutral-700 focus:border-red-600 dark:focus:border-red-600 rounded-lg sm:rounded-l-lg sm:rounded-r-none outline-none text-neutral-900 dark:text-white transition-colors" required>
-                    <button type="submit" class="px-8 py-3.5 bg-red-600 hover:bg-red-700 text-white font-bold uppercase tracking-widest rounded-lg sm:rounded-r-lg sm:rounded-l-none transition-colors whitespace-nowrap">
-                        Berlangganan
-                    </button>
-                </form>
-                <p class="text-[10px] text-neutral-400 mt-3 font-medium uppercase tracking-widest">Kami menghargai privasi Anda. Tidak ada spam.</p>
-            </div>
-            
-            <div class="absolute left-0 top-0 bottom-0 w-32 opacity-5 pointer-events-none hidden sm:block" style="background-image: url('{{ asset('images/header.jpeg') }}'); background-size: cover; filter: grayscale(100%);"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-32 opacity-5 pointer-events-none hidden sm:block" style="background-image: url('{{ asset('images/header.jpeg') }}'); background-size: cover; filter: grayscale(100%);"></div>
-        </section>
-
         <!-- 7. INDEKS TERKINI (BERITA TERBARU GRID) -->
         <section id="indeks-terkini" class="px-4 sm:px-0">
             <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-[3px] border-black dark:border-white pb-2 mb-8">
