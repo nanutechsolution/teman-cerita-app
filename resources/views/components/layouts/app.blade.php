@@ -67,7 +67,6 @@
     <!-- NAVBAR PORTAL -->
     <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-xl border-neutral-200 dark:border-neutral-800 py-2 shadow-md' : 'bg-white/90 dark:bg-[#0f0f0f]/90 backdrop-blur-md border-transparent py-4 shadow-sm'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-
         <!-- LAYER GAMBAR BACKGROUND -->
         <div class="absolute inset-0 z-0 opacity-30 dark:opacity-15 pointer-events-none"
             style="background-image: url('{{ asset('images/header.jpeg') }}'); 
@@ -84,16 +83,15 @@
             <!-- ========================================== -->
             <div class="flex items-center shrink-0 py-1">
                 <a href="{{ route('home') }}" class="group flex items-center gap-3 sm:gap-4 transition-all duration-500">
-
                     <!-- LOGO MEDALLION -->
                     <div class="relative flex-shrink-0">
                         <div class="absolute -inset-2 duration-700 hidden sm:block"></div>
                         <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[68px] lg:h-[68px]  flex items-center justify-center transition-all duration-500 p-0.5">
                             <div class="w-full h-full overflow-hidden">
                                 @if(isset($settings['site_logo']))
-                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700">
-                                @else
                                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700">
+                                @else
+                                <img src="{{ asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover transition-transform duration-700">
                                 @endif
                             </div>
                         </div>

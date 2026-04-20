@@ -43,10 +43,9 @@
                     <div class="flex flex-col items-center lg:items-start select-none w-full" style="font-family: 'Montserrat', sans-serif;">
                         <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.9] gap-x-1.5 drop-shadow-md">
                             <!-- NAMA SITUS -->
-                            <span class="text-3xl sm:text-[40px] xl:text-[44px] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
+                            <span class="text-3xl sm:text-[40px] xl:text-[33px] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
                                 {{ $settings['site_name'] ?? 'HIGHLIGHT' }}
                             </span>
-                            <!-- .com -->
                             <span class="text-xl sm:text-2xl font-black tracking-tighter text-red-600 dark:text-red-500 ml-0.5 group-hover:text-red-700 transition-colors duration-300">.com</span>
                         </div>
 

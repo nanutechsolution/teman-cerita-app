@@ -151,14 +151,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- 3. SPACE IKLAN BANNER -->
-        <div class="w-full max-w-[970px] mx-auto h-[90px] sm:h-[120px] bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl mb-12 flex items-center justify-center relative overflow-hidden group cursor-pointer hover:border-red-500 transition-colors">
-            <span class="text-neutral-400 text-xs font-bold uppercase tracking-widest z-10 group-hover:text-red-600 transition-colors">Space Iklan Premium (970x250)</span>
-            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] opacity-10"></div>
-            <div class="absolute inset-0 bg-red-600/0 group-hover:bg-red-600/5 transition-colors"></div>
-        </div>
-
         <!-- 4. FOKUS KATEGORI: POLITIK / LOKAL -->
         <section class="mb-16 px-4 sm:px-0">
             <div class="flex items-center gap-4 border-b-[3px] border-black dark:border-white pb-2 mb-6">
