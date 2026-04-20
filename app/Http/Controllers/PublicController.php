@@ -66,6 +66,13 @@ class PublicController extends Controller
             ->take(5)
             ->get();
 
+        if ($headlines->isEmpty()) {
+            $headlines = Post::with(['category', 'author'])
+                ->where('is_published', true)
+                ->latest('published_at')
+                ->take(5)
+                ->get();
+        }
         $breakingNews = Post::where('is_published', true)
             ->where('is_breaking', true)
             ->latest('published_at')
@@ -124,12 +131,11 @@ class PublicController extends Controller
 
         // Deteksi platform video untuk embed otomatis
         $videoData = $this->detectVideoPlatform($post->link);
-
         $relatedPosts = Post::where('category_id', $post->category_id)
             ->where('id', '!=', $post->id)
             ->where('is_published', true)
             ->latest('published_at')
-            ->take(4)
+            ->take(10)
             ->get();
 
         // Mengarahkan view ke folder posts/

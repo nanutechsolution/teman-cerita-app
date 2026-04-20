@@ -53,89 +53,97 @@
             </div>
         </div>
         @endif
-
         <!-- IKLAN POSISI: ATAS (HOME TOP) -->
         <x-ad-banner position="home_top" class="mb-8" />
-        <!-- 2. HERO SECTION: MOSAIC HEADLINES & TERPOPULER -->
-        <div class="grid grid-cols-1 xl:grid-cols-12 gap-0 sm:gap-6 lg:gap-8 mb-12 items-start px-4 sm:px-0">
-            <!-- Berita Utama (Mosaic Area - 8 Kolom) -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 mb-12 items-start px-4 sm:px-0">
             <div class="xl:col-span-8 group/headline">
                 @if(isset($headlines) && $headlines->count() > 0)
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 grid-rows-none lg:grid-rows-2 gap-3 sm:gap-4 h-auto lg:h-[480px] xl:h-[540px]">
-                    {{-- ITEM 1: Headline Utama (Besar) --}}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 lg:grid-rows-2 gap-3 sm:gap-4">
+
+                    {{-- ITEM 1: Headline Utama (Kiri Besar) --}}
                     @php $mainHeadline = $headlines[0]; @endphp
-                    <div class="md:col-span-2 lg:col-span-2 lg:row-span-2 relative group overflow-hidden rounded-xl h-[300px] md:h-[400px] lg:h-full border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                    <div class="md:col-span-2 lg:col-span-2 lg:row-span-2 relative group overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-lg aspect-[4/3] md:aspect-square lg:aspect-auto lg:h-[540px]">
                         <a href="{{ route('post.show', $mainHeadline->slug) }}" class="block w-full h-full relative">
                             <img src="{{ $mainHeadline->img ? asset('storage/' . $mainHeadline->img) : 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&w=1200&q=80' }}"
                                 alt="{{ $mainHeadline->title }}"
-                                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-                            <div class="absolute bottom-0 left-0 w-full p-5 lg:p-7 z-10 flex flex-col justify-end h-full">
-                                <h2 class="text-2xl sm:text-3xl lg:text-[32px] font-extrabold text-white leading-tight mb-2 drop-shadow-md line-clamp-3 group-hover:text-neutral-200 transition-colors">
-                                    {{ $mainHeadline->title }}
-                                </h2>
-                                <span class="text-amber-500 text-[11px] sm:text-[13px] font-black uppercase tracking-widest drop-shadow-sm">
+                                class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
+
+                            {{-- Overlay Gradasi Lebih Halus --}}
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+
+                            <div class="absolute bottom-0 left-0 w-full p-6 lg:p-8 z-10">
+                                <span class="inline-block px-3 py-1 mb-4 text-[10px] font-bold text-white bg-amber-600 rounded-md uppercase tracking-wider">
                                     {{ $mainHeadline->category->name ?? 'Nasional' }}
                                 </span>
+                                <h2 class="text-2xl md:text-3xl lg:text-4xl font-extrabold text-white leading-tight drop-shadow-md line-clamp-3">
+                                    {{ $mainHeadline->title }}
+                                </h2>
                             </div>
                         </a>
                     </div>
-                    {{-- ITEM 2-5: Headline Kecil (Mosaic 2x2 di Kanan) --}}
+
+                    {{-- ITEM 2-5: Headline Kecil (Kanan) --}}
                     @for($i = 1; $i <= 4; $i++)
                         @if(isset($headlines[$i]))
                         @php $hl=$headlines[$i]; @endphp
-                        <div class="relative group overflow-hidden rounded-xl h-[200px] sm:h-[220px] lg:h-full border border-neutral-200 dark:border-neutral-800 shadow-sm">
+                        <div class="relative group overflow-hidden rounded-2xl border border-neutral-200 dark:border-neutral-800 shadow-sm aspect-[16/9] md:aspect-square lg:aspect-auto lg:h-full">
                         <a href="{{ route('post.show', $hl->slug) }}" class="block w-full h-full relative">
                             <img src="{{ $hl->img ? asset('storage/' . $hl->img) : 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=600&q=80' }}"
                                 alt="{{ $hl->title }}"
-                                class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-out">
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/95 via-black/40 to-transparent"></div>
-                            <div class="absolute bottom-0 left-0 w-full p-4 z-10 flex flex-col justify-end h-full">
-                                <h3 class="text-sm sm:text-[15px] lg:text-base font-extrabold text-white leading-snug mb-1.5 drop-shadow-md line-clamp-3 group-hover:text-neutral-200 transition-colors">
-                                    {{ $hl->title }}
-                                </h3>
-                                <span class="text-amber-500 text-[9px] sm:text-[10px] font-black uppercase tracking-widest drop-shadow-sm">
+                                class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700">
+
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+
+                            <div class="absolute bottom-0 left-0 w-full p-4 z-10">
+                                <span class="text-amber-500 text-[10px] font-bold uppercase tracking-widest mb-1 block">
                                     {{ $hl->category->name ?? 'Nasional' }}
                                 </span>
+                                <h3 class="text-sm md:text-base font-bold text-white leading-snug line-clamp-2 group-hover:text-amber-200 transition-colors">
+                                    {{ $hl->title }}
+                                </h3>
                             </div>
                         </a>
                 </div>
                 @else
-                <div class="relative overflow-hidden rounded-xl bg-neutral-200 dark:bg-[#1a1a1a] animate-pulse h-[200px] lg:h-full hidden lg:block border border-neutral-200 dark:border-neutral-800"></div>
+                {{-- Placeholder jika berita kurang dari 5 --}}
+                <div class="hidden lg:block rounded-2xl bg-neutral-100 dark:bg-neutral-900 border border-dashed border-neutral-300 dark:border-neutral-700 aspect-square"></div>
                 @endif
                 @endfor
             </div>
             @else
-            <div class="relative aspect-[4/3] sm:aspect-[16/9] overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl flex flex-col items-center justify-center text-neutral-400 p-10 text-center">
-                <p class="font-black uppercase tracking-widest text-xs">Redaksi sedang menyiapkan Headline</p>
+            {{-- Empty State --}}
+            <div class="h-[500px] rounded-2xl bg-neutral-50 dark:bg-neutral-900 flex flex-col items-center justify-center border-2 border-dashed border-neutral-200 dark:border-neutral-800">
+                <div class="p-4 bg-neutral-200 dark:bg-neutral-800 rounded-full mb-4">
+                    <svg class="w-8 h-8 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10l4 4v10a2 2 0 01-2 2z"></path>
+                    </svg>
+                </div>
+                <p class="text-neutral-500 font-bold uppercase tracking-widest text-xs">Belum ada konten utama</p>
             </div>
             @endif
         </div>
 
-        <!-- Terpopuler Sidebar -->
-        <div class="xl:col-span-4 mt-8 xl:mt-0 flex flex-col h-full bg-neutral-50 dark:bg-[#161616] border border-neutral-200 dark:border-neutral-800 p-5 sm:p-6 rounded-xl shadow-sm">
-            <div class="flex items-center justify-between border-b-[3px] border-black dark:border-white pb-2 mb-4">
-                <h2 class="text-xl font-black text-neutral-900 dark:text-white uppercase tracking-tight">Terpopuler</h2>
-            </div>
-            <div class="flex flex-col flex-1 justify-between gap-1">
-                @forelse($trendingNews ?? [] as $index => $news)
-                <a href="{{ route('post.show', $news->slug) }}" class="group relative flex items-center py-3 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-white dark:hover:bg-[#1a1a1a] transition-all -mx-2 px-2 rounded-lg z-10 overflow-hidden">
-                    <span class="editorial-number absolute -left-2 top-1/2 -translate-y-1/2 text-[80px] font-black italic leading-none z-[-1] transition-colors duration-500 pointer-events-none select-none">
-                        {{ $index + 1 }}
-                    </span>
-                    <div class="flex flex-col pl-6">
-                        <span class="text-[9px] font-bold text-red-600 uppercase tracking-widest mb-1">{{ $news->category->name ?? 'Update' }}</span>
-                        <h3 class="text-[14px] sm:text-[15px] font-bold text-neutral-900 dark:text-neutral-100 leading-[1.4] line-clamp-2 group-hover:text-red-600 transition-colors">
-                            {{ $news->title }}
-                        </h3>
-                    </div>
-                </a>
-                @empty
-                <div class="py-10 text-center z-10 relative">
-                    <p class="text-xs text-neutral-400 font-bold uppercase tracking-widest">Belum Ada Data</p>
+        <div class="xl:col-span-4 space-y-6">
+            <h3 class="text-xl font-black uppercase tracking-tighter border-l-4 border-amber-500 pl-4 mb-6">Terpopuler</h3>
+               <div class="flex flex-col flex-1 justify-between gap-1">
+            @forelse($trendingNews ?? [] as $index => $news)
+            <a href="{{ route('post.show', $news->slug) }}" class="group relative flex items-center py-3 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-white dark:hover:bg-[#1a1a1a] transition-all -mx-2 px-2 rounded-lg z-10 overflow-hidden">
+                <span class="editorial-number absolute -left-2 top-1/2 -translate-y-1/2 text-[80px] font-black italic leading-none z-[-1] transition-colors duration-500 pointer-events-none select-none">
+                    {{ $index + 1 }}
+                </span>
+                <div class="flex flex-col pl-6">
+                    <span class="text-[9px] font-bold text-red-600 uppercase tracking-widest mb-1">{{ $news->category->name ?? 'Update' }}</span>
+                    <h3 class="text-[14px] sm:text-[15px] font-bold text-neutral-900 dark:text-neutral-100 leading-[1.4] line-clamp-2 group-hover:text-red-600 transition-colors">
+                        {{ $news->title }}
+                    </h3>
                 </div>
-                @endforelse
+            </a>
+            @empty
+            <div class="py-10 text-center z-10 relative">
+                <p class="text-xs text-neutral-400 font-bold uppercase tracking-widest">Belum Ada Data</p>
             </div>
+            @endforelse
+        </div>
         </div>
     </div>
 
