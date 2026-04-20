@@ -11,13 +11,15 @@ class SettingSeeder extends Seeder
      * Run the database seeds.
      */
     public function run(): void
-    {
+    {   
+        // hapus
+        Setting::truncate();
         $settings = [
             // --- GROUP: GENERAL ---
             [
                 'key' => 'site_name',
                 'label' => 'Nama Website',
-                'value' => 'HighlightNTT',
+                'value' => 'Highlight NTT',
                 'type' => 'text',
                 'group' => 'General'
             ],

@@ -150,46 +150,69 @@
                 </div>
             </div>
         </div>
-        <!-- 4. FOKUS KATEGORI: POLITIK / LOKAL -->
+      <!-- 4. FOKUS KATEGORI DINAMIS -->
+        @if(isset($focusPosts) && $focusPosts->count() > 0)
         <section class="mb-16 px-4 sm:px-0">
             <div class="flex items-center gap-4 border-b-[3px] border-black dark:border-white pb-2 mb-6">
                 <div class="w-4 h-4 bg-red-600"></div>
-                <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Politik & Pemerintahan</h2>
-                <a href="#" class="ml-auto text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors">Lihat Semua &rarr;</a>
+                <!-- Judul Kategori Dinamis -->
+                <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">
+                    {{ $focusCategory->name ?? 'Fokus Utama' }}
+                </h2>
+                <!-- Link Dinamis ke halaman kategori -->
+                <a href="{{ isset($focusCategory) ? route('category.show', $focusCategory->slug) : '#' }}" class="ml-auto text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors">Lihat Semua &rarr;</a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6 lg:gap-8">
-                <!-- Highlight Berita Politik (Kiri - 7 Kolom) -->
+                
+                <!-- Highlight Berita (Kiri - 7 Kolom) -->
+                @php $mainFocus = $focusPosts->first(); @endphp
                 <div class="md:col-span-7">
-                    <a href="#" class="group block relative overflow-hidden bg-neutral-50 dark:bg-[#121212] p-3 sm:p-4 border border-neutral-200 dark:border-neutral-800 hover:border-red-200 dark:hover:border-red-900/30 transition-colors rounded-xl">
-                        <div class="aspect-[16/9] w-full overflow-hidden bg-neutral-200 mb-4 rounded-lg">
-                            <img src="https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=800&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" alt="Politik">
+                    <a href="{{ route('post.show', $mainFocus->slug) }}" class="group block relative h-full overflow-hidden bg-neutral-50 dark:bg-[#121212] p-3 sm:p-4 border border-neutral-200 dark:border-neutral-800 hover:border-red-200 dark:hover:border-red-900/30 transition-colors rounded-xl flex flex-col">
+                        <div class="aspect-[16/9] w-full overflow-hidden bg-neutral-200 mb-4 rounded-lg shrink-0">
+                            <img src="{{ $mainFocus->img ? asset('storage/' . $mainFocus->img) : 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?q=80&w=800&auto=format&fit=crop' }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
+                                 alt="{{ $mainFocus->title }}">
                         </div>
-                        <div>
+                        <div class="flex-1 flex flex-col justify-center">
                             <span class="text-[10px] font-bold text-red-600 uppercase tracking-widest mb-2 block">Laporan Khusus</span>
-                            <h3 class="text-xl sm:text-3xl font-black text-neutral-900 dark:text-white leading-tight mb-3 group-hover:text-red-600 transition-colors">Menjelang Pilkada, Suhu Politik di Bumi Flobamora Kian Memanas</h3>
-                            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 leading-relaxed">Pengamat politik memperkirakan akan terjadi pergeseran koalisi besar-besaran di tingkat provinsi pada bulan mendatang, merujuk pada dinamika elit partai yang semakin intens pasca putusan MK terbaru mengenai batasan usia calon independen...</p>
+                            <h3 class="text-xl sm:text-3xl font-black text-neutral-900 dark:text-white leading-tight mb-3 group-hover:text-red-600 transition-colors">
+                                {{ $mainFocus->title }}
+                            </h3>
+                            <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-3 leading-relaxed">
+                                {{ Str::limit(strip_tags($mainFocus->excerpt ?? $mainFocus->content), 200) }}
+                            </p>
                         </div>
                     </a>
                 </div>
 
-                <!-- List Berita Politik (Kanan - 5 Kolom) -->
+                <!-- List Berita (Kanan - 5 Kolom) -->
                 <div class="md:col-span-5 flex flex-col gap-5">
-                    @for ($i = 0; $i < 4; $i++)
-                    <a href="#" class="group flex gap-4 items-center pb-5 border-b border-neutral-200 dark:border-neutral-800 last:border-0 last:pb-0">
+                    {{-- Lewati berita pertama (karena sudah di kiri), lalu ambil maksimal 4 berita berikutnya --}}
+                    @foreach($focusPosts->skip(1)->take(4) as $post)
+                    <a href="{{ route('post.show', $post->slug) }}" class="group flex gap-4 items-center pb-5 border-b border-neutral-200 dark:border-neutral-800 last:border-0 last:pb-0">
                         <div class="w-24 h-24 sm:w-28 sm:h-28 shrink-0 overflow-hidden bg-neutral-200 border border-neutral-200 dark:border-neutral-800 rounded-lg">
-                            <img src="https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?q=80&w=200&auto=format&fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" alt="Thumb">
+                            <img src="{{ $post->img ? asset('storage/' . $post->img) : 'https://images.unsplash.com/photo-1526470608268-f674ce90ebd4?q=80&w=200&auto=format&fit=crop' }}" 
+                                 class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" 
+                                 alt="{{ $post->title }}">
                         </div>
                         <div class="flex flex-col justify-center">
-                            <span class="text-[9px] font-bold text-red-600 uppercase tracking-widest mb-1">DPRD</span>
-                            <h4 class="text-sm sm:text-[15px] font-bold text-neutral-900 dark:text-white leading-[1.4] line-clamp-3 group-hover:text-red-600 transition-colors">Anggota Dewan Pertanyakan Realisasi Anggaran Infrastruktur Kuartal Pertama</h4>
-                            <span class="text-[10px] text-neutral-400 font-medium mt-2">2 Jam yang lalu</span>
+                            <span class="text-[9px] font-bold text-red-600 uppercase tracking-widest mb-1">
+                                {{ $post->category->name ?? ($focusCategory->name ?? 'Update') }}
+                            </span>
+                            <h4 class="text-sm sm:text-[15px] font-bold text-neutral-900 dark:text-white leading-[1.4] line-clamp-3 group-hover:text-red-600 transition-colors">
+                                {{ $post->title }}
+                            </h4>
+                            <span class="text-[10px] text-neutral-400 font-medium mt-2">
+                                {{ $post->published_at ? \Carbon\Carbon::parse($post->published_at)->diffForHumans() : '' }}
+                            </span>
                         </div>
                     </a>
-                    @endfor
+                    @endforeach
                 </div>
             </div>
         </section>
+        @endif
 
         <!-- 5. MULTIMEDIA / GALERI VIDEO -->
         <section class="mb-16 -mx-4 sm:mx-0 px-4 py-12 sm:p-12 bg-neutral-900 dark:bg-[#0a0a0a] sm:rounded-2xl relative overflow-hidden shadow-lg border border-neutral-800">
@@ -244,7 +267,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
-                <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Lensa Flobamora</h2>
+                <h2 class="text-2xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Galeri</h2>
                 
                 <div class="ml-auto hidden sm:flex gap-2">
                     <button id="btn-prev-gallery" class="p-2 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-colors focus:outline-none">

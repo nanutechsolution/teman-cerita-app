@@ -96,16 +96,21 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- TYPOGRAPHY LOGO (Profesional, Timbul, Rata Kiri) -->
                     <div class="flex flex-col justify-center items-start select-none whitespace-nowrap pt-1" style="font-family: 'Montserrat', sans-serif;">
-
                         <!-- NAMA SITUS -->
                         <div class="flex items-baseline leading-[0.9] flex-nowrap drop-shadow-md">
+                            <!-- Kata Pertama (Highlight) -->
                             <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
-                                {{ $settings['site_name'] ?? 'HIGHLIGHT' }}
+                                {{ Str::before($settings['site_name'] ?? 'Highlight NTT', ' ') }}
                             </span>
-                            <span class="text-[clamp(12px,1.8vw,18px)] font-black tracking-tighter text-red-600 dark:text-red-500 ml-1 group-hover:text-red-700 transition-colors duration-300">.com</span>
+
+                            <!-- Kata Kedua (NTT) warna Merah -->
+                            <span class="text-[clamp(22px,3.5vw,36px)] font-[1000] tracking-tight text-red-600 dark:text-red-500 uppercase ml-1.5 group-hover:text-red-700 transition-colors duration-300">
+                                {{ trim(Str::after($settings['site_name'] ?? 'Highlight NTT', ' ')) }}
+                            </span>
+                            <!-- Suffix (.com) tanpa margin kiri -->
+                            <span class="text-[clamp(12px,1.8vw,18px)] font-black tracking-tighter text-red-600 dark:text-red-500 group-hover:text-red-700 transition-colors duration-300">.com</span>
                         </div>
 
                         <!-- TAGLINE -->
@@ -114,7 +119,6 @@
                                 {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta, Teguh Menjaga Etika' }}
                             </span>
                         </div>
-
                     </div>
                 </a>
             </div>

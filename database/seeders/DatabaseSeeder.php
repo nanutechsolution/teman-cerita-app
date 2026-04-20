@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             ['key' => 'instagram_url', 'label' => 'Link Instagram', 'value' => 'https://instagram.com/temancerita.ntt', 'type' => 'text', 'group' => 'Social'],
             ['key' => 'youtube_url', 'label' => 'Link YouTube', 'value' => 'https://youtube.com/@teman-cerita-ntt', 'type' => 'text', 'group' => 'Social'],
             ['key' => 'contact_email', 'label' => 'Email Kontak', 'value' => 'halo@temancerita.com', 'type' => 'text', 'group' => 'Contact'],
+            ['key' => 'home_focus_category', 'label' => 'Kategori Fokus Beranda (Slug)', 'value' => 'politik', 'type' => 'text', 'group' => 'General'],
         ];
 
         foreach ($settings as $setting) {

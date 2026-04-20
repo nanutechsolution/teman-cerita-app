@@ -43,15 +43,15 @@
                     <div class="flex flex-col items-center lg:items-start select-none w-full" style="font-family: 'Montserrat', sans-serif;">
                         <div class="flex flex-wrap justify-center lg:justify-start items-baseline leading-[0.9] gap-x-1.5 drop-shadow-md">
                             <!-- NAMA SITUS -->
-                            <span class="text-3xl sm:text-[40px] xl:text-[33px] font-[1000] tracking-tight text-neutral-900 dark:text-white uppercase transition-colors">
+                            <span class="text-3xl sm:text-[40px] xl:text-[33px] font-[1000] tracking-tight text-neutral-900 dark:text-white  transition-colors">
                                 {{ $settings['site_name'] ?? 'HIGHLIGHT' }}
                             </span>
                             <span class="text-xl sm:text-2xl font-black tracking-tighter text-red-600 dark:text-red-500 ml-0.5 group-hover:text-red-700 transition-colors duration-300">.com</span>
                         </div>
 
                         <!-- 3. TAGLINE & MOTTO (Hierarki Rapi & Garis Estetik) -->
-                        <div class="relative mt-3 flex flex-col items-center lg:items-start w-full">
-                            <span class="text-[11px] sm:text-[13px] font-extrabold uppercase tracking-[0.15em] text-neutral-800 dark:text-neutral-200 leading-tight drop-shadow-sm">
+                        <div class="relative mt-1 flex flex-col items-center lg:items-start w-full">
+                            <span class="text-[11px] sm:text-[13px] font-extrabold  tracking-[0.15em] text-neutral-800 dark:text-neutral-200 leading-tight drop-shadow-sm">
                                 {{ $settings['site_tagline'] ?? 'Tajam Menyoroti Fakta' }}
                             </span>
                             <!-- Aksen Garis (Garis padat + Gradasi memudar) -->

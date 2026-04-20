@@ -43,6 +43,20 @@ class PublicController extends Controller
      */
     public function index()
     {
+        $focusCategorySlug = \App\Models\Setting::where('key', 'home_focus_category')->value('value') ?? 'peristiwa';
+        // 2. Cari kategorinya
+        $focusCategory = \App\Models\Category::where('slug', $focusCategorySlug)->first();
+        $focusPosts = collect();
+        // 3. Ambil beritanya
+        if ($focusCategory) {
+            $focusPosts = Post::with(['category', 'author'])
+                ->where('category_id', $focusCategory->id)
+                ->where('is_published', true)
+                ->where('published_at', '<=', now())
+                ->latest('published_at')
+                ->take(5)
+                ->get();
+        }
         // Ambil koleksi headline (Maksimal 5 untuk slider)
         $headlines = Post::with(['category', 'author'])
             ->where('is_published', true)
@@ -77,7 +91,7 @@ class PublicController extends Controller
         $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
 
         // Mengganti latestEpisodes menjadi latestPosts
-        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners'));
+        return view('welcome', compact('headlines', 'breakingNews', 'latestPosts', 'trendingNews', 'partners', 'focusPosts', 'focusCategory'));
     }
 
     /**
