@@ -276,6 +276,7 @@
             {{ $slot }}
         </div>
     </main>
+
     <!-- FOOTER - DIBATASI LEBARNYA -->
     <x-ad-banner position="footer_top" />
     <footer class="flex justify-center border-t border-neutral-200 dark:border-neutral-800">
