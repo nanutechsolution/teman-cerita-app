@@ -4,12 +4,14 @@ namespace App\Filament\Widgets;
 
 use App\Models\Post;
 use App\Models\User;
+use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\StatsOverviewWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
 use Illuminate\Support\Facades\DB;
 
 class StatsOverview extends StatsOverviewWidget
 {
+    use HasWidgetShield;
     protected ?string $pollingInterval = '30s';
 
     protected function getStats(): array
