@@ -114,11 +114,15 @@ class PublicController extends Controller
     {
         $post = Post::with(['category', 'speakers', 'tags', 'author'])
             ->where('slug', $slug)
-            ->where('is_published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now())
             ->firstOrFail();
+        $key = 'viewed_post_' . $post->id . '_' . request()->ip();
 
-        // Catatan Senior: Untuk ke depannya saat trafik tinggi, pindahkan increment ini menggunakan Redis + Job/Scheduler
-        $post->increment('views');
+        if (!cache()->has($key)) {
+            $post->increment('views');
+            cache()->put($key, true, now()->addMinutes(30));
+        }
 
         // Deteksi platform video untuk embed otomatis
         $videoData = $this->detectVideoPlatform($post->link);
