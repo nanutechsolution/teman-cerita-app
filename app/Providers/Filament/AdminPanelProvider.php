@@ -35,8 +35,11 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Red,
             ])
             ->profile()
-            // ->brandLogo(asset('images/logo.png'))
-            ->brandName("HighlightNTT.com")
+            ->brandLogo(asset('images/logo.png'))
+            ->favicon(asset('images/logo.png'))
+            // ->brandLogo(fn() => view('filament.brand'))
+            ->brandLogoHeight('3rem')
+            ->brandName('Teman Cerita')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([
