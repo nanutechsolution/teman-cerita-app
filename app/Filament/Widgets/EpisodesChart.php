@@ -2,7 +2,6 @@
 
 namespace App\Filament\Widgets;
 
-use App\Models\Episode;
 use App\Models\Post;
 use BezhanSalleh\FilamentShield\Traits\HasWidgetShield;
 use Filament\Widgets\ChartWidget;
@@ -10,30 +9,43 @@ use Filament\Widgets\ChartWidget;
 class EpisodesChart extends ChartWidget
 {
     use HasWidgetShield;
-    protected  ?string $heading = 'Pertumbuhan Konten (30 Hari Terakhir)';
+
+    protected ?string $heading = 'Pertumbuhan Konten (30 Hari Terakhir)';
     protected static ?int $sort = 2;
-    protected  string $color = 'danger';
+    protected string $color = 'danger';
 
     protected function getData(): array
     {
-        // Mengambil tren data konten baru dalam 30 hari terakhir
-        // Catatan: Ini membutuhkan paket 'flowframe/laravel-trend'
-        // Jika tidak ada, kita bisa gunakan agregasi manual sederhana
-        $data = Post::selectRaw('DATE(created_at) as date_label, COUNT(*) as count')
-            ->where('created_at', '>=', now()->subDays(30))
+        // 🔥 Ambil data mentah
+        $rawData = Post::whereNotNull('created_at')
+            ->where('created_at', '>=', now()->subDays(29))
+            ->selectRaw('DATE(created_at) as date, COUNT(*) as total')
             ->groupByRaw('DATE(created_at)')
-            ->orderBy('date_label', 'asc')
-            ->get();
+            ->orderBy('date')
+            ->pluck('total', 'date')
+            ->toArray();
+
+        $labels = [];
+        $data   = [];
+
+        // 🔥 Generate 30 hari (biar gak bolong)
+        for ($i = 29; $i >= 0; $i--) {
+            $date = now()->subDays($i)->format('Y-m-d');
+
+            $labels[] = now()->subDays($i)->format('d M');
+            $data[]   = $rawData[$date] ?? 0;
+        }
 
         return [
             'datasets' => [
                 [
-                    'label' => 'Berita Dibuat',
-                    'data' => $data->pluck('count')->toArray(),
+                    'label' => 'Konten Dibuat',
+                    'data' => $data,
                     'fill' => 'start',
+                    'tension' => 0.4, // biar smooth
                 ],
             ],
-            'labels' => $data->pluck('date')->toArray(),
+            'labels' => $labels,
         ];
     }
 
