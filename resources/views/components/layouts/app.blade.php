@@ -10,13 +10,26 @@
     <meta name="description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
     <meta name="keywords" content="{{ $meta_keywords ?? 'berita ntt, teman cerita, jurnalisme ntt, podcast ntt, info kupang' }}">
     <link rel="canonical" href="{{ url()->current() }}">
+    @php
+    // --- Helper URL Gambar Meta & Favicon ---
+    // Mencegah error URL bertumpuk seperti: domain.com/storage/https://...
+    $logoUrl = asset('favicon.ico');
+    if (!empty($settings['site_logo'])) {
+    $logoUrl = str_starts_with($settings['site_logo'], 'http') ? $settings['site_logo'] : asset('storage/' . $settings['site_logo']);
+    }
 
+    $ogImage = $logoUrl; // Fallback ke logo jika bukan di halaman artikel
+    if (isset($post) && !empty($post->img)) {
+    $ogImage = str_starts_with($post->img, 'http') ? $post->img : asset('storage/' . $post->img);
+    }
+    @endphp
     {{-- Open Graph / Facebook / WhatsApp --}}
     <meta property="og:type" content="{{ isset($post) ? 'article' : 'website' }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? $settings['site_name'] ?? config('app.name') }}">
     <meta property="og:description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
-    <meta property="og:image" content="{{ isset($post->img) ? asset('storage/' . $post->img) : (isset($settings['site_logo']) ? asset('storage/' . $settings['site_logo']) : asset('default-share.jpg')) }}">
+    <meta property="og:image" content="{{ $ogImage }}">
+
 
     {{-- Favicon --}}
     <link rel="icon" href="{{ isset($settings['site_logo']) ? asset('storage/' . $settings['site_logo']) : asset('favicon.ico') }}" type="image/x-icon">
