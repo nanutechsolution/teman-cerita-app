@@ -26,9 +26,9 @@ class EpisodesTable
                 ImageColumn::make('img')
                     ->label('Media')
                     ->square()
-                    ->size(80)
+                    ->disk('public')
+                    ->visibility('public')
                     ->extraImgAttributes(['class' => 'rounded-lg shadow-sm object-cover']),
-
                 TextColumn::make('title')
                     ->label('Judul Konten')
                     ->searchable()

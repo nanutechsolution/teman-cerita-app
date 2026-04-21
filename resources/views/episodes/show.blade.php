@@ -177,8 +177,8 @@
                     {{-- ARTICLE BODY --}}
                     <div class="prose prose-base md:prose-lg dark:prose-invert max-w-none transition-all duration-300
     prose-p:text-gray-800 dark:prose-p:text-gray-300
-    prose-p:leading-[1.7]
-    prose-p:mb-5
+    prose-p:mb-4
+    prose-p:leading-[1.65]
     prose-p:text-[15.5px] md:prose-p:text-[17px]
     prose-headings:text-gray-900 dark:prose-headings:text-gray-100
     prose-headings:font-[900]
