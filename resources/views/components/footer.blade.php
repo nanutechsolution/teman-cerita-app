@@ -152,22 +152,6 @@
             {{-- ========================================== --}}
             <div class="lg:col-span-4 space-y-8">
 
-                <!-- Newsletter Box -->
-                <div class="bg-neutral-50 dark:bg-[#151515] border border-neutral-200 dark:border-neutral-800 p-6 rounded-2xl relative overflow-hidden group">
-                    <div class="absolute top-0 right-0 w-1 h-full bg-red-600"></div>
-                    <h4 class="text-neutral-900 dark:text-white font-black  tracking-wider text-xs mb-2">Buletin Redaksi</h4>
-                    <p class="text-neutral-500 dark:text-neutral-400 text-xs mb-5 leading-relaxed">Kurasi berita independen terbaik NTT, langsung ke kotak masuk Anda.</p>
-
-                    <form action="#" class="flex flex-col sm:flex-row gap-2">
-                        <input type="email" placeholder="Alamat Email" required class="w-full bg-white dark:bg-[#0f0f0f] border border-neutral-300 dark:border-neutral-700 rounded-xl px-4 py-3 text-sm text-neutral-900 dark:text-white focus:outline-none focus:border-red-600 focus:ring-2 focus:ring-red-600/20 transition-all placeholder-neutral-400">
-                        <button type="submit" class="w-full sm:w-auto bg-red-600 text-white px-6 py-3 rounded-xl hover:bg-red-700 transition-colors font-bold text-sm tracking-wide shrink-0 shadow-md shadow-red-600/20 active:scale-95">
-                            Daftar
-                        </button>
-                    </form>
-                </div>
-
-             
-
                 <!-- Social Media -->
                 <div>
                     <p class="text-neutral-900 dark:text-white text-xs font-black  tracking-widest mb-3">Media Sosial</p>
