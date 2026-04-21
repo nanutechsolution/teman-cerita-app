@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Storage;
 
 class Advertisement extends Model
 {
@@ -54,6 +55,7 @@ class Advertisement extends Model
             });
     }
 
+
     protected static function booted()
     {
         static::saved(function ($ad) {
@@ -62,6 +64,12 @@ class Advertisement extends Model
 
         static::deleted(function ($ad) {
             Cache::forget("ad_pos_{$ad->position}");
+        });
+
+        static::deleting(function ($model) {
+            if ($model->image_path && Storage::exists($model->image_path)) {
+                Storage::delete($model->image_path);
+            }
         });
     }
 }
