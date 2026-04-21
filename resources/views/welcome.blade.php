@@ -128,7 +128,7 @@
                     <div class="swiper-button-prev hidden md:flex opacity-0 group-hover/headline:opacity-100 !text-white bg-black/50 hover:bg-red-600 w-10 h-10 rounded-full backdrop-blur-sm transition-all shadow-lg !left-2"></div>
 
                     <!-- Indikator Titik (Pagination) -->
-                    <div class="swiper-pagination !bottom-2"></div>
+                    <div class="swiper-pagination !bottom-2 "></div>
                 </div>
 
                 <!-- Inisialisasi Swiper -->

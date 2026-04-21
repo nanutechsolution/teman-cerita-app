@@ -106,7 +106,7 @@ class EpisodesTable
                     ->label('Diinput Pada')
                     ->dateTime('d/m/Y H:i')
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
+            ])->defaultSort('date', 'desc')
             ->filters([
 
                 SelectFilter::make('is_headline')
