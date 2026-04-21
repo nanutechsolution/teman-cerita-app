@@ -21,9 +21,9 @@ class AdvertisementResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedMegaphone;
 
-    protected static ?string $navigationLabel = 'Iklan UMKM';
+    protected static ?string $navigationLabel = 'Iklan';
 
-    protected static ?string $pluralModelLabel = 'Iklan UMKM';
+    protected static ?string $pluralModelLabel = 'Iklan';
 
     protected static ?string $modelLabel = 'Iklan';
 

@@ -23,6 +23,9 @@ class AdPackageResource extends Resource
 
     protected static ?string $modelLabel = 'Paket Iklan';
     protected static ?string $recordTitleAttribute = 'name';
+    
+    protected static ?string $pluralModelLabel = 'Iklan';
+
     protected static ?int $navigationSort = 4;
     public static function getNavigationGroup(): ?string
     {

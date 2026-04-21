@@ -152,7 +152,6 @@
                     {{-- MEDIA HERO --}}
                     <figure class="mb-10 sm:mb-12 -mx-4 sm:mx-0 group">
                         <div class="relative aspect-video sm:rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 shadow-2xl">
-                            {{-- Jika ada video, tampilkan player. Jika tidak, tampilkan gambar --}}
                             @if(isset($videoData) && $videoData['platform'] === 'youtube' && $videoData['id'])
                             <iframe class="absolute inset-0 w-full h-full"
                                 src="https://www.youtube.com/embed/{{ $videoData['id'] }}?rel=0&modestbranding=1"
@@ -176,13 +175,27 @@
                     </figure>
 
                     {{-- ARTICLE BODY --}}
-                    <div class="prose prose-lg md:prose-xl dark:prose-invert max-w-none transition-all duration-300
-                        prose-p:text-neutral-800 dark:prose-p:text-neutral-300 prose-p:leading-[1.9] prose-p:mb-8 prose-p:text-[17px] md:prose-p:text-[19px]
-                        prose-headings:text-neutral-900 dark:prose-headings:text-white prose-headings:font-[1000] prose-headings:tracking-tight
-                        prose-a:text-red-600 dark:prose-a:text-red-500 prose-a:font-black prose-a:no-underline hover:prose-a:underline
-                        prose-img:rounded-xl prose-img:shadow-lg
-                        prose-blockquote:border-l-4 prose-blockquote:border-red-600 prose-blockquote:bg-neutral-50 dark:prose-blockquote:bg-white/5 prose-blockquote:py-2 prose-blockquote:px-8 prose-blockquote:my-10 prose-blockquote:text-neutral-700 dark:prose-blockquote:text-neutral-200 prose-blockquote:font-serif prose-blockquote:italic prose-blockquote:text-xl">
-
+                    <div class="prose prose-base md:prose-lg dark:prose-invert max-w-none transition-all duration-300
+    prose-p:text-gray-800 dark:prose-p:text-gray-300
+    prose-p:leading-[1.7]
+    prose-p:mb-5
+    prose-p:text-[15.5px] md:prose-p:text-[17px]
+    prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+    prose-headings:font-[900]
+    prose-headings:tracking-tight
+    prose-headings:mb-3
+    prose-a:text-red-600 dark:prose-a:text-red-500
+    prose-a:font-bold
+    prose-a:no-underline hover:prose-a:underline
+    prose-img:rounded-lg prose-img:shadow-md prose-img:my-6
+    prose-blockquote:border-l-4
+    prose-blockquote:border-red-600
+    prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-white/5
+    prose-blockquote:py-2 prose-blockquote:px-6
+    prose-blockquote:my-8
+    prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-200
+    prose-blockquote:italic prose-blockquote:text-lg
+">
                         {!! $post->content !!}
 
                         {{-- IN-CONTENT BACA JUGA (Sinkron dengan $relatedPosts) --}}
