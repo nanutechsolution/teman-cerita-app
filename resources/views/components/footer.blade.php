@@ -1,4 +1,4 @@
-<footer class="bg-white dark:bg-[#0a0a0a] pt-16 lg:pt-24 pb-8 border-t border-neutral-100 dark:border-neutral-900 transition-colors duration-300 relative overflow-hidden">
+<footer class="bg-white dark:bg-[#0a0a0a] pt-16 lg:pt-24 pb-8 border-t border-neutral-100 dark:border-neutral-900 transition-colors duration-300 relative ">
 
     {{-- Efek Glow Halus di Background --}}
     <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-600/20 dark:via-red-600/30 to-transparent"></div>

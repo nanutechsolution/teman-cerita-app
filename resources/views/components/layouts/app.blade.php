@@ -280,7 +280,7 @@
     <!-- FOOTER - DIBATASI LEBARNYA -->
     <x-ad-banner position="footer_top" />
     <footer class="flex justify-center border-t border-neutral-200 dark:border-neutral-800">
-        <div class="w-full max-w-[1400px]">
+        <div class="w-full max-w-full">
             <x-footer :settings="$settings" :categories="$categories" />
         </div>
     </footer>
