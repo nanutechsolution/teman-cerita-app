@@ -20,6 +20,8 @@ class GalleriesTable
             ->columns([
                 ImageColumn::make('cover_image')
                     ->label('Cover')
+                    ->disk('public')
+                    ->visibility('public')
                     ->square(),
 
                 TextColumn::make('title')
