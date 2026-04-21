@@ -166,30 +166,7 @@
                     </form>
                 </div>
 
-                <!-- App Stores -->
-                <div>
-                    <p class="text-neutral-900 dark:text-white text-xs font-black  tracking-widest mb-3">Aplikasi Mobile</p>
-                    <div class="flex flex-wrap gap-3">
-                        <a href="#" class="flex items-center gap-3 bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 hover:border-red-600 dark:hover:border-red-600 px-4 py-2.5 rounded-xl transition-all group active:scale-95">
-                            <svg class="w-6 h-6 text-neutral-700 dark:text-white group-hover:text-red-600 transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M3.6 3.1c-.2.2-.3.6-.3 1.1v15.6c0 .5.1.9.3 1.1l.1.1 8.8-8.8v-.2L3.7 3l-.1.1z M12.8 12l2.8-2.8 3.3 1.9c.9.5.9 1.4 0 1.9l-3.3 1.9-2.8-2.9v0z M13.1 12.3l-8.3 8.3c.5.5 1.3.6 2.2.1l6.1-3.5-0-4.9z M13.1 11.7l0-4.9-6.1-3.5C6.1 2.8 5.3 2.9 4.8 3.4l8.3 8.3z" />
-                            </svg>
-                            <div class="flex flex-col text-left">
-                                <span class="text-[9px]  tracking-wider text-neutral-500 font-bold leading-none mb-0.5">Get it on</span>
-                                <span class="text-xs font-black text-neutral-900 dark:text-white leading-none">Google Play</span>
-                            </div>
-                        </a>
-                        <a href="#" class="flex items-center gap-3 bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 hover:border-red-600 dark:hover:border-red-600 px-4 py-2.5 rounded-xl transition-all group active:scale-95">
-                            <svg class="w-6 h-6 text-neutral-700 dark:text-white group-hover:text-red-600 transition-colors" viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702z" />
-                            </svg>
-                            <div class="flex flex-col text-left">
-                                <span class="text-[9px]  tracking-wider text-neutral-500 font-bold leading-none mb-0.5">Download on the</span>
-                                <span class="text-xs font-black text-neutral-900 dark:text-white leading-none">App Store</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
+             
 
                 <!-- Social Media -->
                 <div>
