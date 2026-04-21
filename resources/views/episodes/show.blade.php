@@ -10,7 +10,6 @@
         .prose blockquote p::after {
             content: none !important;
         }
-
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -69,9 +68,9 @@
 
                         <div class="flex flex-col gap-6 py-6 border-y border-neutral-100 dark:border-neutral-800">
                             {{-- Baris Atas: Info Penulis & Waktu --}}
-                            <div class="flex items-center justify-between">
+                            <div class="flex items-start justify-between">
                                 <div class="flex items-center gap-3 sm:gap-4">
-                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-red-600/20 p-0.5">
+                                    <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden border-2 border-red-600/20 p-0.5 shrink-0">
                                         <img src="{{ $post->author && $post->author->profile_photo_path ? asset('storage/' . $post->author->profile_photo_path) : 'https://ui-avatars.com/api/?name='.urlencode($post->author->name ?? 'Redaksi').'&background=random' }}"
                                             class="w-full h-full object-cover rounded-full grayscale hover:grayscale-0 transition-all duration-500">
                                     </div>
@@ -85,10 +84,30 @@
                                     </div>
                                 </div>
 
-                                {{-- Waktu Baca: Muncul di mobile & desktop tapi lebih ringkas --}}
-                                <div class="flex flex-col items-end shrink-0">
-                                    <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest leading-none">Waktu Baca</span>
-                                    <span class="text-[11px] sm:text-xs font-bold dark:text-neutral-200">± {{ max(1, ceil(str_word_count(strip_tags($post->content)) / 200)) }} Min</span>
+                                {{-- Meta Info: Waktu Baca & Jumlah Dilihat --}}
+                                <div class="flex gap-4 sm:gap-6 text-right shrink-0">
+                                    @php 
+                                        // Mengambil data views (sesuaikan dengan nama field di database Anda, misalnya 'views' atau 'view_count')
+                                        $viewCount = $post->views ?? $post->view_count ?? $post->views_count ?? 0; 
+                                    @endphp
+                                    
+                                    @if($viewCount > 10)
+                                    <div class="flex flex-col items-end">
+                                        <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest leading-none mb-1">Dilihat</span>
+                                        <span class="text-[11px] sm:text-xs font-bold text-red-600 flex items-center gap-1">
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                            {{ number_format($viewCount) }}x
+                                        </span>
+                                    </div>
+                                    @endif
+
+                                    <div class="flex flex-col items-end border-l border-neutral-200 dark:border-neutral-800 pl-4 sm:pl-6">
+                                        <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest leading-none mb-1">Waktu Baca</span>
+                                        <span class="text-[11px] sm:text-xs font-bold dark:text-neutral-200 flex items-center gap-1">
+                                            <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            ± {{ max(1, ceil(str_word_count(strip_tags($post->content)) / 200)) }} Min
+                                        </span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -98,13 +117,13 @@
 
                                 <div class="flex items-center justify-center sm:justify-start gap-2 sm:gap-3"
                                     x-data="{ 
-                    url: window.location.href, 
-                    title: '{{ addslashes($post->title) }}',
-                    copyTo() { 
-                        navigator.clipboard.writeText(this.url); 
-                        alert('Tautan disalin!'); 
-                    } 
-                 }">
+                                        url: window.location.href, 
+                                        title: '{{ addslashes($post->title) }}',
+                                        copyTo() { 
+                                            navigator.clipboard.writeText(this.url); 
+                                            alert('Tautan disalin!'); 
+                                        } 
+                                    }">
 
                                     {{-- Facebook --}}
                                     <a :href="`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`"
@@ -149,19 +168,13 @@
                         </div>
                     </header>
 
-                    {{-- MEDIA HERO --}}
+                    {{-- MEDIA HERO (Selalu Menampilkan Gambar Sesuai Permintaan) --}}
                     <figure class="mb-10 sm:mb-12 -mx-4 sm:mx-0 group">
                         <div class="relative aspect-video sm:rounded-2xl overflow-hidden bg-neutral-100 dark:bg-neutral-900 shadow-2xl">
-                            @if(isset($videoData) && $videoData['platform'] === 'youtube' && $videoData['id'])
-                            <iframe class="absolute inset-0 w-full h-full"
-                                src="https://www.youtube.com/embed/{{ $videoData['id'] }}?rel=0&modestbranding=1"
-                                frameborder="0" allowfullscreen></iframe>
-                            @else
                             <img src="{{ $post->img ? asset('storage/' . $post->img) : asset('images/default-news.jpg') }}"
                                 alt="{{ $post->title }}"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-[4000ms] ease-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-                            @endif
                         </div>
 
                         @if($post->image_caption || $post->image_source)
@@ -176,51 +189,72 @@
 
                     {{-- ARTICLE BODY --}}
                     <div class="prose prose-base md:prose-lg dark:prose-invert max-w-none transition-all duration-300
-    prose-p:text-gray-800 dark:prose-p:text-gray-300
-    prose-p:mb-4
-    prose-p:leading-[1.65]
-    prose-p:text-[15.5px] md:prose-p:text-[17px]
-    prose-headings:text-gray-900 dark:prose-headings:text-gray-100
-    prose-headings:font-[900]
-    prose-headings:tracking-tight
-    prose-headings:mb-3
-    prose-a:text-red-600 dark:prose-a:text-red-500
-    prose-a:font-bold
-    prose-a:no-underline hover:prose-a:underline
-    prose-img:rounded-lg prose-img:shadow-md prose-img:my-6
-    prose-blockquote:border-l-4
-    prose-blockquote:border-red-600
-    prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-white/5
-    prose-blockquote:py-2 prose-blockquote:px-6
-    prose-blockquote:my-8
-    prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-200
-    prose-blockquote:italic prose-blockquote:text-lg
-">
+                            prose-p:text-gray-800 dark:prose-p:text-gray-300
+                            prose-p:mb-4
+                            prose-p:leading-[1.65]
+                            prose-p:text-[15.5px] md:prose-p:text-[17px]
+                            prose-headings:text-gray-900 dark:prose-headings:text-gray-100
+                            prose-headings:font-[900]
+                            prose-headings:tracking-tight
+                            prose-headings:mb-3
+                            prose-a:text-red-600 dark:prose-a:text-red-500
+                            prose-a:font-bold
+                            prose-a:no-underline hover:prose-a:underline
+                            prose-img:rounded-lg prose-img:shadow-md prose-img:my-6
+                            prose-blockquote:border-l-4
+                            prose-blockquote:border-red-600
+                            prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-white/5
+                            prose-blockquote:py-2 prose-blockquote:px-6
+                            prose-blockquote:my-8
+                            prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-200
+                            prose-blockquote:italic prose-blockquote:text-lg">
+                            
                         {!! $post->content !!}
 
-                        {{-- IN-CONTENT BACA JUGA (Sinkron dengan $relatedPosts) --}}
-                        @if(isset($relatedPosts) && $relatedPosts->count() > 0)
-                        <div class="not-prose my-14 p-8 bg-neutral-50 dark:bg-[#151515] border-y-4 border-red-600 rounded-2xl relative overflow-hidden group shadow-sm">
-                            <div class="absolute -right-4 -top-4 w-32 h-32 bg-red-600/5 blur-3xl rounded-full"></div>
-                            <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-red-600 mb-6 flex items-center gap-3">
-                                <span class="w-8 h-[2px] bg-red-600"></span>
-                                Rekomendasi Redaksi
-                            </h4>
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                @foreach($relatedPosts->take(2) as $rel)
-                                <a href="{{ route('post.show', $rel->slug) }}" class="flex gap-4 group/item">
-                                    <div class="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-neutral-200 shadow-sm">
-                                        <img src="{{ $rel->img ? asset('storage/' . $rel->img) : asset('images/default.jpg') }}" class="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500">
-                                    </div>
-                                    <h5 class="text-sm font-bold text-neutral-900 dark:text-white group-hover/item:text-red-600 transition-colors leading-snug line-clamp-3">
-                                        {{ $rel->title }}
-                                    </h5>
-                                </a>
-                                @endforeach
+                    </div> <!-- Tutup Prose Div Utama -->
+
+                    {{-- TAMPILKAN VIDEO DI BAWAH ARTIKEL --}}
+                    @if(isset($videoData) && $videoData['platform'] === 'youtube' && $videoData['id'])
+                    <div class="mt-12 mb-8 not-prose p-1 border border-neutral-100 dark:border-neutral-800 rounded-2xl bg-white dark:bg-[#1a1a1a] shadow-lg">
+                        <div class="flex items-center gap-2 p-4 pb-3">
+                            <div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
+                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                            </div>
+                            <div>
+                                <h3 class="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-wider">Video Terkait Artikel</h3>
+                                <p class="text-[10px] text-neutral-500 uppercase tracking-widest mt-0.5">Tonton ulasan selengkapnya</p>
                             </div>
                         </div>
-                        @endif
+                        <div class="relative aspect-video rounded-xl overflow-hidden bg-black">
+                            <iframe class="absolute inset-0 w-full h-full"
+                                src="https://www.youtube.com/embed/{{ $videoData['id'] }}?rel=0&modestbranding=1"
+                                frameborder="0" allowfullscreen></iframe>
+                        </div>
                     </div>
+                    @endif
+
+                    {{-- IN-CONTENT BACA JUGA (Sinkron dengan $relatedPosts) --}}
+                    @if(isset($relatedPosts) && $relatedPosts->count() > 0)
+                    <div class="not-prose mt-10 mb-14 p-8 bg-neutral-50 dark:bg-[#151515] border-y-4 border-red-600 rounded-2xl relative overflow-hidden group shadow-sm">
+                        <div class="absolute -right-4 -top-4 w-32 h-32 bg-red-600/5 blur-3xl rounded-full"></div>
+                        <h4 class="text-[10px] font-black uppercase tracking-[0.4em] text-red-600 mb-6 flex items-center gap-3">
+                            <span class="w-8 h-[2px] bg-red-600"></span>
+                            Rekomendasi Redaksi
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                            @foreach($relatedPosts->take(2) as $rel)
+                            <a href="{{ route('post.show', $rel->slug) }}" class="flex gap-4 group/item">
+                                <div class="w-20 h-20 shrink-0 rounded-xl overflow-hidden bg-neutral-200 shadow-sm">
+                                    <img src="{{ $rel->img ? asset('storage/' . $rel->img) : asset('images/default.jpg') }}" class="w-full h-full object-cover group-hover/item:scale-110 transition-transform duration-500">
+                                </div>
+                                <h5 class="text-sm font-bold text-neutral-900 dark:text-white group-hover/item:text-red-600 transition-colors leading-snug line-clamp-3">
+                                    {{ $rel->title }}
+                                </h5>
+                            </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
 
                     <x-ad-banner position="footer_top" class="my-16 !px-0" />
 
@@ -317,18 +351,6 @@
                     </section>
                     @endif
 
-                    {{-- WHATSAPP COMMUNITY --}}
-                    <!-- <div class="p-8 bg-green-50 dark:bg-green-950/20 rounded-[2rem] border border-green-100 dark:border-green-900/30 text-center relative overflow-hidden group shadow-sm">
-                        <div class="absolute -right-4 -bottom-4 w-24 h-24 bg-green-500/10 rounded-full blur-2xl"></div>
-                        <div class="w-16 h-16 bg-green-600 text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-green-600/20 rotate-3 group-hover:rotate-0 transition-transform duration-500">
-                            <svg class="w-8 h-8 fill-current" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
-                        </div>
-                        <h4 class="font-black text-neutral-900 dark:text-white uppercase tracking-tight mb-2">Grup Update NTT</h4>
-                        <p class="text-[10px] text-neutral-500 dark:text-neutral-400 mb-6 font-medium leading-relaxed">Berita eksklusif dan laporan mendalam NTT, dikirim langsung ke WhatsApp Anda.</p>
-                        <a href="https://wa.me/{{ $settings['whatsapp_number'] ?? '' }}" target="_blank" class="inline-block w-full bg-green-600 text-white py-3 rounded-2xl font-black uppercase text-[10px] tracking-[0.2em] hover:bg-green-700 transition-all shadow-lg shadow-green-600/20 active:scale-95">
-                            Join Sekarang
-                        </a>
-                    </div> -->
                 </div>
             </div>
         </div>
