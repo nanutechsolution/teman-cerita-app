@@ -1,4 +1,4 @@
-<footer class="bg-white dark:bg-[#0a0a0a] pt-20 pb-8 border-t border-neutral-200 dark:border-neutral-900 transition-colors duration-300 relative">
+<footer class=" pt-20 pb-8 border-t border-neutral-200 dark:border-neutral-900 transition-colors duration-300 relative">
 
     {{-- Wrapper Khusus Efek Glow Latar Belakang (Menggunakan overflow-hidden di sini agar tidak memotong tombol) --}}
     <div class="absolute inset-0 overflow-hidden pointer-events-none z-0">
