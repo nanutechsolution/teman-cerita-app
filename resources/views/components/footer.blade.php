@@ -1,4 +1,4 @@
-<footer class="bg-white dark:bg-[#0a0a0a] pt-16 lg:pt-24 pb-8 border-t border-neutral-100 dark:border-neutral-900 transition-colors duration-300 relative ">
+<footer class="bg-white dark:bg-[#0a0a0a] pt-16 lg:pt-24 pb-8 border-t border-neutral-100 dark:border-neutral-900 transition-colors duration-300 relative overflow-hidden">
 
     {{-- Efek Glow Halus di Background --}}
     <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-red-600/20 dark:via-red-600/30 to-transparent"></div>
@@ -16,11 +16,12 @@
 
     <div class="max-w-[1350px] mx-auto px-6 lg:px-8 relative z-10">
 
-        <!-- MAIN GRID (Mobile First) -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 xl:gap-16 mb-16 lg:mb-20">
+        <!-- MAIN GRID: Diubah menjadi 3 Kolom Utama agar lebih padat dan seimbang -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 xl:gap-16 mb-16 lg:mb-20">
 
-            <!-- KOLOM 1: BRANDING (Span 5 di Desktop) -->
-            <div class="lg:col-span-5 flex flex-col items-center sm:items-start text-center sm:text-left">
+            <!-- KOLOM 1: BRANDING, DEWAN PERS & SOSIAL MEDIA (Span 6 di Desktop, Full di Tablet) -->
+            <div class="md:col-span-2 lg:col-span-6 flex flex-col items-center sm:items-start text-center sm:text-left">
+                
                 <a href="{{ route('home') }}" class="group flex flex-col items-center sm:items-start gap-4 transition-all duration-500 outline-none mb-6">
                     <!-- Logo Circle -->
                     <div class="relative w-20 h-20 sm:w-24 sm:h-24 p-1 rounded-full border border-neutral-200 dark:border-neutral-800 group-hover:border-red-600/50 transition-colors duration-500 bg-neutral-50 dark:bg-[#111]">
@@ -50,24 +51,54 @@
                     </div>
                 </a>
 
-                <p class="text-neutral-500 dark:text-neutral-400 leading-relaxed text-[15px] max-w-sm mb-8">
+                <p class="text-neutral-500 dark:text-neutral-400 leading-relaxed text-[15px] max-w-md mb-8">
                     {{ $settings['site_description'] ?? 'Menyajikan jurnalisme berkualitas dengan kedalaman data dan integritas fakta. Mata dan suara masyarakat Nusa Tenggara Timur.' }}
                 </p>
 
-                <!-- Badge Dewan Pers Modern -->
-                <div class="flex items-center gap-3 px-4 py-3 bg-neutral-50 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-2xl w-full sm:w-auto hover:bg-white dark:hover:bg-[#151515] transition-colors cursor-default">
-                    <div class="w-10 h-10 rounded-full bg-blue-100/50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" /></svg>
+                <!-- Blok Identitas & Koneksi (Menggabungkan Dewan Pers & Sosial Media) -->
+                <div class="flex flex-col xl:flex-row items-center sm:items-start xl:items-center gap-6 xl:gap-8 w-full">
+                    
+                    <!-- Badge Dewan Pers -->
+                    <div class="flex items-center gap-3 px-4 py-3 bg-neutral-50 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 rounded-2xl w-full sm:w-auto hover:bg-white dark:hover:bg-[#151515] transition-colors cursor-default shadow-sm shrink-0">
+                        <div class="w-10 h-10 rounded-full bg-blue-100/50 dark:bg-blue-900/20 flex items-center justify-center text-blue-600 dark:text-blue-500 shrink-0">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10zm-2.5-6.5l-3-3 1.41-1.41L10 12.67l6.59-6.59L18 7.5l-8.5 8.5z" /></svg>
+                        </div>
+                        <div class="flex flex-col text-left">
+                            <span class="text-[10px] font-bold text-neutral-500 tracking-widest uppercase">Media Siber Terverifikasi</span>
+                            <span class="text-sm font-black text-neutral-900 dark:text-white tracking-wide">Dewan Pers Indonesia</span>
+                        </div>
                     </div>
-                    <div class="flex flex-col text-left">
-                        <span class="text-[10px] font-bold text-neutral-500 tracking-widest uppercase">Media Siber Terverifikasi</span>
-                        <span class="text-sm font-black text-neutral-900 dark:text-white tracking-wide">Dewan Pers Indonesia</span>
+
+                    <!-- Garis Pemisah (Hanya terlihat di Desktop besar) -->
+                    <div class="hidden xl:block w-px h-12 bg-neutral-200 dark:bg-neutral-800 shrink-0"></div>
+
+                    <!-- Sosial Media -->
+                    <div class="flex items-center gap-3 w-full sm:w-auto justify-center sm:justify-start pt-4 border-t border-neutral-100 dark:border-neutral-800 xl:border-0 xl:pt-0">
+                        <span class="text-[10px] font-bold text-neutral-400 tracking-widest uppercase hidden sm:block mr-1">Ikuti Kami:</span>
+                        
+                        @php
+                        $socials = [
+                        ['url' => $settings['facebook_url'] ?? '#', 'color' => 'hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2]', 'icon' => 'M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z'],
+                        ['url' => $settings['instagram_url'] ?? '#', 'color' => 'hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F]', 'icon' => 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.981 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z'],
+                        ['url' => $settings['tiktok_url'] ?? '#', 'color' => 'hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white', 'icon' => 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-1.13-.32-2.43-.2-3.41.49-.88.61-1.33 1.71-1.3 2.75 0 .59.1 1.19.39 1.71.55.97 1.66 1.61 2.77 1.63 1.16.03 2.37-.53 2.97-1.52.4-.64.53-1.41.51-2.16-.01-4.29-.01-8.58-.01-12.87z'],
+                        ];
+                        @endphp
+
+                        @foreach($socials as $social)
+                        <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" 
+                            class="w-10 h-10 rounded-full bg-neutral-50 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-500 dark:text-neutral-400 {{ $social['color'] }} transition-all duration-300 hover:-translate-y-1 hover:shadow-md">
+                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                                <path d="{{ $social['icon'] }}" />
+                            </svg>
+                        </a>
+                        @endforeach
                     </div>
+
                 </div>
             </div>
 
             <!-- KOLOM 2: KATEGORI (Span 3) -->
-            <div class="lg:col-span-3 sm:pl-8 lg:pl-0 border-t sm:border-t-0 border-neutral-100 dark:border-neutral-800 pt-8 sm:pt-0">
+            <div class="md:col-span-1 lg:col-span-3 lg:pl-4 border-t md:border-t-0 border-neutral-100 dark:border-neutral-800 pt-8 md:pt-0">
                 <h4 class="text-neutral-900 dark:text-white font-black tracking-widest text-xs uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 bg-red-600 rounded-sm"></span> Kategori
                 </h4>
@@ -95,8 +126,8 @@
                 </ul>
             </div>
 
-            <!-- KOLOM 3: INFORMASI (Span 2) -->
-            <div class="lg:col-span-2 border-t sm:border-t-0 border-neutral-100 dark:border-neutral-800 pt-8 sm:pt-0">
+            <!-- KOLOM 3: INFORMASI (Span 3) -->
+            <div class="md:col-span-1 lg:col-span-3 border-t md:border-t-0 border-neutral-100 dark:border-neutral-800 pt-8 md:pt-0">
                 <h4 class="text-neutral-900 dark:text-white font-black tracking-widest text-xs uppercase mb-6 flex items-center gap-2">
                     <span class="w-2 h-2 bg-red-600 rounded-sm"></span> Informasi
                 </h4>
@@ -107,31 +138,6 @@
                     <li><a href="{{ route('suara-warga') ?? '#' }}" class="text-neutral-500 dark:text-neutral-400 hover:text-red-600 transition-colors text-[15px] font-semibold block w-fit hover:translate-x-1.5 duration-300">Kirim Tulisan</a></li>
                     <li><a href="{{ route('kontak') ?? '#' }}" class="text-neutral-500 dark:text-neutral-400 hover:text-red-600 transition-colors text-[15px] font-semibold block w-fit hover:translate-x-1.5 duration-300">Kontak Kami</a></li>
                 </ul>
-            </div>
-
-            <!-- KOLOM 4: SOSIAL MEDIA (Span 2) -->
-            <div class="lg:col-span-2 border-t sm:border-t-0 border-neutral-100 dark:border-neutral-800 pt-8 sm:pt-0">
-                <h4 class="text-neutral-900 dark:text-white font-black tracking-widest text-xs uppercase mb-6 flex items-center gap-2">
-                    <span class="w-2 h-2 bg-red-600 rounded-sm"></span> Ikuti Kami
-                </h4>
-                <div class="flex flex-wrap gap-3">
-                    @php
-                    $socials = [
-                    ['url' => $settings['facebook_url'] ?? '#', 'color' => 'hover:bg-[#1877F2] hover:text-white hover:border-[#1877F2]', 'icon' => 'M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.325V1.325C24 .593 23.407 0 22.675 0z'],
-                    ['url' => $settings['instagram_url'] ?? '#', 'color' => 'hover:bg-[#E4405F] hover:text-white hover:border-[#E4405F]', 'icon' => 'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.981 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z'],
-                    ['url' => $settings['tiktok_url'] ?? '#', 'color' => 'hover:bg-black dark:hover:bg-white hover:text-white dark:hover:text-black hover:border-black dark:hover:border-white', 'icon' => 'M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-1.13-.32-2.43-.2-3.41.49-.88.61-1.33 1.71-1.3 2.75 0 .59.1 1.19.39 1.71.55.97 1.66 1.61 2.77 1.63 1.16.03 2.37-.53 2.97-1.52.4-.64.53-1.41.51-2.16-.01-4.29-.01-8.58-.01-12.87z'],
-                    ];
-                    @endphp
-
-                    @foreach($socials as $social)
-                    <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" 
-                        class="w-11 h-11 rounded-2xl bg-neutral-50 dark:bg-[#121212] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-500 dark:text-neutral-400 {{ $social['color'] }} transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg">
-                        <svg class="w-[18px] h-[18px] fill-current" viewBox="0 0 24 24">
-                            <path d="{{ $social['icon'] }}" />
-                        </svg>
-                    </a>
-                    @endforeach
-                </div>
             </div>
 
         </div>
