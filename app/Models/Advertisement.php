@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Advertisement extends Model
 {
@@ -51,5 +52,16 @@ class Advertisement extends Model
             ->where(function ($q) {
                 $q->whereNull('expired_at')->orWhere('expired_at', '>', now());
             });
+    }
+
+    protected static function booted()
+    {
+        static::saved(function ($ad) {
+            Cache::forget("ad_pos_{$ad->position}");
+        });
+
+        static::deleted(function ($ad) {
+            Cache::forget("ad_pos_{$ad->position}");
+        });
     }
 }

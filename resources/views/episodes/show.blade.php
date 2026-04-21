@@ -322,7 +322,6 @@
 
                     {{-- SIDEBAR AD --}}
                     <div class="bg-neutral-50 dark:bg-[#151515] p-4 rounded-3xl border border-neutral-100 dark:border-neutral-800 shadow-sm text-center">
-                        <span class="text-[8px] font-black text-neutral-400 uppercase tracking-[0.3em] block mb-3">Public Sponsorship</span>
                         <x-ad-banner position="sidebar" class="!my-0 shadow-none rounded-2xl overflow-hidden" />
                     </div>
 

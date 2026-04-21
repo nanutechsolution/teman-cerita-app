@@ -46,4 +46,6 @@ class AdService
         // Gunakan DB builder langsung untuk performa maksimal dan menghindari overhead model
         DB::table('advertisements')->where('id', $adId)->increment('views');
     }
+
+    
 }
