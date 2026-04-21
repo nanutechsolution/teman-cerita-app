@@ -1,15 +1,20 @@
 <x-layouts.app :settings="$settings">
-    {{-- SEO Meta Dinamis --}}
     @slot('title', ($post->meta_title ?? $post->title))
     @slot('meta_description', $post->meta_description ?? $post->excerpt)
     @slot('meta_keywords', $post->meta_keywords)
 
+    {{-- TAMBAHKAN DUA BARIS INI UNTUK SHARE WHATSAPP/FB --}}
+    @slot('og_image', $post->img ? asset('storage/' . $post->img) : null)
+    @slot('og_type', 'article')
+
+    @push('head')
     @push('head')
     <style>
         .prose blockquote p::before,
         .prose blockquote p::after {
             content: none !important;
         }
+
         .no-scrollbar::-webkit-scrollbar {
             display: none;
         }
@@ -86,16 +91,19 @@
 
                                 {{-- Meta Info: Waktu Baca & Jumlah Dilihat --}}
                                 <div class="flex gap-4 sm:gap-6 text-right shrink-0">
-                                    @php 
-                                        // Mengambil data views (sesuaikan dengan nama field di database Anda, misalnya 'views' atau 'view_count')
-                                        $viewCount = $post->views ?? $post->view_count ?? $post->views_count ?? 0; 
+                                    @php
+                                    // Mengambil data views (sesuaikan dengan nama field di database Anda, misalnya 'views' atau 'view_count')
+                                    $viewCount = $post->views ?? $post->view_count ?? $post->views_count ?? 0;
                                     @endphp
-                                    
+
                                     @if($viewCount > 10)
                                     <div class="flex flex-col items-end">
                                         <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest leading-none mb-1">Dilihat</span>
                                         <span class="text-[11px] sm:text-xs font-bold text-red-600 flex items-center gap-1">
-                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                                            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                            </svg>
                                             {{ number_format($viewCount) }}x
                                         </span>
                                     </div>
@@ -104,7 +112,9 @@
                                     <div class="flex flex-col items-end border-l border-neutral-200 dark:border-neutral-800 pl-4 sm:pl-6">
                                         <span class="text-[9px] font-black text-neutral-400 uppercase tracking-widest leading-none mb-1">Waktu Baca</span>
                                         <span class="text-[11px] sm:text-xs font-bold dark:text-neutral-200 flex items-center gap-1">
-                                            <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                            <svg class="w-3.5 h-3.5 text-neutral-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            </svg>
                                             ± {{ max(1, ceil(str_word_count(strip_tags($post->content)) / 200)) }} Min
                                         </span>
                                     </div>
@@ -208,7 +218,7 @@
                             prose-blockquote:my-8
                             prose-blockquote:text-gray-700 dark:prose-blockquote:text-gray-200
                             prose-blockquote:italic prose-blockquote:text-lg">
-                            
+
                         {!! $post->content !!}
 
                     </div> <!-- Tutup Prose Div Utama -->
@@ -218,7 +228,9 @@
                     <div class="mt-12 mb-8 not-prose p-1 border border-neutral-100 dark:border-neutral-800 rounded-2xl bg-white dark:bg-[#1a1a1a] shadow-lg">
                         <div class="flex items-center gap-2 p-4 pb-3">
                             <div class="w-8 h-8 rounded-full bg-red-100 dark:bg-red-900/30 flex items-center justify-center">
-                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg>
+                                <svg class="w-4 h-4 text-red-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z" />
+                                </svg>
                             </div>
                             <div>
                                 <h3 class="text-sm font-black text-neutral-900 dark:text-white uppercase tracking-wider">Video Terkait Artikel</h3>

@@ -4,12 +4,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    {{-- SEO & Meta Tags Terlengkap --}}
-    <title>{{ $title ?? $settings['site_name'] ?? config('app.name') }}</title>
-    <meta name="description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
-    <meta name="keywords" content="{{ $meta_keywords ?? 'berita ntt, teman cerita, jurnalisme ntt, podcast ntt, info kupang' }}">
-    <link rel="canonical" href="{{ url()->current() }}">
     @php
     // --- Helper URL Gambar Meta & Favicon ---
     // Mencegah error URL bertumpuk seperti: domain.com/storage/https://...
@@ -18,21 +12,34 @@
     $logoUrl = str_starts_with($settings['site_logo'], 'http') ? $settings['site_logo'] : asset('storage/' . $settings['site_logo']);
     }
 
-    $ogImage = $logoUrl; // Fallback ke logo jika bukan di halaman artikel
-    if (isset($post) && !empty($post->img)) {
-    $ogImage = str_starts_with($post->img, 'http') ? $post->img : asset('storage/' . $post->img);
+    // Prioritas: 1. Slot og_image, 2. Variable post (jika ada), 3. Logo default
+    $finalOgImage = $logoUrl;
+    if (!empty($og_image)) {
+    $finalOgImage = $og_image;
+    } elseif (isset($post) && !empty($post->img)) {
+    $finalOgImage = str_starts_with($post->img, 'http') ? $post->img : asset('storage/' . $post->img);
     }
+
+    $finalOgType = $og_type ?? (isset($post) ? 'article' : 'website');
     @endphp
+
+    {{-- SEO & Meta Tags Terlengkap --}}
+    <title>{{ $title ?? $settings['site_name'] ?? config('app.name') }}</title>
+    <meta name="description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
+    <meta name="keywords" content="{{ $meta_keywords ?? 'berita ntt, teman cerita, jurnalisme ntt, podcast ntt, info kupang' }}">
+    <link rel="canonical" href="{{ url()->current() }}">
     {{-- Open Graph / Facebook / WhatsApp --}}
     <meta property="og:type" content="{{ isset($post) ? 'article' : 'website' }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? $settings['site_name'] ?? config('app.name') }}">
-    <meta property="og:description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
-    <meta property="og:image" content="{{ $ogImage }}">
 
+    <meta property="og:description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
+    <meta property="og:image" content="{{ $finalOgImage }}">
 
     {{-- Favicon --}}
-    <link rel="icon" href="{{ isset($settings['site_logo']) ? asset('storage/' . $settings['site_logo']) : asset('favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ $logoUrl }}" type="image/x-icon">
+
+    {{-- Favicon --}}
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
