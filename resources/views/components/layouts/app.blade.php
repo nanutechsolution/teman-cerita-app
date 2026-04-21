@@ -35,6 +35,15 @@
 
     <meta property="og:description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
     <meta property="og:image" content="{{ $finalOgImage }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    {{-- Twitter Card (Ini yang memaksa gambar menjadi besar/banner) --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $title ?? $settings['site_name'] ?? config('app.name') }}">
+    <meta name="twitter:description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
+    <meta name="twitter:image" content="{{ $finalOgImage }}">
+
 
     {{-- Favicon --}}
     <link rel="icon" href="{{ $logoUrl }}" type="image/x-icon">
