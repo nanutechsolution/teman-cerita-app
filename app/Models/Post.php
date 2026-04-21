@@ -119,4 +119,20 @@ class Post extends Model
     {
         return $this->belongsToMany(Speaker::class);
     }
+
+    public function scopePublished($query)
+    {
+        return $query->whereNotNull('published_at')
+            ->where('published_at', '<=', now());
+    }
+
+    public function scopeHeadline($q)
+    {
+        return $q->where('is_headline', true);
+    }
+
+    public function scopeBreaking($q)
+    {
+        return $q->where('is_breaking', true);
+    }
 }

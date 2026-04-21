@@ -50,49 +50,41 @@ class PublicController extends Controller
         // 3. Ambil beritanya
         if ($focusCategory) {
             $focusPosts = Post::with(['category', 'author'])
+                ->published()
                 ->where('category_id', $focusCategory->id)
-                ->where('is_published', true)
-                ->where('published_at', '<=', now())
                 ->latest('published_at')
-                ->take(5)
+                ->limit(5)
                 ->get();
         }
         // Ambil koleksi headline (Maksimal 5 untuk slider)
         $headlines = Post::with(['category', 'author'])
-            ->where('is_published', true)
-            ->where('is_headline', true)
+            ->published()
+            ->headline()
             ->where('published_at', '<=', now())
             ->latest('published_at')
             ->take(5)
             ->get();
 
         if ($headlines->isEmpty()) {
-            $headlines = Post::with(['category', 'author'])
-                ->where('is_published', true)
-                ->latest('published_at')
-                ->take(5)
-                ->get();
+            $headlines = Post::published()->headline()->latest()->limit(5)->get();
         }
-        $breakingNews = Post::where('is_published', true)
-            ->where('is_breaking', true)
-            ->latest('published_at')
-            ->take(5)
-            ->get();
+        $breakingNews = Post::published()->breaking()->latest()->limit(5)->get();
 
-        $trendingNews = Post::where('is_published', true)
+        $trendingNews = Post::published()
             ->orderBy('views', 'desc')
             ->take(5)
             ->get();
 
         // Ambil berita terbaru, kecualikan berita yang sudah masuk di slider headline
         $latestPosts = Post::with(['category', 'author'])
-            ->where('is_published', true)
-            ->where('published_at', '<=', now())
-            // ->when($headlines->isNotEmpty(), function ($q) use ($headlines) {
-            //     return $q->whereNotIn('id', $headlines->pluck('id'));
-            // })
+            ->published()
+            ->when(
+                $headlines->isNotEmpty(),
+                fn($q) =>
+                $q->whereNotIn('id', $headlines->pluck('id'))
+            )
             ->latest('published_at')
-            ->take(12)
+            ->limit(12)
             ->get();
         $galleries = \App\Models\Gallery::with(['images' => function ($q) {
             $q->orderBy('sort_order', 'asc');
@@ -103,9 +95,8 @@ class PublicController extends Controller
             ->take(8)
             ->get();
         $partners = Partner::where('is_active', true)->orderBy('sort_order')->get();
-
         $videoPosts = Post::with('category')
-            ->where('is_published', true)
+            ->published()
             ->whereIn('type', ['video', 'short']) // Filter khusus tipe video/short
             ->where('published_at', '<=', now())
             ->latest('published_at')
