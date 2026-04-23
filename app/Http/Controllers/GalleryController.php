@@ -36,10 +36,10 @@ class GalleryController extends Controller
     }
     public function index()
     {
-        $galleries = Gallery::withCount('images')
+        $galleries = Gallery::with('images') // Pastikan 'images' dimuat bersamaan
             ->where('is_published', true)
             ->latest('published_at')
-            ->paginate(12); // Menampilkan 12 album per halaman
+            ->paginate(12);
 
         return view('galleries.index', compact('galleries'));
     }
