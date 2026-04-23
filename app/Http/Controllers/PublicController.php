@@ -307,4 +307,16 @@ class PublicController extends Controller
 
         return view('pages.categories-index', compact('categories'));
     }
+
+    public function videos()
+    {
+        $videos = Post::query()
+            ->whereIn('type', ['video', 'short'])
+            ->where('is_published', true)
+            ->whereNotNull('published_at')
+            ->where('published_at', '<=', now()) // Pastikan jadwal tayang sudah lewat/sekarang
+            ->latest('published_at') // Urutkan dari yang paling baru
+            ->paginate(12); // Gunakan pagination agar halaman tidak berat
+        return view('videos.index', compact('videos'));
+    }
 }

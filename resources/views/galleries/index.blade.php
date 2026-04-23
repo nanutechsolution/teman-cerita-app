@@ -1,5 +1,5 @@
 <x-layouts.app :settings="$settings">
-    @slot('title', 'Lensa Flobamora - Galeri Foto NTT')
+    @slot('title', 'Lensa Flobamorata - Galeri Foto NTT')
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-8 py-12 sm:py-20">
         <!-- Header -->

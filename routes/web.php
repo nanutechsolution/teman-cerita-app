@@ -26,7 +26,7 @@ Route::get('/berita/{slug}', [PublicController::class, 'show'])->name('post.show
 
 // Arsip berdasarkan Kategori: /rubrik/ekonomi-kreatif
 Route::get('/rubrik/{category:slug}', [PublicController::class, 'category'])->name('category.show');
-
+Route::get('/video', [PublicController::class, 'videos'])->name('videos.index');
 // Arsip berdasarkan Tag/Topik: /topik/kupang
 Route::get('/topik/{tag:slug}', [PublicController::class, 'tag'])->name('tag.show');
 

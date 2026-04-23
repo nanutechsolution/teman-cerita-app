@@ -281,7 +281,7 @@
         <div class="flex items-center gap-4 border-b-[3px] border-neutral-700 pb-3 mb-8 relative z-10">
             <div class="w-4 h-4 bg-red-600 rounded-full animate-pulse shadow-[0_0_10px_rgba(220,38,38,0.8)]"></div>
             <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-tighter">Highlight Video</h2>
-            <a href="{{ route('category.show', 'video') }}" class="ml-auto text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-red-500 transition-colors">Lihat Semua &rarr;</a>
+            <a href="{{ route('videos.index') }}" class="ml-auto text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-400 hover:text-red-500 transition-colors">Lihat Semua &rarr;</a>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 relative z-10">
