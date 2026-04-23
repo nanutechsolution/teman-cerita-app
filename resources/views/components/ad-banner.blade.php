@@ -42,7 +42,7 @@ if($ad) {
                 <span class="w-1 h-1 bg-neutral-300 dark:bg-neutral-700 rounded-full"></span>
                 <span class="text-[9px] font-medium text-neutral-400 uppercase tracking-widest">{{ $ad->title }}</span>
             </div>
-            <a href="{{ route('page.show', 'info-iklan') ?? '#' }}" class="text-[9px] font-black text-neutral-400 hover:text-red-600 transition-colors uppercase tracking-widest flex items-center gap-1">
+            <a href="/info-iklan" class="text-[9px] font-black text-neutral-400 hover:text-red-600 transition-colors uppercase tracking-widest flex items-center gap-1">
                 Pasang Iklan
                 <svg class="w-2.5 h-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
