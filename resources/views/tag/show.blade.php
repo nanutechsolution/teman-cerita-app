@@ -26,7 +26,7 @@
                                 <span class="text-neutral-500">{{ $ep->published_at->format('d M Y') }}</span>
                             </div>
                             <h2 class="text-xl font-bold text-neutral-900 dark:text-white leading-tight group-hover:text-red-600 transition-colors">
-                                <a href="{{ route('episode.show', $ep->slug) }}">{{ $ep->title }}</a>
+                                <a href="{{ route('post.show', $ep->slug) }}">{{ $ep->title }}</a>
                             </h2>
                             <p class="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2 leading-relaxed">
                                 {{ $ep->excerpt }}
