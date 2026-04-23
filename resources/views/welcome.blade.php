@@ -422,12 +422,17 @@
                     </button>
 
                     {{-- Main Image Area --}}
-                    <div class="flex-1 h-full flex flex-col justify-center items-center p-4">
+                    <div class="flex-1 h-full flex flex-col justify-center items-center p-4"
+                        @touchstart="touchStart = $event.changedTouches[0].screenX"
+                        @touchend="touchEnd = $event.changedTouches[0].screenX; handleSwipe()">
                         <div class="relative w-full max-w-5xl h-[60vh] md:h-[75vh] flex items-center justify-center">
                             <template x-for="(img, index) in activeImages" :key="index">
                                 <img x-show="currentIndex === index"
+                                    x-transition:enter="transition duration-300"
+                                    x-transition:enter-start="opacity-0 scale-95"
+                                    x-transition:enter-end="opacity-100 scale-100"
                                     :src="img.path"
-                                    class="max-w-full max-h-full object-contain rounded-lg shadow-2xl transition-all duration-500">
+                                    class="max-w-full max-h-full object-contain rounded-lg shadow-2xl">
                             </template>
                         </div>
 
@@ -509,30 +514,16 @@
                 activeGallery: null,
                 activeImages: [],
 
-                scrollNext() {
-                    const container = document.getElementById('gallery-container');
-                    const cardWidth = container.firstElementChild.offsetWidth + 16; // width + gap
-                    container.scrollBy({
-                        left: cardWidth,
-                        behavior: 'smooth'
-                    });
-                },
-
-                scrollPrev() {
-                    const container = document.getElementById('gallery-container');
-                    const cardWidth = container.firstElementChild.offsetWidth + 16;
-                    container.scrollBy({
-                        left: -cardWidth,
-                        behavior: 'smooth'
-                    });
-                },
+                // State untuk Swipe
+                touchStart: 0,
+                touchEnd: 0,
 
                 openModal(gallery, images) {
                     this.activeGallery = gallery;
                     this.activeImages = images;
                     this.currentIndex = 0;
                     this.isOpen = true;
-                    document.body.style.overflow = 'hidden'; // Stop body scroll
+                    document.body.style.overflow = 'hidden';
                 },
 
                 closeModal() {
@@ -541,11 +532,54 @@
                 },
 
                 nextImage() {
-                    this.currentIndex = (this.currentIndex + 1) % this.activeImages.length;
+                    if (this.currentIndex < this.activeImages.length - 1) {
+                        this.currentIndex++;
+                    } else {
+                        this.currentIndex = 0; // Loop kembali ke awal
+                    }
                 },
 
                 prevImage() {
-                    this.currentIndex = (this.currentIndex - 1 + this.activeImages.length) % this.activeImages.length;
+                    if (this.currentIndex > 0) {
+                        this.currentIndex--;
+                    } else {
+                        this.currentIndex = this.activeImages.length - 1; // Loop ke akhir
+                    }
+                },
+
+                // Logika Deteksi Swipe
+                handleSwipe() {
+                    const threshold = 50; // Jarak minimum geser (pixel)
+                    if (this.touchStart - this.touchEnd > threshold) {
+                        // Geser ke Kiri -> Gambar Berikutnya
+                        this.nextImage();
+                    } else if (this.touchEnd - this.touchStart > threshold) {
+                        // Geser ke Kanan -> Gambar Sebelumnya
+                        this.prevImage();
+                    }
+                },
+
+                // Navigasi Slider Utama (Desktop)
+                scrollNext() {
+                    const container = document.getElementById('gallery-container');
+                    if (container) {
+                        const cardWidth = container.querySelector('.snap-start').offsetWidth + 24;
+                        container.scrollBy({
+                            left: cardWidth,
+                            behavior: 'smooth'
+                        });
+                    }
+                },
+
+                scrollPrev() {
+                    const container = document.getElementById('gallery-container');
+                    if (container) {
+                        const cardWidth = container.querySelector('.snap-start').offsetWidth + 24;
+                        container.scrollBy({
+                            left: -cardWidth,
+                            behavior: 'smooth'
+                        });
+                    }
                 }
             }
         }
