@@ -4,7 +4,6 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Comment;
 use App\Models\User;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
 use Filament\Actions\Action;

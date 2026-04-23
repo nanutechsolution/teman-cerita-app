@@ -140,4 +140,34 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class)->latest();
     }
+
+    /**
+     * Jalankan event/logika otomatis saat model berinteraksi dengan database.
+     */
+    protected static function booted(): void
+    {
+        // Event 'saved' akan berjalan SETELAH data berhasil dibuat atau di-update
+        static::saved(function ($episode) {
+
+            // Cek apakah episode yang baru saja disimpan ini di-set sebagai headline
+            if ($episode->is_headline) {
+
+                // Cari semua episode headline, urutkan dari yang terbaru tayang, lalu lewati 5 teratas
+                $oldHeadlineIds = static::where('is_headline', true)
+                    ->orderBy('published_at', 'desc') // Atau gunakan 'created_at'
+                    ->skip(5)
+                    ->pluck('id');
+
+                // Jika ternyata ada lebih dari 5 (artinya ada headline ke-6, ke-7, dst)
+                if ($oldHeadlineIds->isNotEmpty()) {
+
+                    // Matikan status headline secara massal untuk episode lama tersebut
+                    // Kita menggunakan ->update() langsung agar tidak memicu infinite loop
+                    static::whereIn('id', $oldHeadlineIds)->update([
+                        'is_headline' => false
+                    ]);
+                }
+            }
+        });
+    }
 }
