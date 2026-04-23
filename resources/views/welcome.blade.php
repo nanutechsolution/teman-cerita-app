@@ -51,7 +51,7 @@
     </style>
 
 
-    <div class="max-w-[1400px] mx-auto px-0 sm:px-4 lg:px-8 pt-0 sm:pt-6 pb-24">
+    <div class="max-w-[1400px] mx-auto px-0 sm:px-4 lg:px-8 pt-0 sm:pt-6">
 
         <!-- 1. KILAS BERITA (TICKER) -->
         @if(isset($breakingNews) && $breakingNews->count() > 0)
@@ -190,19 +190,23 @@
                 <h3 class="text-xl font-black uppercase tracking-tighter border-l-4 border-amber-500 pl-4 mb-6">Terpopuler</h3>
                 <div class="flex flex-col flex-1 justify-between gap-1">
                     @forelse($trendingNews ?? [] as $index => $news)
-                    <a href="{{ route('post.show', $news->slug) }}" class="group relative flex items-center py-3 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-white dark:hover:bg-[#1a1a1a] transition-all -mx-2 px-2 rounded-lg z-10 overflow-hidden">
-                        <span class="editorial-number absolute -left-2 top-1/2 -translate-y-1/2 text-[80px] font-black italic leading-none z-[-1] transition-colors duration-500 pointer-events-none select-none opacity-20 dark:opacity-10 text-neutral-300 dark:text-neutral-700">
+                    <a href="{{ route('post.show', $news->slug) }}" class="group relative flex items-center py-3 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] transition-all -mx-2 px-2 rounded-lg overflow-hidden isolate">
+
+                        {{-- Angka: z-index diubah ke 0, opacity dinaikkan, dan diberi efek hover warna --}}
+                        <span class="editorial-number absolute -left-1 top-1/2 -translate-y-1/2 text-[80px] font-black italic leading-none z-0 transition-colors duration-500 pointer-events-none select-none text-neutral-200 dark:text-neutral-800 opacity-80 dark:opacity-50 group-hover:text-amber-500/20 group-hover:dark:text-amber-500/10">
                             {{ $index + 1 }}
                         </span>
-                        <div class="flex flex-col pl-6">
+
+                        {{-- Konten Teks: diberi class relative z-10 agar selalu berada di atas angka --}}
+                        <div class="flex flex-col pl-8 relative z-10">
                             <span class="text-[9px] font-bold text-red-600 uppercase tracking-widest mb-1">{{ $news->category->name ?? 'Update' }}</span>
-                            <h3 class="text-[14px] sm:text-[15px] font-bold text-neutral-900 dark:text-neutral-100 leading-[1.4] line-clamp-2 group-hover:text-red-600 transition-colors">
+                            <h3 class="text-[14px] sm:text-[15px] font-bold text-neutral-900 dark:text-neutral-100 leading-[1.4] line-clamp-2 group-hover:text-red-600 transition-colors shadow-sm shadow-transparent">
                                 {{ $news->title }}
                             </h3>
                         </div>
                     </a>
                     @empty
-                    <div class="py-10 text-center z-10 relative">
+                    <div class="py-10 text-center relative z-10">
                         <p class="text-xs text-neutral-400 font-bold uppercase tracking-widest">Belum Ada Data</p>
                     </div>
                     @endforelse
