@@ -37,11 +37,11 @@ class AdminPanelProvider extends PanelProvider
             ->profile()
             ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/logo.png'))
+            ->brandName('Highlight NTT')
             ->databaseNotifications()
             ->databaseNotificationsPolling('30s')
             // ->brandLogo(fn() => view('filament.brand'))
             ->brandLogoHeight('3rem')
-            ->brandName('Teman Cerita')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
             ->pages([

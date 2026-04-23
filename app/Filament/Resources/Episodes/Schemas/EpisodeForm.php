@@ -46,21 +46,6 @@ class EpisodeForm
                                 ->maxLength(500),
                             RichEditor::make('content')
                                 ->label('Isi Berita / Deskripsi Lengkap')
-                                ->toolbarButtons([
-                                    'attachFiles',
-                                    'blockquote',
-                                    'bold',
-                                    'bulletList',
-                                    'h2',
-                                    'h3',
-                                    'italic',
-                                    'link',
-                                    'orderedList',
-                                    'redo',
-                                    'strike',
-                                    'underline',
-                                    'undo',
-                                ])
                                 ->fileAttachmentsDirectory('episodes_content')
                                 ->required(),
                         ]),
