@@ -258,7 +258,6 @@
     </section>
     @endif
 
-    <!-- 5. MULTIMEDIA / GALERI VIDEO (DINAMIS) -->
     @if(isset($videoPosts) && $videoPosts->count() > 0)
     <section class="mb-16 -mx-4 sm:mx-0 px-4 py-12 sm:p-12 bg-neutral-900 dark:bg-[#0a0a0a] sm:rounded-3xl relative overflow-hidden shadow-2xl border border-neutral-800">
         <div class="absolute top-0 right-0 w-96 h-96 bg-red-600/10 blur-[120px] rounded-full pointer-events-none"></div>
@@ -324,30 +323,31 @@
     @endif
 
     @if(isset($galleries) && $galleries->count() > 0)
-    <!-- 6. GALERI FOTO (DINAMIS DENGAN LIGHTBOX) -->
-    <section x-data="galleryLightbox()" class="mb-16 px-4 sm:px-0  relative z-10">
-        <div class="flex items-center gap-3 sm:gap-4 border-b-[3px] border-neutral-900 dark:border-white pb-3 mb-6">
-            <svg class="w-6 h-6 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <h2 class="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter line-clamp-1">
-                Lensa Flobamorata
-            </h2>
+    <section x-data="galleryLightbox()" class="mb-12 md:mb-16 relative z-10 overflow-hidden">
+        {{-- Header Section --}}
+        <div class="px-4 sm:px-0 flex items-center justify-between border-b-[3px] border-neutral-900 dark:border-white pb-3 mb-6 mx-4 sm:mx-0">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                <h2 class="text-lg sm:text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter truncate">
+                    Lensa Flobamorata
+                </h2>
+            </div>
 
-            <div class="ml-auto flex items-center gap-2 sm:gap-4">
-                <a href="{{ route('gallery.index') }}" class="hidden sm:block text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2 whitespace-nowrap">
+            <div class="flex items-center gap-2 sm:gap-4">
+                <a href="{{ route('gallery.index') }}" class="hidden md:block text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2">
                     Semua Galeri &rarr;
                 </a>
-                {{-- Tombol Navigasi Scroll Horizontal --}}
-                <div class="flex gap-1.5 sm:gap-2 shrink-0">
-                    <button @click="scrollPrev()" class="p-2 sm:p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="flex gap-1.5">
+                    <button @click="scrollPrev()" class="p-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-red-600 hover:text-white rounded-full transition-all active:scale-90 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </button>
-                    <button @click="scrollNext()" class="p-2 sm:p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
-                        <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <button @click="scrollNext()" class="p-2 bg-neutral-100 dark:bg-neutral-800 hover:bg-red-600 hover:text-white rounded-full transition-all active:scale-90 shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </button>
@@ -355,60 +355,104 @@
             </div>
         </div>
 
-        <div id="gallery-container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 hide-scroll scroll-smooth">
+        {{-- Gallery Slider --}}
+        {{-- -mx-4 dan px-4 membuat efek overflow yang bagus di mobile --}}
+        <div id="gallery-container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-8 hide-scroll scroll-smooth -mx-4 px-4 sm:mx-0 sm:px-0">
             @forelse($galleries as $gallery)
             <div @click="openModal({{ json_encode($gallery) }}, {{ $gallery->images->map(fn($img) => ['path' => asset('storage/' . $img->image_path), 'caption' => $img->caption]) }})"
-                class="snap-start shrink-0 w-[80vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative group cursor-pointer overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 shadow-md hover:shadow-2xl transition-all duration-500">
-                <div class="aspect-[4/5] w-full">
-                    <img src="{{ $gallery->cover_image ? asset('storage/' . $gallery->cover_image) : 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=600' }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                class="snap-start shrink-0 w-[75vw] sm:w-[45vw] md:w-[30vw] lg:w-[20vw] relative group cursor-pointer overflow-hidden rounded-xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-700 shadow-sm transition-all duration-300">
+
+                <div class="aspect-square sm:aspect-[4/5] w-full overflow-hidden">
+                    <img src="{{ $gallery->cover_image ? asset('storage/' . $gallery->cover_image) : 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=600' }}"
+                        class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                        loading="lazy">
                 </div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity"></div>
-                <div class="absolute bottom-0 left-0 w-full p-5 flex flex-col justify-end">
-                    <div class="flex items-center gap-1.5 bg-red-600 text-white text-[9px] font-black px-2.5 py-1 rounded-sm uppercase tracking-widest w-max mb-3 shadow-xl">
-                        <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                            <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                        </svg>
+
+                {{-- Overlay --}}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 sm:opacity-60 group-hover:opacity-100 transition-opacity"></div>
+
+                <div class="absolute bottom-0 left-0 w-full p-4">
+                    <div class="flex items-center gap-1.5 bg-red-600 text-white text-[8px] sm:text-[10px] font-bold px-2 py-0.5 rounded mb-2 w-max uppercase tracking-wider">
                         {{ $gallery->images_count ?? 0 }} Foto
                     </div>
-                    <h3 class="text-white font-bold text-[16px] leading-[1.4] line-clamp-3 group-hover:text-red-400 transition-colors drop-shadow-md">{{ $gallery->title }}</h3>
+                    <h3 class="text-white font-bold text-sm sm:text-base leading-tight line-clamp-2 group-hover:text-red-400 transition-colors">
+                        {{ $gallery->title }}
+                    </h3>
                 </div>
             </div>
             @empty
-            <div class="w-full py-16 text-center text-neutral-400 font-bold uppercase tracking-widest text-xs border-2 border-dashed border-neutral-200 dark:border-neutral-800 rounded-2xl">Belum ada galeri foto terbaru</div>
+            <div class="w-full py-12 text-center text-neutral-400 font-bold uppercase tracking-widest text-xs border-2 border-dashed border-neutral-200 dark:border-neutral-800 rounded-2xl mx-4">
+                Belum ada galeri foto terbaru
+            </div>
             @endforelse
         </div>
 
+        {{-- Lightbox Modal --}}
         <template x-teleport="body">
-            <div x-show="isOpen" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/98 backdrop-blur-2xl p-4 sm:p-10" x-cloak @keydown.escape.window="closeModal()" @keydown.right.window="nextImage()" @keydown.left.window="prevImage()">
-                <button @click="closeModal()" class="absolute top-6 right-6 z-[110] text-white/50 hover:text-white p-3 bg-white/5 hover:bg-red-600 rounded-full"><svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-                    </svg></button>
-                <button @click="prevImage()" class="hidden sm:flex absolute left-8 z-[110] p-5 text-white/40 hover:text-white"><svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path d="M15 19l-7-7 7-7" />
-                    </svg></button>
-                <button @click="nextImage()" class="hidden sm:flex absolute right-8 z-[110] p-5 text-white/40 hover:text-white"><svg class="w-12 h-12" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                        <path d="M9 5l7 7-7 7" />
-                    </svg></button>
-                <div class="w-full max-w-6xl h-full flex flex-col justify-center items-center">
-                    <div class="relative w-full h-[55vh] sm:h-[70vh] flex items-center justify-center">
+            <div x-show="isOpen"
+                x-transition:enter="transition ease-out duration-300"
+                x-transition:enter-start="opacity-0"
+                x-transition:enter-end="opacity-100"
+                class="fixed inset-0 z-[100] flex flex-col bg-black/95 backdrop-blur-sm"
+                x-cloak
+                @keydown.escape.window="closeModal()"
+                @keydown.right.window="nextImage()"
+                @keydown.left.window="prevImage()">
+
+                {{-- Modal Header --}}
+                <div class="flex items-center justify-between p-4 sm:p-6 text-white">
+                    <div class="flex flex-col">
+                        <span class="text-red-500 font-black text-[10px] uppercase tracking-widest" x-text="'Foto ' + (currentIndex + 1) + ' / ' + activeImages.length"></span>
+                        <h3 class="text-sm sm:text-lg font-bold truncate max-w-[200px] sm:max-w-md" x-text="activeGallery?.title"></h3>
+                    </div>
+                    <button @click="closeModal()" class="p-2 hover:bg-red-600 rounded-full transition-colors">
+                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Main Image Display --}}
+                <div class="flex-1 relative flex items-center justify-center p-2 sm:p-10">
+                    {{-- Nav Buttons (Desktop) --}}
+                    <button @click="prevImage()" class="hidden md:flex absolute left-4 lg:left-10 z-[110] p-4 text-white/50 hover:text-white transition-all">
+                        <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    <div class="w-full h-full flex items-center justify-center">
                         <template x-for="(img, index) in activeImages" :key="index">
-                            <div x-show="currentIndex === index" class="absolute inset-0 flex items-center justify-center"><img :src="img.path" class="max-w-full max-h-full object-contain rounded-lg shadow-2xl"></div>
+                            <img x-show="currentIndex === index"
+                                x-transition:enter="transition ease-in-out duration-300"
+                                x-transition:enter-start="opacity-0 scale-95"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                :src="img.path"
+                                class="max-w-full max-h-full object-contain shadow-2xl">
                         </template>
                     </div>
-                    <div class="mt-8 text-center max-w-3xl">
-                        <div class="text-red-500 font-black text-xs uppercase tracking-[0.4em] mb-3" x-text="'Foto ' + (currentIndex + 1) + ' / ' + activeImages.length"></div>
-                        <h3 class="text-white text-xl sm:text-3xl font-black mb-4" x-text="activeGallery?.title"></h3>
-                        <p class="text-neutral-400 text-sm sm:text-base leading-relaxed italic" x-text="activeImages[currentIndex]?.caption || 'Lensa Flobamora - Mengabadikan momen terbaik NTT.'"></p>
+
+                    <button @click="nextImage()" class="hidden md:flex absolute right-4 lg:right-10 z-[110] p-4 text-white/50 hover:text-white transition-all">
+                        <svg class="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
+
+                {{-- Caption Footer --}}
+                <div class="p-6 text-center bg-black/50">
+                    <p class="text-neutral-300 text-xs sm:text-sm max-w-2xl mx-auto italic" x-text="activeImages[currentIndex]?.caption || 'Lensa Flobamora - Mengabadikan momen terbaik NTT.'"></p>
+
+                    {{-- Mobile Navigation Controls --}}
+                    <div class="flex md:hidden justify-center gap-8 mt-4">
+                        <button @click="prevImage()" class="p-2 text-white border border-white/20 rounded-lg">Prev</button>
+                        <button @click="nextImage()" class="p-2 text-white border border-white/20 rounded-lg">Next</button>
                     </div>
                 </div>
             </div>
         </template>
     </section>
     @endif
-
-
-
-    <!-- 7. INDEKS TERKINI (BERITA TERBARU GRID) -->
     <section id="indeks-terkini" class="px-4 sm:px-0">
         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b-[3px] border-black dark:border-white pb-2 mb-8">
             <h2 class="text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Berita Terbaru</h2>
@@ -448,37 +492,47 @@
         function galleryLightbox() {
             return {
                 isOpen: false,
+                currentIndex: 0,
                 activeGallery: null,
                 activeImages: [],
-                currentIndex: 0,
+
+                scrollNext() {
+                    const container = document.getElementById('gallery-container');
+                    const cardWidth = container.firstElementChild.offsetWidth + 16; // width + gap
+                    container.scrollBy({
+                        left: cardWidth,
+                        behavior: 'smooth'
+                    });
+                },
+
+                scrollPrev() {
+                    const container = document.getElementById('gallery-container');
+                    const cardWidth = container.firstElementChild.offsetWidth + 16;
+                    container.scrollBy({
+                        left: -cardWidth,
+                        behavior: 'smooth'
+                    });
+                },
+
                 openModal(gallery, images) {
                     this.activeGallery = gallery;
                     this.activeImages = images;
                     this.currentIndex = 0;
                     this.isOpen = true;
-                    document.body.classList.add('overflow-hidden');
+                    document.body.style.overflow = 'hidden'; // Stop body scroll
                 },
+
                 closeModal() {
                     this.isOpen = false;
-                    document.body.classList.remove('overflow-hidden');
+                    document.body.style.overflow = 'auto';
                 },
+
                 nextImage() {
                     this.currentIndex = (this.currentIndex + 1) % this.activeImages.length;
                 },
+
                 prevImage() {
                     this.currentIndex = (this.currentIndex - 1 + this.activeImages.length) % this.activeImages.length;
-                },
-                scrollNext() {
-                    document.getElementById('gallery-container').scrollBy({
-                        left: 400,
-                        behavior: 'smooth'
-                    });
-                },
-                scrollPrev() {
-                    document.getElementById('gallery-container').scrollBy({
-                        left: -400,
-                        behavior: 'smooth'
-                    });
                 }
             }
         }
