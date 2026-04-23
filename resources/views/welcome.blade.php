@@ -325,29 +325,36 @@
 
     @if(isset($galleries) && $galleries->count() > 0)
     <!-- 6. GALERI FOTO (DINAMIS DENGAN LIGHTBOX) -->
-    <section x-data="galleryLightbox()" class="mb-16 px-4 sm:px-0">
-        <div class="flex items-center gap-4 border-b-[3px] border-black dark:border-white pb-3 mb-6">
-            <svg class="w-6 h-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <h2 class="text-2xl sm:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter">Lensa Flobamorata</h2>
-            <div class="ml-auto hidden sm:flex items-center gap-4">
-                <a href="{{ route('gallery.index') }}" class="text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2">Semua Galeri &rarr;</a>
-                <div class="flex gap-2">
-                    <button @click="scrollPrev()" class="p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    <button @click="scrollNext()" class="p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                </div>
+    <section x-data="galleryLightbox()" class="mb-16 px-4 sm:px-0  relative z-10">
+       <div class="flex items-center gap-3 sm:gap-4 border-b-[3px] border-neutral-900 dark:border-white pb-3 mb-6">
+        <svg class="w-6 h-6 text-red-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+        </svg>
+        <h2 class="text-xl sm:text-2xl md:text-3xl font-black text-neutral-900 dark:text-white uppercase tracking-tighter line-clamp-1">
+            Lensa Flobamorata
+        </h2>
+        
+        <div class="ml-auto flex items-center gap-2 sm:gap-4">
+            <a href="{{ route('gallery.index') }}" class="hidden sm:block text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2 whitespace-nowrap">
+                Semua Galeri &rarr;
+            </a>
+            
+            {{-- Tombol Navigasi Scroll Horizontal --}}
+            <div class="flex gap-1.5 sm:gap-2 shrink-0">
+                <button @click="scrollPrev()" class="p-2 sm:p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button @click="scrollNext()" class="p-2 sm:p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
+                    <svg class="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
             </div>
         </div>
+    </div>
 
         <div id="gallery-container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 hide-scroll scroll-smooth">
             @forelse($galleries as $gallery)
