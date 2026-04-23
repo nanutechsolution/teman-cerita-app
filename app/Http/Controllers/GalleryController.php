@@ -6,8 +6,9 @@ use App\Models\Category;
 use App\Models\Gallery;
 use App\Models\Setting;
 use App\Models\Tag;
-use Filament\Schemas\Components\View;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\View;
 
 class GalleryController extends Controller
 {
