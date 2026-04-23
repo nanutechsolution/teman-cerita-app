@@ -352,7 +352,7 @@
         <div id="gallery-container" class="flex overflow-x-auto snap-x snap-mandatory gap-4 pb-6 hide-scroll scroll-smooth">
             @forelse($galleries as $gallery)
             <div @click="openModal({{ json_encode($gallery) }}, {{ $gallery->images->map(fn($img) => ['path' => asset('storage/' . $img->image_path), 'caption' => $img->caption]) }})"
-                class="snap-start shrink-0 w-[85vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative group cursor-pointer overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 shadow-md hover:shadow-2xl transition-all duration-500">
+                class="snap-start shrink-0 w-[80vw] sm:w-[45vw] md:w-[35vw] lg:w-[22vw] relative group cursor-pointer overflow-hidden rounded-2xl bg-neutral-100 dark:bg-neutral-800 border border-neutral-200 dark:border-neutral-800 shadow-md hover:shadow-2xl transition-all duration-500">
                 <div class="aspect-[4/5] w-full">
                     <img src="{{ $gallery->cover_image ? asset('storage/' . $gallery->cover_image) : 'https://images.unsplash.com/photo-1518002171953-a080ee817e1f?auto=format&fit=crop&w=600' }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                 </div>
