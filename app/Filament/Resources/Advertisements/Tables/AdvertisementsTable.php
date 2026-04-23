@@ -21,6 +21,8 @@ class AdvertisementsTable
                 ImageColumn::make('image_path')
                     ->label('Banner')
                     ->width(120)
+                    ->visibility('public')
+                    ->disk('public')
                     ->height(60),
 
                 TextColumn::make('title')
