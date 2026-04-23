@@ -3,7 +3,7 @@ $settings = $settings ?? [];
 @endphp
 
 <x-layouts.app :settings="$settings">
-    @slot('title', 'Info Iklan & Media Kit | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
+    @slot('title', 'Info Iklan & Media Kit | ' . ($settings['site_name'] ?? 'Highlight NTT'))
 
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 pt-24 lg:pt-32 pb-20">
 
@@ -13,7 +13,7 @@ $settings = $settings ?? [];
                 Tumbuh <br> Bersama <span class="text-neutral-400">Target</span> Anda
             </h1>
             <p class="text-xl text-neutral-500 dark:text-neutral-400 leading-relaxed max-w-2xl font-bold uppercase tracking-wide border-l-4 border-neutral-200 dark:border-neutral-800 pl-6">
-                Jangkau audiens tertarget di Nusa Tenggara Timur melalui ekosistem digital Teman Cerita NTT.
+                Jangkau audiens tertarget di Nusa Tenggara Timur melalui ekosistem digital Highlight NTT.
             </p>
         </header>
 
