@@ -336,10 +336,9 @@
         </h2>
         
         <div class="ml-auto flex items-center gap-2 sm:gap-4">
-            <a href="{{ route('gallery.index') }}" class="hidden sm:block text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2 whitespace-nowrap">
+            <a href="{{ route('gallery.index') }}" class="sm:block text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2 whitespace-nowrap">
                 Semua Galeri &rarr;
             </a>
-            
             {{-- Tombol Navigasi Scroll Horizontal --}}
             <div class="flex gap-1.5 sm:gap-2 shrink-0">
                 <button @click="scrollPrev()" class="p-2 sm:p-2.5 bg-neutral-100 dark:bg-[#1a1a1a] hover:bg-red-600 hover:text-white text-neutral-600 dark:text-neutral-400 rounded-full transition-all shadow-sm active:scale-90">
