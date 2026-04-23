@@ -13,18 +13,7 @@
             display: none;
         }
 
-        .editorial-number {
-            -webkit-text-stroke: 1px rgba(220, 38, 38, 0.3);
-            color: transparent;
-        }
-
-        .dark .editorial-number {
-            -webkit-text-stroke: 1px rgba(239, 68, 68, 0.4);
-        }
-
-        .group:hover .editorial-number {
-            color: rgba(220, 38, 38, 0.1);
-        }
+     
 
         [x-cloak] {
             display: none !important;
@@ -52,7 +41,6 @@
 
 
     <div class="max-w-[1400px] mx-auto px-0 sm:px-4 lg:px-8 pt-0 sm:pt-6">
-
         <!-- 1. KILAS BERITA (TICKER) -->
         @if(isset($breakingNews) && $breakingNews->count() > 0)
         <div class="flex items-center bg-white dark:bg-[#121212] border-y sm:border border-neutral-200 dark:border-neutral-800 mb-4 shadow-sm sm:rounded-lg overflow-hidden">
@@ -73,7 +61,6 @@
             </div>
         </div>
         @endif
-
         <!-- IKLAN POSISI: ATAS (HOME TOP) -->
         <x-ad-banner position="home_top" class="mb-8" />
 
