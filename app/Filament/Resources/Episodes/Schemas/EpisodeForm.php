@@ -214,13 +214,22 @@ class EpisodeForm
                             Toggle::make('is_published')
                                 ->label('Status: Publish')
                                 ->default(false)
-                                ->disabled(fn() => !auth()->user()->can('Publish:post')),
+                                ->disabled(fn() => !auth()->user()->can('Publish:post'))
+                                ->live() // 1. Buat toggle menjadi reaktif (trigger update ke server tanpa reload)
+                                ->afterStateUpdated(function (Set $set, $state) {
+                                    // 2. Jika toggle diaktifkan (true), set published_at ke waktu sekarang
+                                    if ($state) {
+                                        $set('published_at', now());
+                                    } else {
+                                        // Opsional: Jika toggle dimatikan, kosongkan kembali jadwal tayang
+                                        $set('published_at', null);
+                                    }
+                                }),
 
                             DateTimePicker::make('published_at')
                                 ->label('Jadwal Tayang (Otomatis)')
                                 ->helperText('Biarkan kosong jika ingin tayang sekarang juga.')
-                                ->seconds(false)
-                                ->default(now()),
+                                ->seconds(false),
                         ]),
 
                 ])->columnSpan(['lg' => 1]),
