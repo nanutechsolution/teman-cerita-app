@@ -21,7 +21,7 @@ if($ad) {
             <!-- Badge Penanda Iklan -->
             <div class="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-black/60 backdrop-blur-md text-[8px] font-black text-white px-2.5 py-1 rounded-sm uppercase tracking-[0.2em] border border-white/10">
                 <div class="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse shadow-[0_0_5px_rgba(239,68,68,0.8)]"></div>
-                Promosi UMKM
+                Sponsored
             </div>
 
             <!-- Gambar Banner -->
