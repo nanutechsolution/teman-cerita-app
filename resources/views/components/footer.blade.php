@@ -165,8 +165,8 @@
                         @endphp
 
                         @foreach($socials as $social)
-                        <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-xl bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-500 dark:text-neutral-400 {{ $social['color'] }} hover:text-white hover:border-transparent transition-all hover:-translate-y-1">
-                            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                        <a href="{{ $social['url'] }}" target="_blank" rel="noopener noreferrer" class="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-neutral-100 dark:bg-[#1a1a1a] border border-neutral-200 dark:border-neutral-800 flex items-center justify-center text-neutral-500 dark:text-neutral-400 {{ $social['color'] }} hover:text-white hover:border-transparent transition-all hover:-translate-y-1">
+                            <svg class="w-4 h-4 md:w-6 md:h-6 fill-current" viewBox="0 0 24 24">
                                 <path d="{{ $social['icon'] }}" />
                             </svg>
                         </a>
