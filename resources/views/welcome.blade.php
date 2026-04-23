@@ -336,7 +336,7 @@
         </h2>
         
         <div class="ml-auto flex items-center gap-2 sm:gap-4">
-            <a href="{{ route('gallery.index') }}" class="sm:block text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2 whitespace-nowrap">
+            <a href="{{ route('gallery.index') }}" class="hidden sm:block text-[10px] sm:text-xs font-bold uppercase tracking-widest text-neutral-500 hover:text-red-600 transition-colors mr-2 whitespace-nowrap">
                 Semua Galeri &rarr;
             </a>
             {{-- Tombol Navigasi Scroll Horizontal --}}
