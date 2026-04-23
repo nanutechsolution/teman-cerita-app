@@ -18,26 +18,31 @@ class StatsOverview extends StatsOverviewWidget
     {
         // 🔥 MASTER STATS (1 query)
         $stats = Post::selectRaw("
-            COUNT(*) as total_news,
-            COALESCE(SUM(views), 0) as total_views,
+    COUNT(*) as total_news,
+    COALESCE(SUM(views), 0) as total_views,
 
-            SUM(CASE 
-                WHEN published_at IS NOT NULL 
-                AND published_at <= NOW() 
-                THEN 1 ELSE 0 
-            END) as published_news,
+    SUM(CASE 
+        WHEN published_at IS NOT NULL 
+        AND published_at <= NOW() 
+        THEN 1 ELSE 0 
+    END) as published_news,
 
-            SUM(CASE 
-                WHEN published_at IS NULL 
-                OR published_at > NOW() 
-                THEN 1 ELSE 0 
-            END) as draft_news
-        ")->first();
+    SUM(CASE 
+        WHEN published_at IS NULL 
+        THEN 1 ELSE 0 
+    END) as draft_news,
+
+    SUM(CASE 
+        WHEN published_at > NOW() 
+        THEN 1 ELSE 0 
+    END) as scheduled_news
+")->first();
 
         $totalNews     = (int) $stats->total_news;
         $totalViews    = (int) $stats->total_views;
         $publishedNews = (int) $stats->published_news;
         $draftNews     = (int) $stats->draft_news;
+        $scheduledNews = (int) $stats->scheduled_news;
 
         // 👥 USER
         $totalAuthors = User::count();

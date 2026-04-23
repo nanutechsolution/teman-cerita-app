@@ -13,7 +13,7 @@
             display: none;
         }
 
-     
+
 
         [x-cloak] {
             display: none !important;
@@ -63,7 +63,6 @@
         @endif
         <!-- IKLAN POSISI: ATAS (HOME TOP) -->
         <x-ad-banner position="home_top" class="mb-8" />
-
         <div class="grid grid-cols-1 xl:grid-cols-12 gap-4 sm:gap-6 lg:gap-8 mb-12 items-start px-4 sm:px-0">
             <!-- BAGIAN KIRI: HEADLINE CAROUSEL (8 KOLOM) -->
             <div class="xl:col-span-8 group/headline">
@@ -170,21 +169,18 @@
                 </div>
                 @endif
             </div>
-
             <!-- BAGIAN KANAN: TERPOPULER (4 KOLOM) -->
             <div class="xl:col-span-4 space-y-6">
                 <h3 class="text-xl font-black uppercase tracking-tighter border-l-4 border-amber-500 pl-4 mb-6">Terpopuler</h3>
                 <div class="flex flex-col flex-1 justify-between gap-1">
                     @forelse($trendingNews ?? [] as $index => $news)
                     <a href="{{ route('post.show', $news->slug) }}" class="group relative flex items-center py-3 border-b border-neutral-200 dark:border-neutral-800 last:border-0 hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] transition-all -mx-2 px-2 rounded-lg overflow-hidden isolate">
-
                         {{-- Angka: z-index diubah ke 0, opacity dinaikkan, dan diberi efek hover warna --}}
-                        <span class="editorial-number absolute -left-1 top-1/2 -translate-y-1/2 text-[80px] font-black italic leading-none z-0 transition-colors duration-500 pointer-events-none select-none text-red-600 dark:text-neutral-800 opacity-80  group-hover:text-amber-500/20 group-hover:dark:text-amber-500/10">
+                        <span class="editorial-number lef-0 absolute top-1/2 -translate-y-1/2 text-[80px] font-black italic leading-none z-0 transition-colors duration-500 pointer-events-none select-none text-red-600 dark:text-neutral-800 opacity-80  group-hover:text-amber-500/20 group-hover:dark:text-amber-500/10">
                             {{ $index + 1 }}
                         </span>
-
                         {{-- Konten Teks: diberi class relative z-10 agar selalu berada di atas angka --}}
-                        <div class="flex flex-col pl-8 relative z-10">
+                        <div class="flex flex-col pl-12 relative z-10">
                             <span class="text-[9px] font-bold text-red-600 uppercase tracking-widest mb-1">{{ $news->category->name ?? 'Update' }}</span>
                             <h3 class="text-[14px] sm:text-[15px] font-bold text-neutral-900 dark:text-neutral-100 leading-[1.4] line-clamp-2 group-hover:text-red-600 transition-colors shadow-sm shadow-transparent">
                                 {{ $news->title }}
