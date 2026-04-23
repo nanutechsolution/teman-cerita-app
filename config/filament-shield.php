@@ -247,6 +247,7 @@ return [
         'publish:post' => 'Publish Post',
         'feature:headline' => 'Set Headline',
         'feature:breaking' => 'Set Breaking',
+        'approve:comment' => 'Approve Comment',
     ],
 
     /*

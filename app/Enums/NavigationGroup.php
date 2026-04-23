@@ -13,4 +13,5 @@ enum NavigationGroup: string
     case PARTNERS = 'Sponsor & Partner';
     case SYSTEM_SECURITY = 'Sistem & Keamanan';
     case BUSINESS_MANAGEMENT = 'Manajemen Bisnis';
+    case INTERACTION = 'Interaksi Pembaca';
 }

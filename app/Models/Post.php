@@ -135,4 +135,9 @@ class Post extends Model
     {
         return $q->where('is_breaking', true);
     }
+
+    public function comments()
+    {
+        return $this->hasMany(Comment::class)->latest();
+    }
 }

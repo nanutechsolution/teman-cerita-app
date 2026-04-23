@@ -59,7 +59,7 @@ class EpisodeResource extends Resource
     {
         return [
             'index' => ListEpisodes::route('/'),
-            // 'create' => CreateEpisode::route('/create'),
+            'create' => CreateEpisode::route('/create'),
             'view' => ViewEpisode::route('/{record}'),
             'edit' => EditEpisode::route('/{record}/edit'),
         ];

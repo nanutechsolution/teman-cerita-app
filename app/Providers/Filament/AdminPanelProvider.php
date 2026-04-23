@@ -37,6 +37,8 @@ class AdminPanelProvider extends PanelProvider
             ->profile()
             ->brandLogo(asset('images/logo.png'))
             ->favicon(asset('images/logo.png'))
+            ->databaseNotifications()
+            ->databaseNotificationsPolling('30s')
             // ->brandLogo(fn() => view('filament.brand'))
             ->brandLogoHeight('3rem')
             ->brandName('Teman Cerita')

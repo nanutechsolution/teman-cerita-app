@@ -222,7 +222,24 @@
                         {!! $post->content !!}
 
                     </div> <!-- Tutup Prose Div Utama -->
+                    <div class="mt-16 not-prose">
+                        <div class="bg-neutral-50 dark:bg-[#151515] p-8 rounded-3xl border border-neutral-100 dark:border-neutral-800 shadow-sm">
+                            <div class="flex items-center gap-3 mb-8">
+                                <div class="w-10 h-10 rounded-full bg-red-600 text-white flex items-center justify-center shadow-lg shadow-red-600/20">
+                                    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-[1000] text-neutral-900 dark:text-white uppercase tracking-tighter">Kolom Komentar</h3>
+                                    <p class="text-[10px] text-neutral-500 font-bold uppercase tracking-[0.2em]">Suara Pembaca</p>
+                                </div>
+                            </div>
 
+                            {{-- Pemanggil Komponen Livewire --}}
+                            <livewire:post-comments :post="$post" />
+                        </div>
+                    </div>
                     {{-- TAMPILKAN VIDEO DI BAWAH ARTIKEL --}}
                     @if(isset($videoData) && $videoData['platform'] === 'youtube' && $videoData['id'])
                     <div class="mt-12 mb-8 not-prose p-1 border border-neutral-100 dark:border-neutral-800 rounded-2xl bg-white dark:bg-[#1a1a1a] shadow-lg">

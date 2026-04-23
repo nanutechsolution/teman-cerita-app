@@ -23,9 +23,7 @@ class EpisodeForm
     {
         return $schema
             ->components([
-                // KOLOM KIRI (Konten Utama)
                 Group::make()->schema([
-
                     Section::make('Informasi Utama')
                         ->description('Judul, ringkasan, dan isi lengkap dari berita atau konten.')
                         ->schema([
