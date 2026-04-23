@@ -21,6 +21,16 @@ class PostComments extends Component
         'body'  => 'required|min:5',
     ];
 
+    protected $messages = [
+        'name.required' => 'Nama wajib diisi.',
+        'name.min' => 'Nama minimal 3 karakter.',
+        'name.max' => 'Nama maksimal 50 karakter.',
+        'email.required' => 'Email wajib diisi.',
+        'email.email' => 'Format email tidak valid.',
+        'body.required' => 'Komentar wajib diisi.',
+        'body.min' => 'Komentar minimal 5 karakter.',
+    ];
+
     public function save()
     {
         $this->rateLimit(2);
