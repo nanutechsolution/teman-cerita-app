@@ -23,7 +23,7 @@ class SettingSeeder extends Seeder
                 'type' => 'text',
                 'group' => 'General'
             ],
-            ['key' => 'home_focus_category', 'label' => 'Kategori Fokus Beranda (Slug)', 'value' => 'politik', 'type' => 'text', 'group' => 'General'],
+            ['key' => 'home_focus_category', 'label' => 'Kategori Fokus Beranda (Slug)', 'value' => 'peristiwa', 'type' => 'text', 'group' => 'General'],
             // logo
             [
                 'key' => 'site_logo',
@@ -54,18 +54,24 @@ class SettingSeeder extends Seeder
                 'type' => 'text',
                 'group' => 'General'
             ],
-            // --- GROUP: SOCIAL & SYNDICATION ---
-            [
-                'key' => 'rss_feed_url',
-                'label' => 'URL RSS Feed',
-                'value' => 'https://highlightntt.com/feed',
-                'type' => 'text',
-                'group' => 'Social'
-            ],
             [
                 'key' => 'instagram_url',
                 'label' => 'Link Instagram',
                 'value' => 'https://instagram.com/highlightntt.com',
+                'type' => 'text',
+                'group' => 'Social'
+            ],
+            [
+                'key' => 'facebook_url',
+                'label' => 'Link Facebook',
+                'value' => 'https://facebook.com/highlightntt',
+                'type' => 'text',
+                'group' => 'Social'
+            ],
+            [
+                'key' => 'tiktok_url',
+                'label' => 'Link TikTok',
+                'value' => 'https://tiktok.com/@highlightntt',
                 'type' => 'text',
                 'group' => 'Social'
             ],
@@ -74,7 +80,7 @@ class SettingSeeder extends Seeder
             [
                 'key' => 'contact_whatsapp',
                 'label' => 'Nomor WhatsApp (Aktif)',
-                'value' => '628123456789', // Gunakan format angka tanpa '+' untuk link API
+                'value' => '082247928133', // Gunakan format angka tanpa '+' untuk link API
                 'type' => 'text',
                 'group' => 'Contact'
             ],
@@ -95,7 +101,7 @@ class SettingSeeder extends Seeder
             [
                 'key' => 'address',
                 'label' => 'Alamat Kantor',
-                'value' => 'Jl. El Tari, Kota Kupang, Nusa Tenggara Timur',
+                'value' => 'Jln. Tuak Daun Merah Kel. TDM Kec. Oebobo Kota Kupang, Provinsi NTT',
                 'type' => 'textarea',
                 'group' => 'Contact'
             ],
