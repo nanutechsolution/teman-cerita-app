@@ -20,7 +20,6 @@ class EpisodeInfolist
         return $schema
             ->components([
                 // Menggunakan Split untuk desain Dashboard/Layout modern (Kiri lebar, Kanan sidebar)
-                Grid::make(3)->schema([
 
                     // ==========================================
                     // KOLOM KIRI (Konten & Media Utama)
@@ -219,7 +218,6 @@ class EpisodeInfolist
                                     ->color('gray'),
                             ]),
                     ]),
-                ])->columnSpan(['lg' => 1]),
             ]);
     }
 }
