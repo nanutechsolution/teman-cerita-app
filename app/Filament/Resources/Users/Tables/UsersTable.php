@@ -46,7 +46,6 @@ class UsersTable
             ->recordActions([
                 EditAction::make()->slideOver(),
                 Action::make('resetPassword')
-                    ->slideOver()
                     ->label('Reset Password')
                     ->icon('heroicon-o-key')
                     ->color('warning')
