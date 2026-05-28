@@ -108,7 +108,10 @@ $settings = $settings ?? [];
                                 <p class="text-[11px] text-red-500 font-bold mt-1.5">{{ $message }}</p>
                                 @enderror
                             </div>
-
+                            <div style="display:none;">
+                                <label for="phone_number_bot">Phone Number (Do not fill this out)</label>
+                                <input type="text" name="phone_number_bot" id="phone_number_bot" value="">
+                            </div>
                             <!-- Tombol Kirim -->
                             <button type="submit" class="group relative w-full flex justify-center items-center gap-3 bg-red-600 text-white py-4 sm:py-5 rounded-xl font-black uppercase tracking-[0.2em] overflow-hidden shadow-lg shadow-red-600/25 transition-all hover:shadow-red-600/40 hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm">
                                 <span class="relative z-10 transition-transform group-hover:-translate-x-1">Kirim Pesan ke Redaksi</span>

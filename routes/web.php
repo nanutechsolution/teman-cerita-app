@@ -53,17 +53,51 @@ Route::get('/galeri', [GalleryController::class, 'index'])->name('gallery.index'
 Route::get('/galeri/{slug}', [GalleryController::class, 'show'])->name('gallery.show');
 Route::get('/sitemap.xml', [App\Http\Controllers\SitemapController::class, 'index']);
 Route::post('/kontak/kirim', function (Request $request) {
-    // 1. Validasi Input Form
+    // 1. Validasi Input Form (Tambahkan Honeypot)
     $request->validate([
         'name'    => 'required|string|max:255',
         'email'   => 'required|email',
-        'subject' => 'required|string',
+        'subject' => 'required|string|max:255',
         'message' => 'required|string|min:10',
+        
+        // HONEYPOT: Bot biasanya mengisi semua field. 
+        // Manusia tidak akan melihat field ini karena disembunyikan di HTML.
+        // Jika field ini terisi, Laravel otomatis menolak request.
+        'phone_number_bot' => 'prohibited', 
+    ], [
+        'phone_number_bot.prohibited' => 'Aktivitas mencurigakan terdeteksi.',
     ]);
-    // 2. Di sini Anda bisa menambahkan logika pengiriman Email atau menyimpan ke Database.
-    // Contoh menyimpan ke tabel Contact (jika Anda punya modelnya):
-    Contact::create($request->all());
 
-    // 3. Kembalikan pengguna ke halaman kontak dengan pesan sukses
+    // 2. Filter Kata Kunci Spam / Link
+    // Tambahkan kata kunci yang sering muncul di pesan spam Anda
+    $spamKeywords = [
+        'searchregister', 
+        'seo', 
+        'google search', 
+        'http://', 
+        'https://',
+        '.net',
+        'crypto'
+    ];
+    
+    // Gabungkan subject dan message untuk diperiksa
+    $messageContent = strtolower($request->subject . ' ' . $request->message);
+
+    foreach ($spamKeywords as $keyword) {
+        if (str_contains($messageContent, strtolower($keyword))) {
+            // Pura-pura sukses agar bot berhenti mencoba, 
+            // tapi datanya TIDAK kita simpan ke database.
+            return back()->with('success', 'Terima kasih, pesan Anda telah berhasil dikirim ke Redaksi.');
+            
+            // Alternatif jika ingin menampilkan error:
+            // return back()->with('error', 'Pesan tidak dapat dikirim karena mengandung tautan atau kata yang dilarang.');
+        }
+    }
+
+    // 3. Simpan ke database jika lolos semua filter
+    Contact::create($request->only(['name', 'email', 'subject', 'message']));
+
+    // 4. Kembalikan pengguna ke halaman kontak dengan pesan sukses
     return back()->with('success', 'Terima kasih, pesan Anda telah berhasil dikirim ke Redaksi.');
-})->name('kontak.send');
+    
+})->middleware('throttle:3,1')->name('kontak.send'); 
