@@ -51,8 +51,8 @@ class PageResource extends Resource
     {
         return [
             'index' => ListPages::route('/'),
-            'create' => CreatePage::route('/create'),
-            'edit' => EditPage::route('/{record}/edit'),
+            // 'create' => CreatePage::route('/create'),
+            // 'edit' => EditPage::route('/{record}/edit'),
         ];
     }
 }
