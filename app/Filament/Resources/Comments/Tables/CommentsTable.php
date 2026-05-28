@@ -20,7 +20,7 @@ class CommentsTable
             ->columns([
                 TextColumn::make('post.title')
                     ->label('Berita')
-                    ->limit(30) // Agar tidak kepanjangan di tabel
+                    ->limit(30) 
                     ->searchable(),
 
                 TextColumn::make('name')
