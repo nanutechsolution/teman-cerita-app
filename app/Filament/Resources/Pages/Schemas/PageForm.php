@@ -40,7 +40,7 @@ class PageForm
                         Toggle::make('is_active')
                             ->label('Status Aktif')
                             ->default(true),
-                    ])->columns(2),
-            ]);
+                    ]),
+            ])->columns(1);
     }
 }
