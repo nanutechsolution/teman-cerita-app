@@ -62,7 +62,7 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3273565061598006"
         crossorigin="anonymous"></script>
 
-
+    <meta name="google-adsense-account" content="ca-pub-3273565061598006">
     <script async custom-element="amp-auto-ads"
         src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
     </script>
@@ -304,7 +304,7 @@
     </amp-auto-ads>
     @stack('scripts')
     @livewireScripts
-
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 
 </body>
 
