@@ -57,9 +57,9 @@ class SettingResource extends Resource
     {
         return [
             'index' => ListSettings::route('/'),
-            'create' => CreateSetting::route('/create'),
-            'view' => ViewSetting::route('/{record}'),
-            'edit' => EditSetting::route('/{record}/edit'),
+            // 'create' => CreateSetting::route('/create'),
+            // 'view' => ViewSetting::route('/{record}'),
+            // 'edit' => EditSetting::route('/{record}/edit'),
         ];
     }
 }
