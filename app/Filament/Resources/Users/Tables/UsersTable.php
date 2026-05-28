@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\Users\Tables;
 
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
+use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Hash;
 
 class UsersTable
 {
@@ -42,6 +45,32 @@ class UsersTable
             ])
             ->recordActions([
                 EditAction::make(),
+                Action::make('resetPassword')
+                    ->label('Reset Password')
+                    ->icon('heroicon-o-key')
+                    ->color('warning')
+                    ->schema([
+                        TextInput::make('password')
+                            ->label('Password Baru')
+                            ->password()
+                            ->required()
+                            ->minLength(8)
+                            ->same('passwordConfirmation'),
+                        TextInput::make('passwordConfirmation')
+                            ->label('Konfirmasi Password Baru')
+                            ->password()
+                            ->required()
+                            ->dehydrated(false),
+                    ])
+                    ->action(function ($record, array $data) {
+                        $record->update([
+                            'password' => Hash::make($data['password']),
+                        ]);
+                    })
+                    ->successNotificationTitle('Password berhasil diubah')
+                    ->modalHeading('Reset Password Pengguna')
+                    ->modalDescription('Masukkan password baru untuk pengguna ini.')
+                    ->modalSubmitActionLabel('Simpan Password'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
