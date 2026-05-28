@@ -16,16 +16,25 @@ class CommentForm
             ->components([
                 Select::make('post_id')
                     ->relationship('post', 'title')
-                    ->required(),
+                    ->required()
+                    ->disabled(),
+
                 TextInput::make('name')
-                    ->required(),
+                    ->required()
+                    ->disabled(),
+
                 TextInput::make('email')
                     ->label('Email address')
-                    ->email(),
+                    ->email()
+                    ->disabled(),
+
                 Textarea::make('body')
                     ->required()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->disabled(),
+
                 Toggle::make('is_approved')
+                    ->label('Status Approval')
                     ->required(),
             ]);
     }
