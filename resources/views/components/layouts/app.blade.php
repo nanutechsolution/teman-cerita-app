@@ -8,14 +8,14 @@
     // --- Helper URL Gambar Meta & Favicon ---
     $logoUrl = asset('favicon.ico');
     if (!empty($settings['site_logo'])) {
-        $logoUrl = str_starts_with($settings['site_logo'], 'http') ? $settings['site_logo'] : asset('storage/' . $settings['site_logo']);
+    $logoUrl = str_starts_with($settings['site_logo'], 'http') ? $settings['site_logo'] : asset('storage/' . $settings['site_logo']);
     }
 
     $finalOgImage = $logoUrl;
     if (!empty($og_image)) {
-        $finalOgImage = $og_image;
+    $finalOgImage = $og_image;
     } elseif (isset($post) && !empty($post->img)) {
-        $finalOgImage = str_starts_with($post->img, 'http') ? $post->img : asset('storage/' . $post->img);
+    $finalOgImage = str_starts_with($post->img, 'http') ? $post->img : asset('storage/' . $post->img);
     }
 
     $finalOgType = $og_type ?? (isset($post) ? 'article' : 'website');
@@ -26,7 +26,7 @@
     <meta name="description" content="{{ $meta_description ?? $settings['site_description'] ?? 'Kanal berbagi informasi dan cerita dari Nusa Tenggara Timur.' }}">
     <meta name="keywords" content="{{ $meta_keywords ?? 'berita ntt, teman cerita, jurnalisme ntt, podcast ntt, info kupang' }}">
     <link rel="canonical" href="{{ url()->current() }}">
-    
+
     <meta property="og:type" content="{{ $finalOgType }}">
     <meta property="og:url" content="{{ url()->current() }}">
     <meta property="og:title" content="{{ $title ?? $settings['site_name'] ?? config('app.name') }}">
@@ -46,7 +46,7 @@
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700,800,900&display=swap" rel="stylesheet" />
-    
+
     <script>
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark')
@@ -57,6 +57,10 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
+
+    <!-- Google Ads -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1183290597740176"
+        crossorigin="anonymous"></script>
 </head>
 
 <body class="min-h-screen bg-neutral-50 dark:bg-[#0f0f0f] text-neutral-900 dark:text-[#f1f1f1] font-sans selection:bg-red-500/30 selection:text-red-900 dark:selection:text-white overflow-x-hidden antialiased transition-colors duration-300"
@@ -89,7 +93,7 @@
     <!-- NAVBAR PORTAL -->
     <nav :class="isScrolled ? 'bg-white/95 dark:bg-[#0f0f0f]/95 backdrop-blur-xl border-neutral-200 dark:border-neutral-800 py-2 shadow-md' : 'bg-white/90 dark:bg-[#0f0f0f]/90 backdrop-blur-md border-transparent py-4 shadow-sm'"
         class="fixed w-full z-50 transition-all duration-300 border-b flex justify-center">
-        
+
         <div class="absolute inset-0 z-0 opacity-30 dark:opacity-15 pointer-events-none"
             style="background-image: url('{{ asset('images/header.jpeg') }}'); 
             background-size: cover; 
@@ -106,9 +110,9 @@
                         <div class="relative w-[48px] h-[48px] sm:w-[60px] sm:h-[60px] lg:w-[68px] lg:h-[68px] flex items-center justify-center p-0.5">
                             <div class="w-full h-full overflow-hidden">
                                 @if(!empty($settings['site_logo']))
-                                    <img src="{{ str_starts_with($settings['site_logo'], 'http') ? $settings['site_logo'] : asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover">
+                                <img src="{{ str_starts_with($settings['site_logo'], 'http') ? $settings['site_logo'] : asset('storage/' . $settings['site_logo']) }}" alt="Logo" class="w-full h-full object-cover">
                                 @else
-                                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-full h-full object-cover">
                                 @endif
                             </div>
                         </div>
@@ -144,41 +148,41 @@
                     </a>
 
                     @if(isset($categories))
-                        @foreach($categories->take(3) as $navCat)
-                            @php $isActive = request()->fullUrlIs(route('category.show', $navCat->slug)); @endphp
-                            <a href="{{ route('category.show', $navCat->slug) }}" class="relative px-3 py-2 text-[13px] font-bold uppercase tracking-wider transition-colors group {{ $isActive ? 'text-red-600' : 'text-neutral-800 dark:text-neutral-200 hover:text-red-600' }}">
-                                {{ $navCat->name }}
-                                <span class="absolute -bottom-1 left-0 h-[2px] bg-red-600 transition-all duration-300 rounded-full {{ $isActive ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                    @foreach($categories->take(3) as $navCat)
+                    @php $isActive = request()->fullUrlIs(route('category.show', $navCat->slug)); @endphp
+                    <a href="{{ route('category.show', $navCat->slug) }}" class="relative px-3 py-2 text-[13px] font-bold uppercase tracking-wider transition-colors group {{ $isActive ? 'text-red-600' : 'text-neutral-800 dark:text-neutral-200 hover:text-red-600' }}">
+                        {{ $navCat->name }}
+                        <span class="absolute -bottom-1 left-0 h-[2px] bg-red-600 transition-all duration-300 rounded-full {{ $isActive ? 'w-full' : 'w-0 group-hover:w-full' }}"></span>
+                    </a>
+                    @endforeach
+
+                    @if($categories->count() > 3)
+                    @php
+                    $otherCats = $categories->skip(3);
+                    $isDropdownActive = false;
+                    foreach($otherCats as $other) {
+                    if(request()->fullUrlIs(route('category.show', $other->slug))) { $isDropdownActive = true; break; }
+                    }
+                    @endphp
+                    <div class="relative ml-1">
+                        <button @click.stop="isOtherMenuOpen = !isOtherMenuOpen" class="flex items-center gap-1.5 px-3 py-2 text-[13px] font-bold uppercase tracking-wider transition-colors group focus:outline-none {{ $isDropdownActive ? 'text-red-600' : 'text-neutral-800 dark:text-neutral-200 hover:text-red-600' }}">
+                            Rubrik
+                            <svg class="w-4 h-4 transition-transform duration-300" :class="isOtherMenuOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                <path d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div x-show="isOtherMenuOpen" @click.away="isOtherMenuOpen = false" x-transition class="absolute right-0 mt-4 w-60 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-xl border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl py-2 z-[100]" x-cloak>
+                            @foreach($otherCats as $otherCat)
+                            @php $isSubActive = request()->fullUrlIs(route('category.show', $otherCat->slug)); @endphp
+                            <a href="{{ route('category.show', $otherCat->slug) }}" class="flex items-center gap-3 px-5 py-3 text-[11px] font-bold hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-all uppercase tracking-widest group {{ $isSubActive ? 'text-red-600 bg-red-50/50 dark:bg-red-900/10' : 'text-neutral-600 dark:text-neutral-300 hover:text-red-600' }}">
+                                <span class="w-1.5 h-1.5 rounded-full transition-colors {{ $isSubActive ? 'bg-red-600' : 'bg-neutral-300 dark:bg-neutral-600 group-hover:bg-red-600' }}"></span>
+                                {{ $otherCat->name }}
                             </a>
-                        @endforeach
-
-                        @if($categories->count() > 3)
-                            @php
-                                $otherCats = $categories->skip(3);
-                                $isDropdownActive = false;
-                                foreach($otherCats as $other) {
-                                    if(request()->fullUrlIs(route('category.show', $other->slug))) { $isDropdownActive = true; break; }
-                                }
-                            @endphp
-                            <div class="relative ml-1">
-                                <button @click.stop="isOtherMenuOpen = !isOtherMenuOpen" class="flex items-center gap-1.5 px-3 py-2 text-[13px] font-bold uppercase tracking-wider transition-colors group focus:outline-none {{ $isDropdownActive ? 'text-red-600' : 'text-neutral-800 dark:text-neutral-200 hover:text-red-600' }}">
-                                    Rubrik
-                                    <svg class="w-4 h-4 transition-transform duration-300" :class="isOtherMenuOpen ? 'rotate-180' : ''" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
-                                        <path d="M19 9l-7 7-7-7" />
-                                    </svg>
-                                </button>
-
-                                <div x-show="isOtherMenuOpen" @click.away="isOtherMenuOpen = false" x-transition class="absolute right-0 mt-4 w-60 bg-white/95 dark:bg-[#121212]/95 backdrop-blur-xl border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-2xl py-2 z-[100]" x-cloak>
-                                    @foreach($otherCats as $otherCat)
-                                        @php $isSubActive = request()->fullUrlIs(route('category.show', $otherCat->slug)); @endphp
-                                        <a href="{{ route('category.show', $otherCat->slug) }}" class="flex items-center gap-3 px-5 py-3 text-[11px] font-bold hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-all uppercase tracking-widest group {{ $isSubActive ? 'text-red-600 bg-red-50/50 dark:bg-red-900/10' : 'text-neutral-600 dark:text-neutral-300 hover:text-red-600' }}">
-                                            <span class="w-1.5 h-1.5 rounded-full transition-colors {{ $isSubActive ? 'bg-red-600' : 'bg-neutral-300 dark:bg-neutral-600 group-hover:bg-red-600' }}"></span>
-                                            {{ $otherCat->name }}
-                                        </a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @endif
+                            @endforeach
+                        </div>
+                    </div>
+                    @endif
                     @endif
                 </div>
 
@@ -247,18 +251,18 @@
                 </a>
 
                 @if(isset($categories))
-                    @foreach($categories as $cat)
-                        @php $mCatActive = request()->fullUrlIs(route('category.show', $cat->slug)); @endphp
-                        <a href="{{ route('category.show', $cat->slug) }}" class="group flex items-center justify-between px-4 py-4 rounded-2xl transition-all border {{ $mCatActive ? 'bg-red-600/10 text-red-600 border-red-200 dark:border-red-900/30' : 'hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] text-neutral-700 dark:text-neutral-300 border-transparent hover:border-neutral-200 dark:hover:border-neutral-800 text-sm font-bold uppercase tracking-wider' }}">
-                            <div class="flex items-center gap-3">
-                                <span class="w-1.5 h-1.5 rounded-full transition-colors {{ $mCatActive ? 'bg-red-600' : 'bg-neutral-300 dark:bg-neutral-600 group-hover:bg-red-600' }}"></span>
-                                {{ $cat->name }}
-                            </div>
-                            <svg class="w-4 h-4 transition-all {{ $mCatActive ? 'text-red-600' : 'text-neutral-300 group-hover:text-red-600 group-hover:translate-x-1' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
-                            </svg>
-                        </a>
-                    @endforeach
+                @foreach($categories as $cat)
+                @php $mCatActive = request()->fullUrlIs(route('category.show', $cat->slug)); @endphp
+                <a href="{{ route('category.show', $cat->slug) }}" class="group flex items-center justify-between px-4 py-4 rounded-2xl transition-all border {{ $mCatActive ? 'bg-red-600/10 text-red-600 border-red-200 dark:border-red-900/30' : 'hover:bg-neutral-50 dark:hover:bg-[#1a1a1a] text-neutral-700 dark:text-neutral-300 border-transparent hover:border-neutral-200 dark:hover:border-neutral-800 text-sm font-bold uppercase tracking-wider' }}">
+                    <div class="flex items-center gap-3">
+                        <span class="w-1.5 h-1.5 rounded-full transition-colors {{ $mCatActive ? 'bg-red-600' : 'bg-neutral-300 dark:bg-neutral-600 group-hover:bg-red-600' }}"></span>
+                        {{ $cat->name }}
+                    </div>
+                    <svg class="w-4 h-4 transition-all {{ $mCatActive ? 'text-red-600' : 'text-neutral-300 group-hover:text-red-600 group-hover:translate-x-1' }}" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+                @endforeach
                 @endif
             </div>
 
@@ -294,4 +298,5 @@
     @stack('scripts')
     @livewireScripts
 </body>
+
 </html>
