@@ -52,7 +52,8 @@ class CommentsTable
                     ->falseLabel('Belum Disetujui'),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                ->slideOver(),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
