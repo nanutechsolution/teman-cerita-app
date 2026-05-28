@@ -139,7 +139,7 @@
                     </h4>
                     <ul class="space-y-4 font-bold text-sm">
                         <li><a href="/" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Beranda</a></li>
-                        <li><a href="{{ route('redaksi') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Tentang Redaksi</a></li>
+                        <li><a href="{{ route('redaksi') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Tentang Kami</a></li>
                         <li><a href="{{ route('iklan') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Info Iklan</a></li>
                         <li><a href="{{ route('suara-warga') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Kirim Tulisan</a></li>
                         <li><a href="{{ route('kontak') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Kontak Kami</a></li>
