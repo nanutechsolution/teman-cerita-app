@@ -439,7 +439,7 @@
                         {{-- Caption Box --}}
                         <div class="mt-8 text-center max-w-2xl px-4">
                             <h4 class="text-white text-xl font-bold mb-2" x-text="activeGallery?.title"></h4>
-                            <p class="text-neutral-400 text-sm leading-relaxed" x-text="activeImages[currentIndex]?.caption || 'Lensa Flobamorata - Universitas Stella Maris Sumba'"></p>
+                            <p class="text-neutral-400 text-sm leading-relaxed" x-text="activeImages[currentIndex]?.caption || 'Lensa Flobamorata - Highlight NTT'""></p>
                             <div class="mt-4 inline-block px-4 py-1 bg-red-600/20 text-red-500 rounded-full text-[10px] font-black uppercase tracking-tighter" x-text="(currentIndex + 1) + ' / ' + activeImages.length"></div>
                         </div>
                     </div>
