@@ -61,6 +61,11 @@
     <!-- Google Ads -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3273565061598006"
         crossorigin="anonymous"></script>
+
+
+    <script async custom-element="amp-auto-ads"
+        src="https://cdn.ampproject.org/v0/amp-auto-ads-0.1.js">
+    </script>
 </head>
 
 <body class="min-h-screen bg-neutral-50 dark:bg-[#0f0f0f] text-neutral-900 dark:text-[#f1f1f1] font-sans selection:bg-red-500/30 selection:text-red-900 dark:selection:text-white overflow-x-hidden antialiased transition-colors duration-300"
@@ -294,9 +299,13 @@
             <x-footer :settings="$settings" :categories="$categories" />
         </div>
     </footer>
-
+    <amp-auto-ads type="adsense"
+        data-ad-client="ca-pub-3273565061598006">
+    </amp-auto-ads>
     @stack('scripts')
     @livewireScripts
+
+
 </body>
 
 </html>
