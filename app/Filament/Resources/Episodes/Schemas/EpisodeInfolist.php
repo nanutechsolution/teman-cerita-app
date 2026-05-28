@@ -11,7 +11,7 @@ use Filament\Schemas\Components\Section;
 use Filament\Schemas\Schema;
 use Filament\Support\Enums\FontWeight;
 use Filament\Support\Enums\TextSize;
-use Filament\Tables\Columns\Layout\Split;
+use Filament\Infolists\Components\Split;
 
 class EpisodeInfolist
 {
@@ -20,8 +20,8 @@ class EpisodeInfolist
         return $schema
             ->components([
                 // Menggunakan Split untuk desain Dashboard/Layout modern (Kiri lebar, Kanan sidebar)
-                Split::make([
-                    
+                Grid::make(3)->schema([
+
                     // ==========================================
                     // KOLOM KIRI (Konten & Media Utama)
                     // ==========================================
@@ -96,8 +96,8 @@ class EpisodeInfolist
                             ->schema([
                                 TextEntry::make('content')
                                     ->hiddenLabel()
-                                    ->html() 
-                                    ->prose() 
+                                    ->html()
+                                    ->prose()
                                     ->columnSpanFull(),
                             ]),
 
@@ -218,7 +218,7 @@ class EpisodeInfolist
                                     ->size(TextSize::Small)
                                     ->color('gray'),
                             ]),
-                    ]), 
+                    ]),
                 ])->from('lg'),
             ]);
     }
