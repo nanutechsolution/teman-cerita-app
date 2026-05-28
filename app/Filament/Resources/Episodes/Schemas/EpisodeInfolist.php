@@ -219,7 +219,7 @@ class EpisodeInfolist
                                     ->color('gray'),
                             ]),
                     ]),
-                ])->from('lg'),
+                ])->columnSpan(['lg' => 1]),
             ]);
     }
 }
