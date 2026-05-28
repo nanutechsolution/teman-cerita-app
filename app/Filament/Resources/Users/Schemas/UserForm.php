@@ -23,7 +23,6 @@ class UserForm
                             ->label('Nama Lengkap')
                             ->required()
                             ->maxLength(255),
-
                         TextInput::make('email')
                             ->label('Alamat Email')
                             ->email()
@@ -56,6 +55,6 @@ class UserForm
                             ->visibility('public')
                             ->helperText('Gunakan rasio 1:1 untuk hasil terbaik. Foto ini akan muncul di samping artikel berita.'),
                     ]),
-            ]);
+            ])->columns(1);
     }
 }
