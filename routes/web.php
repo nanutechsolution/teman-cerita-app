@@ -59,11 +59,11 @@ Route::post('/kontak/kirim', function (Request $request) {
         'email'   => 'required|email',
         'subject' => 'required|string|max:255',
         'message' => 'required|string|min:10',
-        
+
         // HONEYPOT: Bot biasanya mengisi semua field. 
         // Manusia tidak akan melihat field ini karena disembunyikan di HTML.
         // Jika field ini terisi, Laravel otomatis menolak request.
-        'phone_number_bot' => 'prohibited', 
+        'phone_number_bot' => 'prohibited',
     ], [
         'phone_number_bot.prohibited' => 'Aktivitas mencurigakan terdeteksi.',
     ]);
@@ -71,15 +71,15 @@ Route::post('/kontak/kirim', function (Request $request) {
     // 2. Filter Kata Kunci Spam / Link
     // Tambahkan kata kunci yang sering muncul di pesan spam Anda
     $spamKeywords = [
-        'searchregister', 
-        'seo', 
-        'google search', 
-        'http://', 
+        'searchregister',
+        'seo',
+        'google search',
+        'http://',
         'https://',
         '.net',
         'crypto'
     ];
-    
+
     // Gabungkan subject dan message untuk diperiksa
     $messageContent = strtolower($request->subject . ' ' . $request->message);
 
@@ -88,7 +88,7 @@ Route::post('/kontak/kirim', function (Request $request) {
             // Pura-pura sukses agar bot berhenti mencoba, 
             // tapi datanya TIDAK kita simpan ke database.
             return back()->with('success', 'Terima kasih, pesan Anda telah berhasil dikirim ke Redaksi.');
-            
+
             // Alternatif jika ingin menampilkan error:
             // return back()->with('error', 'Pesan tidak dapat dikirim karena mengandung tautan atau kata yang dilarang.');
         }
@@ -99,5 +99,11 @@ Route::post('/kontak/kirim', function (Request $request) {
 
     // 4. Kembalikan pengguna ke halaman kontak dengan pesan sukses
     return back()->with('success', 'Terima kasih, pesan Anda telah berhasil dikirim ke Redaksi.');
-    
-})->middleware('throttle:3,1')->name('kontak.send'); 
+})->middleware('throttle:3,1')->name('kontak.send');
+
+
+// ads.txt
+Route::get('/ads.txt', function () {
+    return response("google.com, pub-3273565061598006, DIRECT, f08c47fec0942fa0", 200)
+        ->header('Content-Type', 'text/plain');
+})->name('ads.txt');
