@@ -51,7 +51,7 @@ class LatestEpisodesWidget extends StatsOverviewWidget
                     ->since()
                     ->color('primary'),
             ])
-            ->actions([
+            ->recordActions([
                 Action::make('view')
                     ->label('Lihat')
                     ->url(fn(Post $record): string => route('post.show', $record->slug))

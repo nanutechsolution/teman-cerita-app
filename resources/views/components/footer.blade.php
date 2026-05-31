@@ -134,15 +134,44 @@
 
                 <!-- Informasi -->
                 <div>
-                    <h4 class="text-neutral-900 dark:text-white font-black  tracking-widest text-xs mb-6 border-b-2 border-red-600 inline-block pb-2">
+                    <h4 class="text-neutral-900 dark:text-white font-black tracking-widest text-xs mb-6 border-b-2 border-red-600 inline-block pb-2">
                         Informasi
                     </h4>
                     <ul class="space-y-4 font-bold text-sm">
-                        <li><a href="/" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Beranda</a></li>
-                        <li><a href="{{ route('redaksi') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Tentang Kami</a></li>
-                        <li><a href="{{ route('iklan') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Info Iklan</a></li>
-                        <li><a href="{{ route('suara-warga') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Kirim Tulisan</a></li>
-                        <li><a href="{{ route('kontak') ?? '#' }}" class="text-neutral-600 dark:text-neutral-400 hover:text-red-600 transition-colors py-1 inline-block">Kontak Kami</a></li>
+                        <li>
+                            <a href="/"
+                                class="{{ request()->is('/') ? 'text-red-600' : 'text-neutral-600 dark:text-neutral-400' }} hover:text-red-600 transition-colors py-1 inline-block">
+                                Beranda
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('redaksi') ?? '#' }}"
+                                class="{{ request()->routeIs('redaksi') ? 'text-red-600' : 'text-neutral-600 dark:text-neutral-400' }} hover:text-red-600 transition-colors py-1 inline-block">
+                                Tentang Kami
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('iklan') ?? '#' }}"
+                                class="{{ request()->routeIs('iklan') ? 'text-red-600' : 'text-neutral-600 dark:text-neutral-400' }} hover:text-red-600 transition-colors py-1 inline-block">
+                                Info Iklan
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('suara-warga') ?? '#' }}"
+                                class="{{ request()->routeIs('suara-warga') ? 'text-red-600' : 'text-neutral-600 dark:text-neutral-400' }} hover:text-red-600 transition-colors py-1 inline-block">
+                                Kirim Tulisan
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('kontak') ?? '#' }}"
+                                class="{{ request()->routeIs('kontak') ? 'text-red-600' : 'text-neutral-600 dark:text-neutral-400' }} hover:text-red-600 transition-colors py-1 inline-block">
+                                Kontak Kami
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>

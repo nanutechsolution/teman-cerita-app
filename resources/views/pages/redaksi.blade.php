@@ -3,14 +3,14 @@ $settings = $settings ?? [];
 @endphp
 
 <x-layouts.app :settings="$settings">
-    @slot('title', 'Struktur Redaksi | ' . ($settings['site_name'] ?? 'Teman Cerita NTT'))
+    @slot('title', 'Tentang Kami | ' . ($settings['site_name'] ?? 'Higlight NTT'))
 
     <div class="max-w-[1440px] mx-auto px-4 sm:px-6 pt-24 lg:pt-32 pb-20">
 
         <header class="max-w-4xl mb-20">
             <span class="inline-block bg-red-600 text-white text-[10px] font-black px-3 py-1 rounded-sm uppercase tracking-widest mb-6">Informasi Resmi</span>
             <h1 class="text-4xl md:text-7xl font-black text-neutral-900 dark:text-white tracking-tighter uppercase italic leading-[0.9] mb-8 transition-colors">
-                Struktur <br> <span class="text-red-600">Redaksi</span> Kami
+                Tentang <br> <span class="text-red-600">Kami</span>
             </h1>
         </header>
 
