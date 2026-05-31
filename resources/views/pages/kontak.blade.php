@@ -3,7 +3,7 @@ $settings = $settings ?? [];
 @endphp
 
 <x-layouts.app :settings="$settings">
-    @slot('title', 'Kontak Redaksi | ' . ($settings['site_name'] ?? 'Highlight NTT'))
+    @slot('title', 'Kontak kami | ' . ($settings['site_name'] ?? 'Highlight NTT'))
 
     <div class="max-w-[1400px] mx-auto px-4 sm:px-6 pt-28 lg:pt-36 pb-20">
 
@@ -16,7 +16,7 @@ $settings = $settings ?? [];
                 Pusat Layanan & Bantuan
             </span>
             <h1 class="text-4xl md:text-6xl font-[1000] text-neutral-900 dark:text-white tracking-[-0.04em] uppercase leading-[0.9] mb-6">
-                Terhubung Dengan <br> <span class="text-red-600">Redaksi Kami</span>
+                Terhubung Dengan <br> <span class="text-red-600">Kami</span>
             </h1>
             <p class="text-neutral-600 dark:text-neutral-400 font-medium max-w-2xl text-sm sm:text-base leading-relaxed">
                 Punya informasi berharga, hak jawab, opini, atau tawaran kerja sama? Jangan ragu untuk menghubungi tim {{ $settings['site_name'] ?? 'Highlight NTT' }}. Kami menjunjung tinggi prinsip keterbukaan dan kerahasiaan narasumber.
@@ -114,7 +114,7 @@ $settings = $settings ?? [];
                             </div>
                             <!-- Tombol Kirim -->
                             <button type="submit" class="group relative w-full flex justify-center items-center gap-3 bg-red-600 text-white py-4 sm:py-5 rounded-xl font-black uppercase tracking-[0.2em] overflow-hidden shadow-lg shadow-red-600/25 transition-all hover:shadow-red-600/40 hover:-translate-y-0.5 active:translate-y-0 active:shadow-sm">
-                                <span class="relative z-10 transition-transform group-hover:-translate-x-1">Kirim Pesan ke Redaksi</span>
+                                <span class="relative z-10 transition-transform group-hover:-translate-x-1">Kirim Pesan ke Kami</span>
                                 <svg class="w-5 h-5 relative z-10 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
@@ -127,7 +127,7 @@ $settings = $settings ?? [];
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                                 </svg>
                                 <p class="text-[11px] text-neutral-500 dark:text-neutral-400 font-medium leading-relaxed">
-                                    Semua informasi yang dikirimkan dijamin <span class="font-bold text-neutral-700 dark:text-neutral-300">kerahasiaannya</span> sesuai dengan Kode Etik Jurnalistik. Redaksi berhak menyeleksi informasi yang layak dipublikasikan.
+                                    Semua informasi yang dikirimkan dijamin <span class="font-bold text-neutral-700 dark:text-neutral-300">kerahasiaannya</span> sesuai dengan Kode Etik Jurnalistik. Kami berhak menyeleksi informasi yang layak dipublikasikan.
                                 </p>
                             </div>
                         </form>
@@ -178,7 +178,7 @@ $settings = $settings ?? [];
 
                         <!-- Address -->
                         <div class="pt-8 border-t border-white/10 group">
-                            <p class="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3">Markas Redaksi</p>
+                            <p class="text-[10px] font-black text-neutral-500 uppercase tracking-[0.2em] mb-3">Markas Kami</p>
                             <div class="flex items-start gap-3">
                                 <svg class="w-6 h-6 text-red-500 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
