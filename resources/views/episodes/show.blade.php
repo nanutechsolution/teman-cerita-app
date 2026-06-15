@@ -222,6 +222,7 @@
                         {!! $post->content !!}
 
                     </div> <!-- Tutup Prose Div Utama -->
+                    <livewire:post-poll :post="$post" />
                     <div class="mt-16 not-prose">
                         <div class="bg-neutral-50 dark:bg-[#151515] p-8 rounded-3xl border border-neutral-100 dark:border-neutral-800 shadow-sm">
                             <div class="flex items-center gap-3 mb-8">

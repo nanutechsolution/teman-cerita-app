@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Spatie\Activitylog\LogOptions;
 
@@ -156,6 +157,7 @@ class Post extends Model
                 $oldHeadlineIds = static::where('is_headline', true)
                     ->orderBy('published_at', 'desc') // Atau gunakan 'created_at'
                     ->skip(5)
+                    ->take(100)
                     ->pluck('id');
 
                 // Jika ternyata ada lebih dari 5 (artinya ada headline ke-6, ke-7, dst)
@@ -169,5 +171,14 @@ class Post extends Model
                 }
             }
         });
+    }
+
+    /**
+     * Relasi ke tabel polls (One-to-One)
+     * Satu berita memiliki satu polling
+     */
+    public function poll(): HasOne
+    {
+        return $this->hasOne(Poll::class);
     }
 }

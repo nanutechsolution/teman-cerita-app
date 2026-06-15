@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Episodes\Schemas;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -85,7 +86,47 @@ class EpisodeForm
                                 ->url()
                                 ->columnSpanFull(),
                         ]),
+                    Section::make('Fitur Polling Berita')
+                        ->description('Tambahkan polling interaktif khusus untuk berita ini.')
+                        ->relationship('poll') // Sesuai dengan relasi di Model Post
+                        ->collapsible()
+                        ->collapsed()
+                        ->schema([
+                            TextInput::make('question')
+                                ->label('Pertanyaan Polling')
+                                ->placeholder('Contoh: Siapa kandidat pilihan Anda?')
+                                ->required()
+                                ->maxLength(255)
+                                ->columnSpanFull(),
 
+                            Grid::make(2)->schema([
+                                Toggle::make('is_active')
+                                    ->label('Status Polling Aktif')
+                                    ->default(true)
+                                    ->inline(false),
+
+                                DateTimePicker::make('closed_at')
+                                    ->label('Batas Waktu Polling')
+                                    ->placeholder('Kosongkan jika polling tanpa batas waktu')
+                                    ->native(false),
+                            ]),
+
+                            Repeater::make('options')
+                                ->label('Pilihan Jawaban / Opsi')
+                                ->relationship('options') // Sesuai dengan relasi di Model Poll
+                                ->schema([
+                                    TextInput::make('name')
+                                        ->label('Pilihan')
+                                        ->placeholder('Masukkan opsi jawaban')
+                                        ->required()
+                                        ->maxLength(255),
+                                ])
+                                ->grid(2)
+                                ->minItems(2)
+                                ->maxItems(10)
+                                ->columnSpanFull()
+                                ->addActionLabel('Tambah Pilihan Jawaban'),
+                        ]),
                     Section::make('Search Engine Optimization (SEO)')
                         ->description('Pengaturan tag meta untuk Google dan Media Sosial.')
                         ->schema([

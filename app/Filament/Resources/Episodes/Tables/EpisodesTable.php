@@ -9,6 +9,7 @@ use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Select;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Columns\ToggleColumn;
@@ -65,6 +66,21 @@ class EpisodesTable
                     ->icon('heroicon-m-eye')
                     ->color('gray')
                     ->alignEnd(),
+                IconColumn::make('poll.is_active')
+                    ->label('Polling')
+                    ->boolean()
+                    ->trueIcon('heroicon-o-check-circle')
+                    ->falseIcon('heroicon-o-minus')
+                    ->trueColor('success')
+                    ->falseColor('gray')
+                    ->tooltip(function (Post $record) {
+                        // Menampilkan pertanyaan polling saat kursor diarahkan ke ikon
+                        if ($record->poll && $record->poll->is_active) {
+                            return 'Pertanyaan: ' . $record->poll->question;
+                        }
+                        return 'Tidak ada polling aktif';
+                    })
+                    ->alignCenter(),
 
                 // Fitur Redaksional Interaktif (Inline Edit)
                 ToggleColumn::make('is_headline')
@@ -123,13 +139,6 @@ class EpisodesTable
                         true => 'Breaking',
                         false => 'Bukan Breaking',
                     ]),
-                SelectFilter::make('is_published')
-                    ->label('Filter Publikasi')
-                    ->placeholder('Semua Konten')
-                    ->options([
-                        true => 'Sudah Terbit',
-                        false => 'Draft / Disembunyikan',
-                    ]),
                 SelectFilter::make('type')
                     ->label('Format Konten')
                     ->options([
@@ -148,6 +157,18 @@ class EpisodesTable
                     ->placeholder('Semua Konten')
                     ->trueLabel('Sudah Terbit')
                     ->falseLabel('Draft / Disembunyikan'),
+                TernaryFilter::make('has_poll')
+                    ->label('Filter Polling')
+                    ->placeholder('Semua Konten')
+                    ->trueLabel('Ada Polling Aktif')
+                    ->falseLabel('Tanpa Polling')
+                    ->queries(
+                        true: fn(Builder $query) => $query->whereHas('poll', fn($q) => $q->where('is_active', true)),
+                        false: fn(Builder $query) => $query->whereDoesntHave('poll')
+                            ->orWhereHas('poll', fn($q) => $q->where('is_active', false)),
+                    ),
+                // filter poll
+
             ])
             ->recordActions([
                 ViewAction::make(),

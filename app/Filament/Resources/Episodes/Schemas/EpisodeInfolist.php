@@ -4,6 +4,7 @@ namespace App\Filament\Resources\Episodes\Schemas;
 
 use Filament\Infolists\Components\IconEntry;
 use Filament\Infolists\Components\ImageEntry;
+use Filament\Infolists\Components\RepeatableEntry;
 use Filament\Infolists\Components\TextEntry;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
@@ -100,6 +101,52 @@ class EpisodeInfolist
                                     ->columnSpanFull(),
                             ]),
 
+                            Section::make('Data Polling Berita')
+                            ->icon('heroicon-o-chart-bar')
+                            ->collapsible()
+                            // Sembunyikan section ini jika berita tidak memiliki polling
+                            ->hidden(fn ($record) => ! $record->poll)
+                            ->schema([
+                                Grid::make(2)->schema([
+                                    TextEntry::make('poll.question')
+                                        ->label('Pertanyaan')
+                                        ->size(TextSize::Large)
+                                        ->weight(FontWeight::Bold)
+                                        ->columnSpanFull(),
+
+                                    IconEntry::make('poll.is_active')
+                                        ->label('Status Polling')
+                                        ->boolean()
+                                        ->trueIcon('heroicon-o-check-circle')
+                                        ->falseIcon('heroicon-o-x-circle'),
+
+                                    TextEntry::make('poll.closed_at')
+                                        ->label('Batas Waktu')
+                                        ->dateTime('d M Y, H:i')
+                                        ->placeholder('Tanpa batas waktu')
+                                        ->color('warning'),
+                                ]),
+
+                                // Menampilkan Opsi Jawaban beserta perolehan suaranya
+                                RepeatableEntry::make('poll.options')
+                                    ->label('Hasil Suara')
+                                    ->schema([
+                                        Grid::make(2)->schema([
+                                            TextEntry::make('name')
+                                                ->hiddenLabel()
+                                                ->weight(FontWeight::Medium),
+                                            TextEntry::make('votes_count')
+                                                ->hiddenLabel()
+                                                ->badge()
+                                                ->color('success')
+                                                ->formatStateUsing(fn (string $state): string => $state . ' Suara')
+                                                ->alignEnd(),
+                                        ])
+                                    ])
+                                    ->columns(1)
+                                    ->columnSpanFull(),
+                            ]),
+                        // ==========================================
                     ])->grow(), // ->grow() memastikan kolom kiri mengambil sisa ruang maksimal
 
                     // ==========================================
