@@ -52,7 +52,6 @@
             @endforeach
 
             <p class="text-[11px] text-neutral-400 dark:text-neutral-500 italic pt-2">
-                <!-- * Terima kasih, kamu sudah berpartisipasi dalam polling ini. Total suara: {{ number_format($totalVotes) }} -->
                 * Terima kasih, kamu sudah berpartisipasi dalam polling ini.
             </p>
         </div>

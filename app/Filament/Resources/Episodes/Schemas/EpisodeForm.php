@@ -14,6 +14,7 @@ use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Grid;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
@@ -88,44 +89,56 @@ class EpisodeForm
                         ]),
                     Section::make('Fitur Polling Berita')
                         ->description('Tambahkan polling interaktif khusus untuk berita ini.')
-                        ->relationship('poll') // Sesuai dengan relasi di Model Post
                         ->collapsible()
                         ->collapsed()
                         ->schema([
-                            TextInput::make('question')
-                                ->label('Pertanyaan Polling')
-                                ->placeholder('Contoh: Siapa kandidat pilihan Anda?')
-                                ->required()
-                                ->maxLength(255)
-                                ->columnSpanFull(),
+                            // 1. Master Toggle (Hanya ada di Form Form, tidak disimpan ke DB Episode)
+                            Toggle::make('has_poll')
+                                ->label('Aktifkan Polling untuk Berita Ini')
+                                ->live()
+                                ->dehydrated(false) // Mencegah kolom ini dicari di database episodenya
+                                ->afterStateHydrated(fn (Set $set, $record) => $set('has_poll', $record?->poll()->exists() ?? false)),
 
-                            Grid::make(2)->schema([
-                                Toggle::make('is_active')
-                                    ->label('Status Polling Aktif')
-                                    ->default(true)
-                                    ->inline(false),
-
-                                DateTimePicker::make('closed_at')
-                                    ->label('Batas Waktu Polling')
-                                    ->placeholder('Kosongkan jika polling tanpa batas waktu')
-                                    ->native(false),
-                            ]),
-
-                            Repeater::make('options')
-                                ->label('Pilihan Jawaban / Opsi')
-                                ->relationship('options') // Sesuai dengan relasi di Model Poll
+                            // 2. Bungkus relasi asli di dalam Group yang reaktif terhadap Master Toggle
+                            Group::make()
+                                ->relationship('poll') 
+                                ->visible(fn (Get $get) => $get('has_poll')) // Hanya muncul jika master toggle aktif
                                 ->schema([
-                                    TextInput::make('name')
-                                        ->label('Pilihan')
-                                        ->placeholder('Masukkan opsi jawaban')
+                                    TextInput::make('question')
+                                        ->label('Pertanyaan Polling')
+                                        ->placeholder('Contoh: Siapa kandidat pilihan Anda?')
                                         ->required()
-                                        ->maxLength(255),
-                                ])
-                                ->grid(2)
-                                ->minItems(2)
-                                ->maxItems(10)
-                                ->columnSpanFull()
-                                ->addActionLabel('Tambah Pilihan Jawaban'),
+                                        ->maxLength(255)
+                                        ->columnSpanFull(),
+
+                                    Grid::make(2)->schema([
+                                        Toggle::make('is_active')
+                                            ->label('Status Polling Aktif')
+                                            ->default(true)
+                                            ->inline(false),
+
+                                        DateTimePicker::make('closed_at')
+                                            ->label('Batas Waktu Polling')
+                                            ->placeholder('Kosongkan jika polling tanpa batas waktu')
+                                            ->native(false),
+                                    ]),
+
+                                    Repeater::make('options')
+                                        ->label('Pilihan Jawaban / Opsi')
+                                        ->relationship('options') 
+                                        ->schema([
+                                            TextInput::make('name')
+                                                ->label('Pilihan')
+                                                ->placeholder('Masukkan opsi jawaban')
+                                                ->required()
+                                                ->maxLength(255),
+                                        ])
+                                        ->grid(2)
+                                        ->minItems(2)
+                                        ->maxItems(10)
+                                        ->columnSpanFull()
+                                        ->addActionLabel('Tambah Pilihan Jawaban'),
+                                ]),
                         ]),
                     Section::make('Search Engine Optimization (SEO)')
                         ->description('Pengaturan tag meta untuk Google dan Media Sosial.')
