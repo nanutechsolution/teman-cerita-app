@@ -345,6 +345,57 @@ CREATE TABLE `permissions` (
   UNIQUE KEY `permissions_name_guard_name_unique` (`name`,`guard_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `poll_options`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `poll_options` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `poll_id` bigint unsigned NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `votes_count` bigint unsigned NOT NULL DEFAULT '0',
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `poll_options_poll_id_foreign` (`poll_id`),
+  CONSTRAINT `poll_options_poll_id_foreign` FOREIGN KEY (`poll_id`) REFERENCES `polls` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `poll_votes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `poll_votes` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `poll_id` bigint unsigned NOT NULL,
+  `poll_option_id` bigint unsigned NOT NULL,
+  `ip_address` varchar(45) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` bigint unsigned DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `poll_votes_poll_option_id_foreign` (`poll_option_id`),
+  KEY `poll_votes_user_id_foreign` (`user_id`),
+  KEY `poll_votes_poll_id_ip_address_index` (`poll_id`,`ip_address`),
+  CONSTRAINT `poll_votes_poll_id_foreign` FOREIGN KEY (`poll_id`) REFERENCES `polls` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `poll_votes_poll_option_id_foreign` FOREIGN KEY (`poll_option_id`) REFERENCES `poll_options` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `poll_votes_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+DROP TABLE IF EXISTS `polls`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `polls` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `post_id` bigint unsigned NOT NULL,
+  `question` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL DEFAULT '1',
+  `closed_at` timestamp NULL DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `polls_post_id_foreign` (`post_id`),
+  CONSTRAINT `polls_post_id_foreign` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
 DROP TABLE IF EXISTS `post_speaker`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -575,3 +626,6 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (30,'2026_04_20_165
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (31,'2026_04_20_171423_create_advertisements_table',3);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (32,'2026_04_23_213207_create_comments_table',4);
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (33,'2026_04_23_215429_create_notifications_table',5);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (37,'2026_06_15_143551_create_polls_table',6);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (38,'2026_06_15_143552_create_poll_options_table',6);
+INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES (39,'2026_06_15_143553_create_poll_votes_table',6);
